@@ -2,9 +2,9 @@
 
 > Schrap hierboven eventueel wat niet past
 
-- Student: VOORNAAM NAAM
+- Student: BLOEM ELIAS EN BRIAN DE SADELEER
 - Studentennummer: xxxxxxxxx
-- E-mailadres: <voornaam.naam@student.hogent.be>
+- E-mailadres: <elias.bloem@student.hogent.be>, <brian.desadeleer@student.hogent.be>
 
 ## Vereisten
 
