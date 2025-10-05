@@ -9,10 +9,10 @@
 
 ## 📋 Studentgegevens
 
-- **Student:** Voornaam Naam
-- **Studentennummer:** xxxxxxxx
-- **E-mailadres:** <voornaam.naam@student.hogent.be>
-- **GitHub repository:** <LINK_NAAR_GITHUB_REPO>
+- **Student:** Elias Bloem, Brian De Sadeleer
+- **Studentennummer:** 202404402
+- **E-mailadres:** elias.bloem@student.hogent.be, brian.desadeleer@student.hogent.be
+- **GitHub repository:** git@github.com:HOGENT-frontendweb/frontendweb-2526-bloemdesadeleer.git
 - **Online versies:**
   - **Back-end:** <LINK_NAAR_ONLINE_BACKEND>
   - **Front-end:** <LINK_NAAR_ONLINE_FRONTEND>
