@@ -1,10 +1,17 @@
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className='top-0'>
-      <h1 className='text-red-600 '>Formula 1 Tracker</h1>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Routes>
+            <Route path="/" element={<h1 className="text-white text-3xl font-bold">Welcome to the Home Page</h1>} />
+            <Route path="/about" element={<h1 className="text-white text-3xl font-bold">About Us</h1>} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
