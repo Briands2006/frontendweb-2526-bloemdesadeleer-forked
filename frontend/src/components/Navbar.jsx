@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // de css apart importen voor betere leesbaarheid
 import './Navbar.css';
@@ -21,6 +21,32 @@ export default function Navbar() {
     const isActive = (path) => location.pathname === path;
 
     return (
-        <h1>Test for navbar</h1>
+         <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-content">
+          
+          <Link to="/" className="navbar-logo-link group">
+            <div className="logo-icon-wrapper">
+              <span className="logo-text-icon">F1</span>
+              <div className="logo-glow" />
+            </div>
+            <span className="logo-text">Racing Hub</span>
+          </Link>
+
+          <div className="nav-links-wrapper">
+            {navLinks.map(({ path, label }) => (
+              <Link
+                key={path}
+                to={path}
+                className={`nav-link ${isActive(path) ? 'active-link' : ''}`}
+              >
+                <span className="nav-link-label">{label}</span>
+              </Link>
+            ))}
+          </div>
+          
+        </div>
+      </div>
+    </nav>
     );
 }
