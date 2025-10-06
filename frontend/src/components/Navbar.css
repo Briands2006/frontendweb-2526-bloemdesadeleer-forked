@@ -1,5 +1,6 @@
 .navbar {
   background-color: rgba(0, 0, 0, 0.4);
+  /* Voor browsers die die backdrop niet kunnen renderen AKA OLD */
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -57,6 +58,7 @@
     font-weight: 900;
     color: #ef4444;
     transition-property: all;
+    /* Is de snelheid van de overgang in een cubic-bezier curve (gevonden online) */
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     position: relative;
@@ -77,6 +79,7 @@
   filter: blur(24px);
   opacity: 0;
   transition-property: opacity;
+  /* Is de snelheid van de overgang in een cubic-bezier curve (gevonden online) */
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -91,6 +94,7 @@
   color: #ffffff;
   display: none;
   transition-property: color;
+  /* Is de snelheid van de overgang in een cubic-bezier curve (gevonden online) */
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -121,6 +125,7 @@
   border-radius: 0.5rem;
   font-weight: 500;
   transition-property: all;
+  /* Is de snelheid van de overgang in een cubic-bezier curve (gevonden online) */
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
   color: #d1d5db;
