@@ -30,7 +30,7 @@ export default function Navbar() {
               <span className="logo-text-icon">F1</span>
               <div className="logo-glow" />
             </div>
-            <span className="logo-text">Racing Hub</span>
+            <span className="logo-text">Tracker</span>
           </Link>
 
           <div className="nav-links-wrapper">
