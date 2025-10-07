@@ -9,7 +9,7 @@ const navLinks = [
   { path: "/calendar", label: "Calendar" },
   { path: "/tracks", label: "Tracks" },
   { path: "/news", label: "News" },
-  { path: "/about", label: "About" }
+  { path: "/about", label: "About" },
 ];
 
 export default function Navbar() {
