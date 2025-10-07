@@ -6,10 +6,8 @@ import "./Navbar.css";
 // links naar de paginas
 const navLinks = [
   { path: "/", label: "Home" },
-  { path: "/standings", label: "Standings" },
   { path: "/calendar", label: "Calendar" },
   { path: "/tracks", label: "Tracks" },
-  { path: "/predictions", label: "Predictions" },
   { path: "/blog", label: "News" },
 ];
 
