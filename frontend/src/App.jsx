@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navbar from './components/ui/Navbar.jsx';
+import Footer from './components/ui/Footer.jsx';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
             <Route path="/about" element={<h1 className="text-white text-3xl font-bold">About Us</h1>} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );
