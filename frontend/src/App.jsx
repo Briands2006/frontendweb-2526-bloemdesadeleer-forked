@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/ui/Navbar.jsx';
-import Footer from './components/ui/Footer.jsx';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/ui/Navbar.jsx";
+import Footer from "./components/ui/Footer.jsx";
 
 function App() {
   return (
@@ -9,8 +9,40 @@ function App() {
         <Navbar />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Routes>
-            <Route path="/" element={<h1 className="text-white text-3xl font-bold">Welcome to the Home Page</h1>} />
-            <Route path="/about" element={<h1 className="text-white text-3xl font-bold">About Us</h1>} />
+            <Route
+              path="/"
+              element={
+                <h1 className="text-white text-3xl font-bold">
+                  Welcome to the Home Page
+                </h1>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <h1 className="text-white text-3xl font-bold">calendar test</h1>
+              }
+            />
+            <Route
+              path="/tracks"
+              element={
+                <h1 className="text-white text-3xl font-bold">tracks test</h1>
+              }
+            />
+
+            <Route
+              path="/news"
+              element={
+                <h1 className="text-white text-3xl font-bold">news test</h1>
+              }
+            />
+
+            <Route
+              path="/about"
+              element={
+                <h1 className="text-white text-3xl font-bold">About Us</h1>
+              }
+            />
           </Routes>
         </main>
         <Footer />
