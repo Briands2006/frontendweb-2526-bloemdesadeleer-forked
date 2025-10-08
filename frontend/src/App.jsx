@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/ui/Navbar.jsx";
 import Footer from "./components/ui/Footer.jsx";
+import Privacy from "./pages/legal/Privacy.jsx";
 
 function App() {
   return (
@@ -41,6 +42,13 @@ function App() {
               path="/about"
               element={
                 <h1 className="text-white text-3xl font-bold">About Us</h1>
+              }
+            />
+
+            <Route
+              path="/privacy"
+              element={
+                <Privacy />
               }
             />
           </Routes>
