@@ -1,0 +1,56 @@
+[Driver]
+*id
+name
+position
+points
+country
+birthdate
+teamId
+
+[Team]
+*id
+name
+points
+position
+teamChief
+
+[Track]
+*id
+name
+location
+length
+nrOfLaps
+fastestLapTime
+
+[Race]
+*id
+date
+weather
+trackRecord
+trackId
+calendarYear
+
+[RaceResult]
+*raceId
+*driverId
+position
+points
+isWinner
+
+[Calendar]
+*year
+nrOfRaces
+
+[News]
+*id
+title
+date
+content
+source
+
+Driver *--1 Team
+Team 1--* Driver
+Track 1--* Race
+Calendar 1--* Race
+Race 1--* RaceResult
+Driver 1--* RaceResult
