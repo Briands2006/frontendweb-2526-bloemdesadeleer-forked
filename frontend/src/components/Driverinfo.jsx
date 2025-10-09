@@ -1,8 +1,12 @@
+const BACKEND_URL = import.meta.env.API_URL || "http://localhost:9000";
+const photoFilename = "charles-leclerc.png";
+const photoUrl = `${BACKEND_URL}/api/uploads/${photoFilename}`;
+
 export default function DriverTabel() {
   return (
     
     <div className='bg-gray-900 h-100 rounded-2xl flex' >
-      <img className="h-100 rounded-2xl" src="/public/charles-leclerc.png" alt="Charles Leclerc"/>
+      <img className="h-100 rounded-2xl" src={photoUrl} alt="Charles Leclerc"/>
       <div className='flex flex-col'>
         <h1 className='text-5xl pl-5 text-white font-bold'>Charles Leclerc</h1>
         <p className='text-2xl pl-8 text-white font-bold pt-2'>Position: 5th</p>
