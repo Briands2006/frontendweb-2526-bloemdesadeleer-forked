@@ -1,0 +1,23 @@
+[Driver]
+*name
+position
+points
+country
+birthdate
+
+[Team]
+*name
+points
+position
+teamChief
+
+[Track]
+*name
+length
+nrOfLaps
+fastestLapTime
+date
+winner
+
+Driver *--1 Team
+Track *--1 Driver

@@ -18,7 +18,7 @@ function App() {
                 <h1 className="text-white text-3xl font-bold pb-3">
                   Welcome to the Home Page
                 </h1>
-                <DriverTabel/>
+                <DriverTabel/> 
               </>
               }
             />
