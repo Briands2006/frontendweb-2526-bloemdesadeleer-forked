@@ -1,0 +1,16 @@
+import axios from "axios";
+
+const API_BASE_URL = import.meta.env.API_URL || "http://localhost:9000";
+
+const UPLOADS_LIST_URL = `${API_BASE_URL}/uploads`; 
+
+export const getAllUploadedFiles = async () => {
+  try {
+    const response = await axios.get(UPLOADS_LIST_URL);
+    return response.data; 
+
+  } catch (error) {
+    console.error("Fout bij het ophalen van geüploade bestanden:", error);
+    throw error; 
+  }
+};
