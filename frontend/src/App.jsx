@@ -3,6 +3,7 @@ import Navbar from "./components/ui/Navbar.jsx";
 import Footer from "./components/ui/Footer.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
 import DriverTabel from "./components/Driverinfo.jsx";
+import NotFoundPage from "./pages/Notfound.jsx";
 
 function App() {
   return (
@@ -53,6 +54,11 @@ function App() {
               element={
                 <Privacy />
               }
+            />
+
+            <Route
+              path="*"
+              element={<NotFoundPage />}
             />
           </Routes>
         </main>
