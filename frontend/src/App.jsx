@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/ui/Navbar.jsx";
 import Footer from "./components/ui/Footer.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
-//import DriverTabel from "./components/Driverinfo.jsx";
+import DriverTabel from "./components/Driverinfo.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
 import Tracks from "./components/Tracks.jsx";
 
@@ -40,7 +40,10 @@ function App() {
             <Route
               path="/Drivers"
               element={
-                <h1 className="text-white text-3xl font-bold">Drivers</h1>
+                <>
+                  <h1 className="text-white text-3xl font-bold">Drivers</h1>
+                  <DriverTabel/>
+                </>
               }
             />
 
