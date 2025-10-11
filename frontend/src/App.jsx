@@ -2,8 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/ui/Navbar.jsx";
 import Footer from "./components/ui/Footer.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
-import DriverTabel from "./components/Driverinfo.jsx";
+//import DriverTabel from "./components/Driverinfo.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
+import Tracks from "./components/Tracks.jsx";
 
 function App() {
   return (
@@ -18,7 +19,6 @@ function App() {
                 <h1 className="text-white text-3xl font-bold pb-3">
                   Welcome to the Home Page
                 </h1>
-                <DriverTabel/> 
               </>
               }
             />
@@ -30,8 +30,24 @@ function App() {
             />
             <Route
               path="/tracks"
-              element={
+              element={<>
                 <h1 className="text-white text-3xl font-bold">tracks test</h1>
+                <Tracks/>
+              </>
+              }
+            />
+
+            <Route
+              path="/Drivers"
+              element={
+                <h1 className="text-white text-3xl font-bold">Drivers</h1>
+              }
+            />
+
+            <Route
+              path="/Teams"
+              element={
+                <h1 className="text-white text-3xl font-bold">Drivers</h1>
               }
             />
 

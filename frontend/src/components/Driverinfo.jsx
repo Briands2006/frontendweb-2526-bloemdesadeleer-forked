@@ -2,6 +2,7 @@ const BACKEND_URL = import.meta.env.API_URL || "http://localhost:9000";
 const photoFilename = "charles-leclerc.png";
 const photoUrl = `${BACKEND_URL}/api/uploads/${photoFilename}`;
 
+//Moet nog verder uitgewerkt worden eens we API hebben
 export default function DriverTabel() {
   return (
     
