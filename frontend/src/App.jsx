@@ -5,6 +5,7 @@ import Privacy from "./pages/legal/Privacy.jsx";
 import DriverTabel from "./components/Driverinfo.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
 import Tracks from "./components/Tracks.jsx";
+import ButtonWithArrow from "./components/ui/ButtonWithArrow.jsx";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
             <Route
               path="/"
               element={<>
-                <h1 className="text-white text-3xl font-bold pb-3">
+                <h1 className="text-white text-5xl font-bold pb-3">
                   Welcome to the Home Page
                 </h1>
               </>
@@ -25,13 +26,13 @@ function App() {
             <Route
               path="/calendar"
               element={
-                <h1 className="text-white text-3xl font-bold">calendar test</h1>
+                <h1 className="text-white text-5xl font-bold">calendar test</h1>
               }
             />
             <Route
               path="/tracks"
               element={<>
-                <h1 className="text-white text-3xl font-bold">tracks test</h1>
+                <h1 className="text-white text-5xl font-bold">tracks test</h1>
                 <Tracks/>
               </>
               }
@@ -41,7 +42,7 @@ function App() {
               path="/Drivers"
               element={
                 <>
-                  <h1 className="text-white text-3xl font-bold">Drivers</h1>
+                  <h1 className="text-white text-5xl font-bold p-2">Drivers</h1>
                   <DriverTabel/>
                 </>
               }

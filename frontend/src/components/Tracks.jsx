@@ -22,16 +22,13 @@ export default function Tracks() {
       <div className='grid grid-cols-2 gap-x-4 gap-y-1 text-white'>
         
         <p className='text-lg'>Circuit lengte</p> 
-        <p className='text-lg text-right'>7 km</p> 
+        <p className='text-lg text-right'>??</p> 
         
         <p className='text-lg'>Locatie</p>
-        <p className='text-lg text-right'>19</p>
+        <p className='text-lg text-right'>??</p>
         
         <p className='text-lg'>Aantal Rondes</p>
         <p className='text-lg text-right'>??</p>
-        
-        <p className='text-lg'>Locatie</p>
-        <p className='text-lg text-right'>Monaco</p>
         
         <p className='text-lg'>Snelste rondetijd</p>
         <p className='text-lg text-right'>??</p>
