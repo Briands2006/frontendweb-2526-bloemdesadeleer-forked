@@ -62,7 +62,7 @@ export default function Footer() {
           <div className="footer-disclaimer-wrapper">
             <p className="footer-text">
               {/* Kan dus ook gewoon met &copy; */}
-              &copy; {getCurrentYear()} F1 Racing Hub. All rights reserved.
+              &copy; {getCurrentYear()} F1 Tracker. All rights reserved.
             </p>
             {/* gwn voor funsies */}
             <p className="footer-text footer-disclaimer">
