@@ -1,37 +1,30 @@
-import ButtonWithArrow from "./ui/ButtonWithArrow";
+import React from "react";
+import ButtonWithArrow from "./ui/ButtonWithArrow"; // Assuming this path is correct
 
-const BACKEND_URL = import.meta.env.API_URL || "http://localhost:9000";
-//const photoFilename = "charles-leclerc.png";
-//const photoUrl = `${BACKEND_URL}/api/uploads/${photoFilename}`;
-
-//Moet nog verder uitgewerkt worden eens we API hebben
-export default function DriverTabel() {
+export default function DriverCard({ name, team, number, photo, bio }) {
   return (
-    
-    <div className='bg-gray-900 h-auto rounded-2xl grid grid-cols-2 auto-cols-max' >
-      {/*<img className="h-100 rounded-2xl" src={photoUrl} alt="Charles Leclerc"/>*/}
-      <img className="h-auto w-auto rounded-2xl" src='../../public/charles-leclerc.png' alt="Charles Leclerc"/>
-      <div className='grid grid-cols-2 gap-y-1 text-white'>
-        
-        <p className='text-5xl font-bold col-span-2'>Naam</p> 
-        
-        <p className='text-lg text-left col-span-1 font-black' >Positie</p>
-        <p className='text-lg text-right pr-5'>??</p>
+    <div className="bg-gray-900 h-auto rounded-2xl grid grid-cols-2 auto-cols-max">
+      <img className="h-auto w-auto rounded-2xl" src={photo} alt={name} />
 
-        <p className='text-lg font-black'>Punten</p>
-        <p className='text-lg text-right pr-5'>5</p>
-        
-        <p className='text-lg font-black'>Land</p>
-        <p className='text-lg text-right pr-5'>BE</p>
-        
-        <p className='text-lg font-black'>Geboortedatum</p>
-        <p className='text-lg text-right pr-5'>xx/xx/xxxx</p>
-
-        <ButtonWithArrow/>
+      <div className="grid grid-cols-2 gap-y-1 text-white p-4">
+        {" "}
+        <p className="text-5xl font-bold col-span-2">{name}</p>
+        <p className="text-lg font-black col-span-1">Team</p>
+        <p className="text-lg text-right pr-5 col-span-1">{team}</p>
+        <p className="text-lg font-black col-span-1">Car Number</p>
+        <p className="text-lg text-right pr-5 col-span-1">{number}</p>
+        <p className="text-lg font-black col-span-1">Bio</p>
+        <p className="text-sm text-right pr-5 col-span-1 truncate" title={bio}>
+          {bio}
+        </p>
+        <p className="text-lg font-black col-span-1">Country</p>
+        <p className="text-lg text-right pr-5 col-span-1">N/A</p>
+        <p className="text-lg font-black col-span-1">DOB</p>
+        <p className="text-lg text-right pr-5 col-span-1">N/A</p>
+        <div className="col-span-2 mt-2">
+          <ButtonWithArrow />
+        </div>
       </div>
-
     </div>
-    
   );
-};
-
+}

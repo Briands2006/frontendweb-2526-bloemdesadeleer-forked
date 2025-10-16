@@ -1,5 +1,5 @@
 import React from "react";
-import DriverTabel from "../components/DriverCard.jsx"; // component moet nog aangepast worden :)
+import DriverCard from "../components/DriverCard.jsx"; // component moet nog aangepast worden :)
 
 const drivers = [
   {
@@ -7,7 +7,9 @@ const drivers = [
     name: "Max Verstappen",
     team: "Red Bull Racing",
     number: 33,
-    photo: "https://via.placeholder.com/150",
+    photo:
+      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
+      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
     bio: "Aggressive racer, multiple-time world champion",
   },
   {
@@ -15,7 +17,9 @@ const drivers = [
     name: "Lewis Hamilton",
     team: "Mercedes",
     number: 44,
-    photo: "https://via.placeholder.com/150",
+    photo:
+      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
+      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
     bio: "Experienced driver with many wins",
   },
   {
@@ -23,7 +27,9 @@ const drivers = [
     name: "Lando Norris",
     team: "McLaren",
     number: 4,
-    photo: "https://via.placeholder.com/150",
+    photo:
+      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
+      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
     bio: "Young talent with strong pace",
   },
 ];
@@ -36,13 +42,13 @@ export default function Drivers() {
         className="drivers-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gridTemplateColumns: "repeat(2, minmax(240px, 1fr))",
           gap: 16,
           marginTop: 16,
         }}
       >
         {drivers.map((d) => (
-          <DriverTabel
+          <DriverCard
             key={d.id}
             name={d.name}
             team={d.team}
