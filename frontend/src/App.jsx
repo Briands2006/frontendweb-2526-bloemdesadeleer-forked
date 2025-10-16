@@ -5,7 +5,7 @@ import Privacy from "./pages/legal/Privacy.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
 import Tracks from "./components/Tracks.jsx";
 import Drivers from "./pages/Drivers.jsx";
-import ButtonWithArrow from "./components/ui/ButtonWithArrow.jsx";
+// import ButtonWithArrow from "./components/ui/ButtonWithArrow.jsx";
 
 function App() {
   return (

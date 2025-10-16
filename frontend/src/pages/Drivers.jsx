@@ -10,7 +10,7 @@ const drivers = [
     photo:
       "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
       "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
-    bio: "Aggressive racer, multiple-time world champion",
+    Country: "NL",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const drivers = [
     photo:
       "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
       "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
-    bio: "Experienced driver with many wins",
+    Country: "GB",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const drivers = [
     photo:
       "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
       "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
-    bio: "Young talent with strong pace",
+    Country: "GB",
   },
 ];
 
@@ -54,7 +54,7 @@ export default function Drivers() {
             team={d.team}
             number={d.number}
             photo={d.photo}
-            bio={d.bio}
+            Country={d.Country}
           />
         ))}
       </div>
