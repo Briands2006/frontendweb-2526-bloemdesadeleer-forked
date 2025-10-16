@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/ui/Navbar.jsx";
 import Footer from "./components/ui/Footer.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
-import DriverTabel from "./components/Driverinfo.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
 import Tracks from "./components/Tracks.jsx";
+import Drivers from "./pages/Drivers.jsx";
 import ButtonWithArrow from "./components/ui/ButtonWithArrow.jsx";
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
               element={
                 <>
                   <h1 className="text-white text-5xl font-bold p-2">Drivers</h1>
-                  <DriverTabel/>
+                  <Drivers/>
                 </>
               }
             />

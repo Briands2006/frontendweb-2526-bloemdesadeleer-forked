@@ -17,15 +17,15 @@ export default function DriverTabel() {
         
         <p className='text-lg text-left col-span-1 font-black' >Positie</p>
         <p className='text-lg text-right pr-5'>??</p>
-        
-        <p className='text-lg fon'>Punten</p>
-        <p className='text-lg text-right pr-5'>blaaaaaa</p>
+
+        <p className='text-lg font-black'>Punten</p>
+        <p className='text-lg text-right pr-5'>5</p>
         
         <p className='text-lg font-black'>Land</p>
-        <p className='text-lg text-right pr-5'>??</p>
+        <p className='text-lg text-right pr-5'>BE</p>
         
         <p className='text-lg font-black'>Geboortedatum</p>
-        <p className='text-lg text-right pr-5'>??</p>
+        <p className='text-lg text-right pr-5'>xx/xx/xxxx</p>
 
         <ButtonWithArrow/>
       </div>
