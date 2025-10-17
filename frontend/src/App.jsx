@@ -5,7 +5,7 @@ import Privacy from "./pages/legal/Privacy.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
 import Tracks from "./components/Tracks.jsx";
 import Drivers from "./pages/Drivers.jsx";
-// import ButtonWithArrow from "./components/ui/ButtonWithArrow.jsx";
+import { Home } from "./pages/Home.jsx";
 
 function App() {
   return (
@@ -16,11 +16,8 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={<>
-                <h1 className="text-white text-5xl font-bold pb-3">
-                  Welcome to the Home Page
-                </h1>
-              </>
+              element={
+                <Home/>
               }
             />
             <Route

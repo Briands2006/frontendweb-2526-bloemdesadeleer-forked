@@ -5,6 +5,7 @@ position
 points
 country
 birthdate
+nr
 teamId
 
 [Team]
