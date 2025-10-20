@@ -6,7 +6,9 @@ export const Home = () => {
       <h1 className="text-white text-5xl font-bold pb-3">
         Welcome to the Home Page
       </h1>
+      <a href="/drivers"><h1 className='text-white text-3xl font-bold'>Drivers</h1></a>
       <Carrousel data={DRIVERS} />
+      
     </>
   );
 };

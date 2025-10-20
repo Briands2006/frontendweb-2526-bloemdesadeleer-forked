@@ -46,7 +46,7 @@ const Carousel = ({ data }) => {
 
         return (
           <div key={idx} className={`slide ${slideClass}`}>
-          {/* geef meer slide info mee */}
+            {/* geef meer slide info mee */}
             <img src={d.photo} alt={d.name} className="slide-img" />
             <div className="slide-info">
               <h2>{d.name}</h2>

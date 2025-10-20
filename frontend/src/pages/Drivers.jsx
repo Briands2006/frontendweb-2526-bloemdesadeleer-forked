@@ -3,7 +3,8 @@ import DriverCard from "../components/DriverCard.jsx";
 import { DRIVERS } from "../api/mock-data.js"; // component moet nog aangepast worden :)
 
 export default function Drivers() {
-  const [selectedDriver, setSelectedDriver] = useState(null); // initialiseer state voor geselecteerde driver, deze is dus null bij start
+  const [selectedDriver, setSelectedDriver] = useState(null); 
+  // initialiseer state voor geselecteerde driver, deze is dus null bij start
   const deselectDriver = () => setSelectedDriver(null); // functie om geselecteerde driver te deselecteren
 
   return (
@@ -28,7 +29,6 @@ export default function Drivers() {
             country={d.country}
             onClick={() => {
               setSelectedDriver(d);
-              alert(`You selected ${d.name}`);
             }
             }
           />

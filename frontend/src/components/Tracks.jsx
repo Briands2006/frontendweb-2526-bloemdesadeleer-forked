@@ -14,26 +14,28 @@
 // }
 export default function Tracks() {
   return (
-    <div className='bg-gray-800 rounded-2xl h-auto flex flex-col p-4'> 
-      <img className='h-50 object-cover rounded-2xl' src="" alt="" />
+    <div className='grid grid-cols-2'>
+      <div className='bg-gray-800 rounded-2xl h-auto flex flex-col p-4'> 
+        <img className='h-50 object-cover rounded-2xl' src="" alt="" />
       
-      <h1 className='text-white text-5xl mt-4 mb-2'>Circuit Name</h1>
+        <h1 className='text-white text-5xl mt-4 mb-2'>Circuit Name</h1>
 
-      <div className='grid grid-cols-2 gap-x-4 gap-y-1 text-white'>
+        <div className='grid grid-cols-2 gap-x-4 gap-y-1 text-white'>
         
-        <p className='text-lg'>Circuit lengte</p> 
-        <p className='text-lg text-right'>??</p> 
-        
-        <p className='text-lg'>Locatie</p>
-        <p className='text-lg text-right'>??</p>
-        
-        <p className='text-lg'>Aantal Rondes</p>
-        <p className='text-lg text-right'>??</p>
-        
-        <p className='text-lg'>Snelste rondetijd</p>
-        <p className='text-lg text-right'>??</p>
+          <p className='text-lg'>Circuit lengte</p> 
+          <p className='text-lg text-right'>??</p> 
+          
+          <p className='text-lg'>Locatie</p>
+          <p className='text-lg text-right'>??</p>
+          
+          <p className='text-lg'>Aantal Rondes</p>
+          <p className='text-lg text-right'>??</p>
+          
+          <p className='text-lg'>Snelste rondetijd</p>
+          <p className='text-lg text-right'>??</p>
+        </div>
+        <img className="hidden" src="" alt="" />
       </div>
-      
     </div>
   );
 }
