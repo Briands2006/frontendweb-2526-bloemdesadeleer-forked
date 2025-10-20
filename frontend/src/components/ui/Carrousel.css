@@ -1,9 +1,9 @@
 .carousel {
   position: relative;
   display: flex;
-  overflow: hidden;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   width: 100%;
   height: 400px;
   padding: 0 3rem;
@@ -11,55 +11,87 @@
 
 .slide {
   position: absolute;
-  transition: all 0.5s ease-in-out;
-  border-radius: 0.5rem;
-  box-shadow: 0px 0px 7px #666;
+  top: 0;
+  left: 0;
   height: 100%;
+  width: 50%;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  transition: all 0.6s ease-in-out;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
   object-fit: cover;
 }
 
+.slide-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: white;
+  text-align: left;
+  border-radius: 0 0 0.75rem 0.75rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.slide-current .slide-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .slide-current {
-  width: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(1);
   opacity: 1;
   z-index: 10;
 }
 
 .slide-side {
-  width: 35%;
-  opacity: 0.5;
+  opacity: 0.6;
+  transform: scale(0.9);
   z-index: 5;
-  pointer-events: none;
 }
 
 .slide-left {
-  left: 0;
+  left: 0%;
+  transform: translateX(-20%) scale(0.9);
 }
 
 .slide-right {
   left: 100%;
-  transform: translateX(-100%);
+  transform: translateX(-80%) scale(0.9);
 }
 
 .slide-hidden {
   opacity: 0;
-  z-index: 1;
-  transition: opacity 0.6s ease-in-out;
   pointer-events: none;
+  z-index: 0;
 }
 
 .arrow {
   position: absolute;
-  filter: drop-shadow(0px 0px 5px #555);
-  width: 2rem;
-  height: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: white;
-  z-index: 999;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 20;
+  filter: drop-shadow(0px 0px 6px #000);
+  transition: transform 0.2s ease;
 }
 
 .arrow:hover {
-  cursor: pointer;
+  transform: translateY(-50%) scale(1.1);
 }
 
 .arrow-left {
@@ -70,31 +102,28 @@
   right: 1rem;
 }
 
-.indicators {
-  display: flex;
-  position: absolute;
-  bottom: 1rem;
-  z-index: 999;
-}
-
-.indicator {
-  background-color: white;
-  height: 0.5rem;
-  width: 0.5rem;
-  border-radius: 100%;
-  border: none;
-  outline: none;
-  box-shadow: 0px 0px 5px #555;
-  margin: 0 0.2rem;
-  cursor: pointer;
-  z-index: 999;
-}
-
-.indicator-inactive {
-  background-color: grey;
-}
-
 .disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.indicators {
+  position: absolute;
+  bottom: 1rem;
+  display: flex;
+  gap: 0.4rem;
+  z-index: 30;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  cursor: pointer;
+}
+
+.indicator-inactive {
+  background: gray;
 }
