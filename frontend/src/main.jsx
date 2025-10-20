@@ -7,7 +7,7 @@ import Layout from "./Layout.jsx";
 import { Home } from "./pages/Home.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
-import Tracks from "./components/Tracks.jsx";
+import Tracks from "./components/TrackCard.jsx";
 import Drivers from "./pages/Drivers.jsx";
 
 const router = createBrowserRouter([
@@ -20,7 +20,9 @@ const router = createBrowserRouter([
       },
       {
         path: "calendar",
-        element: <h1 className="text-white text-5xl font-bold">calendar test</h1>,
+        element: (
+          <h1 className="text-white text-5xl font-bold">calendar test</h1>
+        ),
       },
       {
         path: "tracks",
@@ -57,6 +59,10 @@ const router = createBrowserRouter([
         Component: Privacy,
       },
       {
+        path: "login",
+        element: <h1 className="text-white text-3xl font-bold">Login Page</h1>,
+      },
+      {
         path: "*",
         Component: NotFoundPage,
       },
@@ -67,5 +73,5 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>
+  </StrictMode>,
 );
