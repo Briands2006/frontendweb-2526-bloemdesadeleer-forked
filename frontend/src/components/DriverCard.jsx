@@ -6,7 +6,7 @@ export default function DriverCard({
   number,
   photo,
   country,
-  onClick,
+  onClick, // custom onClick handler moet doorgegeven worden
 }) {
   return (
     <div
