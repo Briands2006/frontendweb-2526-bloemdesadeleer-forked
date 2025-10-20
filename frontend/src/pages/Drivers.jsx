@@ -1,9 +1,10 @@
-import React from "react";
+import { React, useState } from "react";
 import DriverCard from "../components/DriverCard.jsx";
 import { DRIVERS } from "../api/mock-data.js"; // component moet nog aangepast worden :)
 
 export default function Drivers() {
   const [selectedDriver, setSelectedDriver] = useState(null); // initialiseer state voor geselecteerde driver, deze is dus null bij start
+  const deselectDriver = () => setSelectedDriver(null); // functie om geselecteerde driver te deselecteren
 
   return (
     <main className="drivers-page" style={{ padding: 24 }}>
@@ -25,10 +26,18 @@ export default function Drivers() {
             number={d.number}
             photo={d.photo}
             country={d.country}
-            onClick={()=> setSelectedDriver(d)}
+            onClick={() => {
+              setSelectedDriver(d);
+              alert(`You selected ${d.name}`);
+            }
+            }
           />
         ))}
       </div>
+
+
+
+
     </main>
   );
 }
