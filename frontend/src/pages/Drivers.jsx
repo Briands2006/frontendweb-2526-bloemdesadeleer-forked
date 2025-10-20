@@ -1,38 +1,6 @@
 import React from "react";
-import DriverCard from "../components/DriverCard.jsx"; // component moet nog aangepast worden :)
-
-const drivers = [
-  {
-    id: 1,
-    name: "Max Verstappen",
-    team: "Red Bull Racing",
-    number: 33,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
-    Country: "NL",
-  },
-  {
-    id: 2,
-    name: "Lewis Hamilton",
-    team: "Mercedes",
-    number: 44,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
-    Country: "GB",
-  },
-  {
-    id: 3,
-    name: "Lando Norris",
-    team: "McLaren",
-    number: 4,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
-    Country: "GB",
-  },
-];
+import DriverCard from "../components/DriverCard.jsx";
+import { DRIVERS } from "../api/mock-data.js"; // component moet nog aangepast worden :)
 
 export default function Drivers() {
   return (
@@ -47,14 +15,14 @@ export default function Drivers() {
           marginTop: 16,
         }}
       >
-        {drivers.map((d) => (
+        {DRIVERS.map((d) => (
           <DriverCard
             key={d.id}
             name={d.name}
             team={d.team}
             number={d.number}
             photo={d.photo}
-            Country={d.Country}
+            country={d.country}
           />
         ))}
       </div>

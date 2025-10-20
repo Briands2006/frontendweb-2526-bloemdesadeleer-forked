@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-
 import "./Carrousel.css";
 
 const Carousel = ({ data }) => {
   const [slide, setSlide] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false); // Nieuw state voor animatie status,
+  // om dus de button disabled te zetten
 
   const nextSlide = () => {
-    setSlide(slide === data.length - 1 ? 0 : slide + 1);
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1));
+    setTimeout(() => setIsAnimating(false), 500); // bijgevoegd voor css transition tijd, is hier nu 0.5s
   };
 
   const prevSlide = () => {
-    setSlide(slide === 0 ? data.length - 1 : slide - 1);
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setSlide((prev) => (prev === 0 ? data.length - 1 : prev - 1));
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   const prevSlideIndex = (slide - 1 + data.length) % data.length;
@@ -19,7 +26,10 @@ const Carousel = ({ data }) => {
 
   return (
     <div className="carousel">
-      <BsArrowLeftCircleFill onClick={prevSlide} className="arrow arrow-left" />
+      <BsArrowLeftCircleFill
+        onClick={prevSlide}
+        className={`arrow arrow-left ${isAnimating ? "disabled" : ""}`}
+      />
       {data.map((d, idx) => {
         let slideClass = "slide-hidden";
         if (idx === slide) {
@@ -40,20 +50,19 @@ const Carousel = ({ data }) => {
       })}
       <BsArrowRightCircleFill
         onClick={nextSlide}
-        className="arrow arrow-right"
+        className={`arrow arrow-right ${isAnimating ? "disabled" : ""}`}
       />
       <span className="indicators">
-        {data.map((_, idx) => {
-          return (
-            <button
-              key={idx}
-              className={
-                slide === idx ? "indicator" : "indicator indicator-inactive"
-              }
-              onClick={() => setSlide(idx)}
-            ></button>
-          );
-        })}
+        {data.map((_, idx) => (
+          <button
+            key={idx}
+            disabled={isAnimating}
+            className={
+              slide === idx ? "indicator" : "indicator indicator-inactive"
+            }
+            onClick={() => setSlide(idx)}
+          ></button>
+        ))}
       </span>
     </div>
   );
