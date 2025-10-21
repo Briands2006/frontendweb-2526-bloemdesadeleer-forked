@@ -16,7 +16,7 @@ export default function Tracks() {
   return (
     <div className='grid grid-cols-2'>
       <div className='bg-gray-800 rounded-2xl h-auto flex flex-col p-4'> 
-        <img className='h-50 object-cover rounded-2xl' src="" alt="" />
+        <img className='h-50 object-cover rounded-2xl' src="src/test" alt="test" />
       
         <h1 className='text-white text-5xl mt-4 mb-2'>Circuit Name</h1>
 
@@ -34,7 +34,7 @@ export default function Tracks() {
           <p className='text-lg'>Snelste rondetijd</p>
           <p className='text-lg text-right'>??</p>
         </div>
-        <img className="hidden" src="" alt="" />
+        <img className="hidden" src="src/test" alt="test" />
       </div>
     </div>
   );

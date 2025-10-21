@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import DriverCard from "../components/DriverCard.jsx";
 import { DRIVERS } from "../api/mock-data.js"; // component moet nog aangepast worden :)
 
-export default function Drivers() {
+const Drivers = () => {
   const [selectedDriver, setSelectedDriver] = useState(null); 
   // initialiseer state voor geselecteerde driver, deze is dus null bij start
   const deselectDriver = () => setSelectedDriver(null); // functie om geselecteerde driver te deselecteren
@@ -80,4 +80,6 @@ export default function Drivers() {
       )}
     </main>
   );
-}
+};
+
+export default Drivers;
