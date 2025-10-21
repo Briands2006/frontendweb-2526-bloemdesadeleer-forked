@@ -70,7 +70,8 @@ export default function Drivers() {
 
             <button
               onClick={deselectDriver}
-              className="mt-6 w-full bg-red-600 hover:bg-red-700 transition-colors py-2 rounded-lg font-semibold"
+              className={`cursor-pointer mt-6 w-full bg-red-600 
+                hover:bg-red-700 transition-colors py-2 rounded-lg font-semibold`}
             >
               Close
             </button>

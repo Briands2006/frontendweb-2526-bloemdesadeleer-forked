@@ -17,7 +17,7 @@
   width: 50%;
   border-radius: 0.75rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-  transition: all 0.6s ease-in-out;
+  transition: all 0.5s ease-in-out;
   opacity: 0;
   transform: scale(0.9);
 }
@@ -60,23 +60,25 @@
   opacity: 0.6;
   transform: scale(0.9);
   z-index: 5;
+  border-radius: 0.75rem;
 }
 
 .slide-left {
   left: 0%;
-  transform: translateX(-20%) scale(0.9);
+  transform: translateX(20%) scale(0.9);
+  border-radius: 0.75rem;
 }
 
 .slide-right {
   left: 100%;
-  transform: translateX(-80%) scale(0.9);
+  transform: translateX(-120%) scale(0.9);
+  border-radius: 0.75rem;
 }
 
 .slide-hidden {
   opacity: 0;
   pointer-events: none;
   z-index: 0;
-  
 }
 
 .arrow {
@@ -96,11 +98,11 @@
 }
 
 .arrow-left {
-  left: 1rem;
+  left: 5rem;
 }
 
 .arrow-right {
-  right: 1rem;
+  right: 5rem;
 }
 
 .disabled {
