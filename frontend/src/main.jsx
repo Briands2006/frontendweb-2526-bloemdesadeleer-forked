@@ -9,6 +9,7 @@ import Privacy from "./pages/legal/Privacy.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
 import Tracks from "./components/TrackCard.jsx";
 import Drivers from "./pages/Drivers.jsx";
+import { Calendar } from "./pages/Calendar.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,9 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "calendar",
-        element: (
-          <h1 className="text-white text-5xl font-bold">calendar test</h1>
-        ),
+        Component: Calendar,
       },
       {
         path: "tracks",
@@ -35,12 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "drivers",
-        element: (
-          <>
-            <h1 className="text-white text-5xl font-bold p-2">Drivers</h1>
-            <Drivers />
-          </>
-        ),
+        Component: Drivers,
       },
       {
         path: "teams",
