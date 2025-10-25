@@ -4,9 +4,14 @@ import Footer from "./components/ui/Footer.jsx";
 
 export default function Layout() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black">
+    <div
+      className="
+        flex flex-col min-h-screen 
+        bg-gradient-to-br from-black via-gray-800 to-black 
+        text-white overflow-x-hidden">
       <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main
+        className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <Outlet />
       </main>
       <Footer />

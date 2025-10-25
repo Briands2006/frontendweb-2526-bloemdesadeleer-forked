@@ -1,32 +1,29 @@
 import { Link, useLocation } from "react-router-dom";
-
-// de css apart importen voor betere leesbaarheid
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import "./Navbar.css";
 
-// links naar de paginas
 const navLinks = [
   { path: "/", label: "Home" },
   { path: "/calendar", label: "Calendar" },
   { path: "/tracks", label: "Tracks" },
-  { path: "/drivers", label: "Drivers"},
-  { path: "/teams", label: "Teams"},
+  { path: "/drivers", label: "Drivers" },
+  { path: "/teams", label: "Teams" },
   { path: "/news", label: "News" },
   { path: "/about", label: "About" },
   { path: "/login", label: "Login" },
-
 ];
 
 export default function Navbar() {
-  // Haal de huidige locatie op om actieve links te bepalen (bv ik ben op deze pagina => highlight de link)
   const location = useLocation();
-
-  // Functie om te controleren of een pad actief is
+  const [menuOpen, setMenuOpen] = useState(false);
   const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-content">
+          {/* LOGO */}
           <Link to="/" className="navbar-logo-link group">
             <div className="logo-icon-wrapper">
               <span className="logo-text-icon">F1</span>
@@ -34,12 +31,19 @@ export default function Navbar() {
             </div>
             <span className="logo-text">Tracker</span>
           </Link>
-
-          <div className="nav-links-wrapper">
+          <button
+            className="navbar-toggle"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+          <div className={`nav-links-wrapper ${menuOpen ? "open" : ""}`}>
             {navLinks.map(({ path, label }) => (
               <Link
                 key={path}
                 to={path}
+                onClick={() => setMenuOpen(false)} // sluit menu na klikken door op fals e te zetten
                 className={`nav-link ${isActive(path) ? "active-link" : ""}`}
               >
                 {path === "/login" ? (
@@ -54,7 +58,6 @@ export default function Navbar() {
                     strokeWidth="1.8"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    aria-hidden="true"
                   >
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
