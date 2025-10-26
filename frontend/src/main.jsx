@@ -13,6 +13,7 @@ import { Calendar } from "./pages/Calendar.jsx";
 import { News } from "./pages/News.jsx";
 import { NewsDetail } from "./pages/NewsDetail.jsx";
 import { About } from "./pages/About.jsx";
+import { Teams } from "./pages/Teams.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "teams",
-        element: <h1 className="text-white text-3xl font-bold">Teams</h1>,
+        Component: Teams,
       },
       {
         path: "news",

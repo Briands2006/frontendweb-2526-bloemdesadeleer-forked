@@ -12,8 +12,8 @@ const TeamCard = ({ team }) => {
     <div
       onClick={handleCardClick}
       style={{ borderLeftColor: team.primaryColor }}
-      className={`bg-gray-900 border-l-8 cursor-pointer rounded-xl shadow-lg 
-                  p-6 transition-all duration-300 hover:shadow-red-600/30 hover:scale-[1.02]
+      className={`bg-gray-900 cursor-pointer rounded-xl 
+                  p-6 transition-all duration-300 hover:scale-[1.02]
                   flex items-center space-x-6 text-white`}
     >
       <img
