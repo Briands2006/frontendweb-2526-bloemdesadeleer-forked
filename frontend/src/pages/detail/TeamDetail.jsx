@@ -1,7 +1,11 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
-import { getTeamBySlug, getDriversByTeamName } from "../../api/mock-data.js";
+import {
+  getTeamBySlug,
+  getDriversByTeamName,
+//   slug,
+} from "../../api/mock-data.js";
 
 export const TeamDetail = () => {
   const { teamSlug } = useParams();
@@ -13,6 +17,11 @@ export const TeamDetail = () => {
 
   const drivers = team ? getDriversByTeamName(team.name) : [];
   // get alle drivers voor dat team en steek ze in een array
+
+  const handleDriverClick = () => {
+    // const driverSlug = slug(driverName);
+    navigate("/drivers");
+  };
 
   if (!team) {
     return (
@@ -38,7 +47,8 @@ export const TeamDetail = () => {
         onClick={() => navigate("/teams")}
         className="text-red-500 hover:text-red-400 flex items-center mb-8 transition-colors cursor-pointer"
       >
-        <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" /> Terug naar Teams Overzicht
+        <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" /> Terug naar Teams
+        Overzicht
       </button>
 
       <header
@@ -107,8 +117,9 @@ export const TeamDetail = () => {
             {drivers.map((driver) => (
               <div
                 key={driver.id}
+                onClick={() => handleDriverClick(driver.name)}
                 className="flex items-center justify-between p-3 mb-3 bg-gray-800 rounded-lg
-                 hover:bg-gray-700 transition-colors"
+                 hover:bg-gray-700 transition-colors cursor-pointer"
               >
                 <div className="flex items-center">
                   <img
