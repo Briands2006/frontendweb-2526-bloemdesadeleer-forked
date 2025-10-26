@@ -1,5 +1,5 @@
 import { useParams, Navigate, useNavigate } from "react-router-dom";
-import { NEWS_ARTICLES } from "../api/news-posts.js";
+import { NEWS_ARTICLES } from "../../api/news-posts.js";
 import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 

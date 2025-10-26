@@ -1,22 +1,146 @@
-const DRIVERS = [
+const slug = (text) => { // zelfde helper functie als bij et nieuws
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
+const RAW_TEAMS_DATA = [
+  {
+    id: 1,
+    name: "Red Bull Racing",
+    base: "Milton Keynes, UK",
+    chief: "Christian Horner",
+    championships: 6,
+    logo: "https://placehold.co/150x80/0A1F67/FFFFFF?text=RBR+Logo",
+    car: "https://placehold.co/600x300/0A1F67/FFFFFF?text=Red+Bull+Car",
+    info: "Red Bull Racing is een van de meest succesvolle teams van de afgelopen tien jaar, bekend om zijn agressieve designfilosofie onder leiding van Adrian Newey.",
+    primaryColor: "#3671C6",
+  },
+  {
+    id: 2,
+    name: "Scuderia Ferrari",
+    base: "Maranello, Italy",
+    chief: "Frédéric Vasseur",
+    championships: 16,
+    logo: "https://placehold.co/150x80/dc0000/FFFFFF?text=Ferrari+Logo",
+    car: "https://placehold.co/600x300/dc0000/FFFFFF?text=Ferrari+Car",
+    info: "Het oudste en meest succesvolle team in de geschiedenis van de Formule 1. Ferrari staat synoniem voor de sport.",
+    primaryColor: "#DC0000",
+  },
+  {
+    id: 3,
+    name: "Mercedes-AMG Petronas",
+    base: "Brackley, UK",
+    chief: "Toto Wolff",
+    championships: 8,
+    logo: "https://placehold.co/150x80/00A99D/000000?text=Merc+Logo",
+    car: "https://placehold.co/600x300/00A99D/000000?text=Mercedes+Car",
+    info: "Mercedes domineerde het hybridetijdperk van 2014 tot 2021. Ze staan bekend om hun technische uitmuntendheid en teammanagement.",
+    primaryColor: "#00A99D",
+  },
+  {
+    id: 4,
+    name: "McLaren F1 Team",
+    base: "Woking, UK",
+    chief: "Andrea Stella",
+    championships: 8,
+    logo: "https://placehold.co/150x80/FF8700/000000?text=McLaren+Logo",
+    car: "https://placehold.co/600x300/FF8700/000000?text=McLaren+Car",
+    info: "McLaren is een historisch team dat bekend staat om zijn papaja-oranje kleurstelling en ambitie om terug te keren naar de top.",
+    primaryColor: "#FF8700",
+  },
+  {
+    id: 5,
+    name: "Aston Martin Aramco F1",
+    base: "Silverstone, UK",
+    chief: "Mike Krack",
+    championships: 0,
+    logo: "https://placehold.co/150x80/00554E/FFFFFF?text=Aston+Logo",
+    car: "https://placehold.co/600x300/00554E/FFFFFF?text=Aston+Car",
+    info: "Het iconische Britse merk streeft ernaar een topteam te worden met aanzienlijke investeringen en ambitieuze doelen.",
+    primaryColor: "#006F62",
+  },
+  {
+    id: 6,
+    name: "BWT Alpine F1 Team",
+    base: "Enstone, UK",
+    chief: "Bruno Famin",
+    championships: 2,
+    logo: "https://placehold.co/150x80/FF80D4/FFFFFF?text=Alpine+Logo",
+    car: "https://placehold.co/600x300/FF80D4/FFFFFF?text=Alpine+Car",
+    info: "Het Franse fabrieksteam met sterke banden met Renault. Bekend om hun opvallende blauw-roze livery.",
+    primaryColor: "#0090FF",
+  },
+  {
+    id: 7,
+    name: "Williams Racing",
+    base: "Grove, UK",
+    chief: "James Vowles",
+    championships: 9,
+    logo: "https://placehold.co/150x80/005A8D/FFFFFF?text=Williams+Logo",
+    car: "https://placehold.co/600x300/005A8D/FFFFFF?text=Williams+Car",
+    info: "Een van de meest succesvolle teams in de F1-geschiedenis, nu gericht op een heropleving onder nieuw leiderschap.",
+    primaryColor: "#005A8D",
+  },
+  {
+    id: 8,
+    name: "Kick Sauber F1 Team",
+    base: "Hinwil, Switzerland",
+    chief: "Alessandro Alunni Bravi",
+    championships: 0,
+    logo: "https://placehold.co/150x80/00E07A/000000?text=Sauber+Logo",
+    car: "https://placehold.co/600x300/00E07A/000000?text=Sauber+Car",
+    info: "Het Zwitserse team, bekend als Alfa Romeo, opereert nu als Kick Sauber in afwachting van de overname door Audi.",
+    primaryColor: "#00E07A",
+  },
+  {
+    id: 9,
+    name: "Haas F1 Team",
+    base: "Kannapolis, US",
+    chief: "Ayao Komatsu",
+    championships: 0,
+    logo: "https://placehold.co/150x80/FFFFFF/000000?text=Haas+Logo",
+    car: "https://placehold.co/600x300/808080/FFFFFF?text=Haas+Car",
+    info: "Het Amerikaanse team, opgericht door Gene Haas, richt zich op consistentie en maximale efficiëntie.",
+    primaryColor: "#B6BABD",
+  },
+  {
+    id: 10,
+    name: "Visa Cash App Racing Bulls",
+    base: "Faenza, Italy",
+    chief: "Laurent Mekies",
+    championships: 0,
+    logo: "https://placehold.co/150x80/081F48/FFFFFF?text=VCARB+Logo",
+    car: "https://placehold.co/600x300/081F48/FFFFFF?text=VCARB+Car",
+    info: "Het zusterteam van Red Bull Racing, gericht op het ontwikkelen van jong talent. Voorheen bekend als AlphaTauri en Toro Rosso.",
+    primaryColor: "#4B92DB",
+  },
+];
+
+export const TEAMS = RAW_TEAMS_DATA.map((team) => ({
+  ...team,
+  slug: slug(team.name),
+}));
+
+export const DRIVERS = [
   {
     id: 1,
     name: "Max Verstappen",
     team: "Red Bull Racing",
     number: 33,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/3671C6/FFFFFF?text=MV",
     country: "NL",
   },
   {
     id: 2,
     name: "Yuki Tsunoda",
-    team: "Red Bull Racing",
+    team: "Visa Cash App Racing Bulls",
     number: 22,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/4B92DB/FFFFFF?text=YT",
     country: "JP",
   },
   {
@@ -24,9 +148,7 @@ const DRIVERS = [
     name: "Lewis Hamilton",
     team: "Scuderia Ferrari",
     number: 44,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/DC0000/FFFFFF?text=LH",
     country: "GB",
   },
   {
@@ -34,9 +156,7 @@ const DRIVERS = [
     name: "Charles Leclerc",
     team: "Scuderia Ferrari",
     number: 16,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/DC0000/FFFFFF?text=CL",
     country: "MC",
   },
   {
@@ -44,9 +164,7 @@ const DRIVERS = [
     name: "Lando Norris",
     team: "McLaren F1 Team",
     number: 4,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/FF8700/000000?text=LN",
     country: "GB",
   },
   {
@@ -54,9 +172,7 @@ const DRIVERS = [
     name: "Oscar Piastri",
     team: "McLaren F1 Team",
     number: 81,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/FF8700/000000?text=OP",
     country: "AU",
   },
   {
@@ -64,9 +180,7 @@ const DRIVERS = [
     name: "George Russell",
     team: "Mercedes-AMG Petronas",
     number: 63,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/00A99D/000000?text=GR",
     country: "GB",
   },
   {
@@ -74,9 +188,7 @@ const DRIVERS = [
     name: "Kimi Antonelli",
     team: "Mercedes-AMG Petronas",
     number: 12,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/00A99D/000000?text=KA",
     country: "IT",
   },
   {
@@ -84,9 +196,7 @@ const DRIVERS = [
     name: "Fernando Alonso",
     team: "Aston Martin Aramco F1",
     number: 14,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/006F62/FFFFFF?text=FA",
     country: "ES",
   },
   {
@@ -94,9 +204,7 @@ const DRIVERS = [
     name: "Lance Stroll",
     team: "Aston Martin Aramco F1",
     number: 18,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/006F62/FFFFFF?text=LS",
     country: "CA",
   },
   {
@@ -104,9 +212,7 @@ const DRIVERS = [
     name: "Pierre Gasly",
     team: "BWT Alpine F1 Team",
     number: 10,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/0090FF/FFFFFF?text=PG",
     country: "FR",
   },
   {
@@ -114,9 +220,7 @@ const DRIVERS = [
     name: "Franco Colapinto",
     team: "BWT Alpine F1 Team",
     number: 7,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/0090FF/FFFFFF?text=FC",
     country: "AR",
   },
   {
@@ -124,9 +228,7 @@ const DRIVERS = [
     name: "Alex Albon",
     team: "Williams Racing",
     number: 23,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/005A8D/FFFFFF?text=AA",
     country: "TH",
   },
   {
@@ -134,9 +236,7 @@ const DRIVERS = [
     name: "Carlos Sainz",
     team: "Williams Racing",
     number: 55,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/005A8D/FFFFFF?text=CS",
     country: "ES",
   },
   {
@@ -144,9 +244,7 @@ const DRIVERS = [
     name: "Nico Hülkenberg",
     team: "Kick Sauber F1 Team",
     number: 27,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/00E07A/000000?text=NH",
     country: "DE",
   },
   {
@@ -154,9 +252,7 @@ const DRIVERS = [
     name: "Gabriel Bortoleto",
     team: "Kick Sauber F1 Team",
     number: 5,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/00E07A/000000?text=GB",
     country: "BR",
   },
   {
@@ -164,9 +260,7 @@ const DRIVERS = [
     name: "Oliver Bearman",
     team: "Haas F1 Team",
     number: 77,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/B6BABD/000000?text=OB",
     country: "GB",
   },
   {
@@ -174,9 +268,7 @@ const DRIVERS = [
     name: "Esteban Ocon",
     team: "Haas F1 Team",
     number: 31,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/B6BABD/000000?text=EO",
     country: "FR",
   },
   {
@@ -184,9 +276,7 @@ const DRIVERS = [
     name: "Liam Lawson",
     team: "Visa Cash App Racing Bulls",
     number: 30,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/4B92DB/FFFFFF?text=LL",
     country: "NZ",
   },
   {
@@ -194,11 +284,17 @@ const DRIVERS = [
     name: "Isack Hadjar",
     team: "Visa Cash App Racing Bulls",
     number: 6,
-    photo:
-      "https://thumbs.dreamstime.com/b/vector-placeholder-upload-profile-picture-design-" +
-      "minimalistic-features-simple-circular-symbol-representing-352593011.jpg",
+    photo: "https://placehold.co/100x100/4B92DB/FFFFFF?text=IH",
     country: "FR",
   },
 ];
 
-export { DRIVERS };
+export const getTeamBySlug = (slugValue) => {
+  return TEAMS.find((team) => team.slug === slugValue);
+};
+
+export const getDriversByTeamName = (teamName) => {
+  return DRIVERS.filter((driver) => driver.team === teamName);
+};
+
+export { slug };
