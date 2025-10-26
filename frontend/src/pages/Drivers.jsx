@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import DriverCard from "../components/DriverCard.jsx";
+import DriverCard from "../components/drivers/DriverCard.jsx";
 import { DRIVERS } from "../api/mock-data.js"; // component moet nog aangepast worden :)
 
 const Drivers = () => {
