@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import DriverCard from "../components/drivers/DriverCard.jsx";
 import { DRIVERS } from "../api/mock-data.js"; // component moet nog aangepast worden :)
+import "./Drivers.css";
 
 const Drivers = () => {
   const [selectedDriver, setSelectedDriver] = useState(null); 
@@ -9,15 +10,11 @@ const Drivers = () => {
 
   return (
     <main className="drivers-page" style={{ padding: 24 }}>
-      <h1>Drivers</h1>
+      <h1 className="text-5xl font-extrabold mb-8 pb-4">
+        F1 Drivers 2025
+      </h1>
       <div
         className="drivers-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, minmax(240px, 1fr))",
-          gap: 16,
-          marginTop: 16,
-        }}
       >
         {DRIVERS.map((d) => (
           <DriverCard

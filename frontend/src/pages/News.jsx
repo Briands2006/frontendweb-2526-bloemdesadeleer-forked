@@ -35,7 +35,9 @@ export const News = () => {
   return (
     <div className="min-h-screen bg-transparent text-white py-20">
       <div className="max-w-7xl mx-auto px-8 md:px-16">
-        <h1 className="text-5xl font-bold mb-10 pb-4">F1 Nieuws</h1>
+        <h1 className="text-5xl font-extrabold mb-8 pb-4">
+          F1 News
+        </h1>
 
         <div className="grid md:grid-cols-3 gap-10">
           {currentPosts.map((post) => (
@@ -47,10 +49,9 @@ export const News = () => {
           <button
             onClick={goToPrevPage}
             disabled={currentPage === 1}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-              currentPage === 1
-                ? "bg-gray-800 text-gray-500 cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-700"
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${currentPage === 1
+              ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+              : "bg-red-600 hover:bg-red-700"
             }`}
           >
             <ArrowLeft className="w-5 h-5" /> Vorige
@@ -63,10 +64,9 @@ export const News = () => {
           <button
             onClick={goToNextPage}
             disabled={currentPage === totalPages}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-              currentPage === totalPages
-                ? "bg-gray-800 text-gray-500 cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-700"
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${currentPage === totalPages
+              ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+              : "bg-red-600 hover:bg-red-700"
             }`}
           >
             Volgende <ArrowRight className="w-5 h-5" />
