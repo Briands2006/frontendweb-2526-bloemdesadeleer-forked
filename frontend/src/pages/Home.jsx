@@ -20,17 +20,17 @@ export const Home = () => {
     {
       title: "Redbull makes breakthrough with...",
       date: "Yesterday",
-      imageUrl: "../../public/charles-leclerc.png",
+      imageUrl: "../../charles-leclerc.png",
     },
     {
       title: "New F1 cars are in the spotlight...",
       date: "21 oktober 2029",
-      imageUrl: "../../public/charles-leclerc.png",
+      imageUrl: "../../charles-leclerc.png",
     },
     {
       title: "Mclaren struggles to keep pace...",
       date: "17 october 2025",
-      imageUrl: "../../public/charles-leclerc.png",
+      imageUrl: "../../charles-leclerc.png",
     },
   ];
 
