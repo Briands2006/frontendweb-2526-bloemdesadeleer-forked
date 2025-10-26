@@ -12,6 +12,7 @@ import Drivers from "./pages/Drivers.jsx";
 import { Calendar } from "./pages/Calendar.jsx";
 import { News } from "./pages/News.jsx";
 import { NewsDetail } from "./pages/NewsDetail.jsx";
+import { About } from "./pages/About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: "about",
-        element: <h1 className="text-white text-3xl font-bold">About Us</h1>,
+        Component: About,
       },
       {
         path: "privacy",
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <h1 className="text-white text-3xl font-bold">Login Page</h1>,
+      },
+      {
+        path: "register",
+        element: <h1 className="text-white tetx-3xl font-bold">Register Page</h1>,
       },
       {
         path: "*",
