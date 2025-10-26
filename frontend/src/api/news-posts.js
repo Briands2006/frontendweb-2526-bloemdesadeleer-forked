@@ -1,5 +1,15 @@
 // generated with AI tool, purely because im too lazy to write dummy content myself :
 
+const slug = (title) => { // moet eig door backend gedaan worden maar voor nu zo
+  return title
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
 export const NEWS_ARTICLES = [
   {
     id: 1,
@@ -237,4 +247,7 @@ export const NEWS_ARTICLES = [
     date: "15 juli 2025",
     tags: ["Economie", "Nieuws"],
   },
-];
+].map((article) => ({
+  ...article, // spread operator om bestaande properties te behouden
+  slug: slug(article.title), // voeg een slug property toe
+}));

@@ -17,7 +17,7 @@ export const NewsCard = ({ post }) => {
         <h3 className="text-xl font-semibold mb-3 text-white">{post.title}</h3>
         <p className="text-gray-400 mb-4">{post.summary}</p>
         <Link
-          to={`/news/${post.id}`}
+          to={`/news/${post.slug}`}
           className="text-red-500 font-semibold inline-flex items-center group"
         >
           Lees verder

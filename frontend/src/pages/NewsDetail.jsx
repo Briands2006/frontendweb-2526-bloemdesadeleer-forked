@@ -11,7 +11,7 @@ export const NewsDetail = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []); // scroll naar boven bij laden van de pagina
 
-  const post = NEWS_ARTICLES.find((p) => p.id === parseInt(id)); // zoek het artikel op basis van de id via find 
+  const post = NEWS_ARTICLES.find((p) => p.slug === id); // zoek het artikel op basis van de slug via find
 
   if (!post) {
     return <Navigate to="/news" replace />; // redirect als artikel niet gevonden
