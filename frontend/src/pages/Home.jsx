@@ -1,38 +1,50 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { DRIVERS } from "../api/mock-data.js";
+import { Link, useNavigate } from "react-router-dom";
+import { DRIVERS, slug } from "../api/mock-data.js";
 import Carrousel from "./../components/ui/Carrousel.jsx";
 import { ArrowRight, Users, Eye } from "lucide-react";
+import { NEWS_ARTICLES } from "../api/news-posts.js";
 
 const F1_IMAGE = "../../f1-frontwing.png";
 
+const parseDate = (dateString) => { // parst de date da in de API mock data staat, is gewoon voor nu 
+  const monthMap = { // gebruik mapping voor nu want alles staat in het nederlands
+    "januari": 0, "februari": 1, "maart": 2, "april": 3, "mei": 4, "juni": 5,
+    "juli": 6, "augustus": 7, "september": 8, "oktober": 9, "november": 10, "december": 11,
+  };
+  
+  const parts = dateString.split(" ");
+  const day = parseInt(parts[0], 10);
+  const monthIndex = monthMap[parts[1].toLowerCase()];
+  const year = parseInt(parts[2], 10);
+
+  return new Date(year, monthIndex, day);
+};
+
 export const Home = () => {
+  const navigate = useNavigate();
   const [offsetY, setOffsetY] = useState(0);
 
   const handleScroll = () => setOffsetY(window.scrollY);
+
+  const handlePostClick = (postTitle) => {
+    const postSlug = slug(postTitle);
+    navigate(`/news/${postSlug}`);
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const latestPosts = [
-    {
-      title: "Redbull makes breakthrough with...",
-      date: "Yesterday",
-      imageUrl: "../../charles-leclerc.png",
-    },
-    {
-      title: "New F1 cars are in the spotlight...",
-      date: "21 oktober 2029",
-      imageUrl: "../../charles-leclerc.png",
-    },
-    {
-      title: "Mclaren struggles to keep pace...",
-      date: "17 october 2025",
-      imageUrl: "../../charles-leclerc.png",
-    },
-  ];
+  const latestPosts = NEWS_ARTICLES
+    .slice() // maakt een copy van de array zodat we deze niet aanpassen
+    .sort((a, b) => {
+      const aDate = parseDate(a.date);
+      const bDate = parseDate(b.date);
+      return bDate - aDate;
+    })
+    .slice(0, 3);
 
   const reviews = [
     {
@@ -202,6 +214,7 @@ export const Home = () => {
             {latestPosts.map((post, index) => (
               <div
                 key={index}
+                onClick={() => handlePostClick(post.title)}
                 className="bg-gray-900 rounded-xl border border-gray-800 hover:border-red-600
                  transition-all cursor-pointer overflow-hidden"
               >

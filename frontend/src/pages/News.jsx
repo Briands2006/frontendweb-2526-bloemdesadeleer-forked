@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NEWS_ARTICLES } from "../api/news-posts.js";
 import { NewsCard } from "../components/news/NewsCard.jsx";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -7,6 +7,10 @@ const POSTS_PER_PAGE = 10;
 
 export const News = () => {
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []); // scroll naar boven bij laden van de pagina
 
   // logica voor paginering, berekeningen, enz... (saaie dingen dus)
   const totalPages = Math.ceil(NEWS_ARTICLES.length / POSTS_PER_PAGE);
@@ -31,9 +35,7 @@ export const News = () => {
   return (
     <div className="min-h-screen bg-transparent text-white py-20">
       <div className="max-w-7xl mx-auto px-8 md:px-16">
-        <h1 className="text-5xl font-bold mb-10 pb-4">
-          F1 Nieuws
-        </h1>
+        <h1 className="text-5xl font-bold mb-10 pb-4">F1 Nieuws</h1>
 
         <div className="grid md:grid-cols-3 gap-10">
           {currentPosts.map((post) => (
