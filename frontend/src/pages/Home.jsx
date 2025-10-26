@@ -34,6 +34,21 @@ export const Home = () => {
     },
   ];
 
+  const reviews = [
+    {
+      name: "John Doe",
+      content: "Amazing experience, loved every moment of it!",
+    },
+    {
+      name: "Jane Smith",
+      content: "A must-have for any F1 fan. Highly recommended!",
+    },
+    {
+      name: "Mike Johnson",
+      content: "Incredible insights and features. Five stars!",
+    },
+  ];
+
   return (
     <>
       <section
@@ -42,7 +57,7 @@ export const Home = () => {
       >
         <div
           className="absolute inset-x-0 
-            bottom-[-40px] sm:bottom-[-180px] md:bottom-[-350px] flex items-end justify-center pointer-events-none">
+            bottom-[-70px] sm:bottom-[-180px] md:bottom-[-350px] flex items-end justify-center pointer-events-none">
           <img
             src={F1_IMAGE}
             alt="F1 Front Wing"
@@ -88,10 +103,10 @@ export const Home = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-transparent text-white border-t border-gray-700">
+      <section className="py-16 md:py-10 bg-transparent text-white border-t border-gray-700">
         <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-10">
-            Trusted by...
+          <h2 className="text-4xl md:text-5xl font-bold mb-5">
+            Used by...
           </h2>
           <div className="flex flex-col sm:flex-row justify-around items-center gap-10">
             <div>
@@ -120,12 +135,38 @@ export const Home = () => {
             ipsum Lorum ipsum Lorum ipsum Lorum ipsum Lorum ipsum Lorum ipsum.
           </p>
           <Link
-            to="/features"
+            to="/about"
             className="text-red-500 font-semibold inline-flex items-center group"
           >
             Discover our features
             <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
           </Link>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20 bg-transparent text-white border-t border-gray-700">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
+          <div className="flex flex-col sm:flex-row justify-center text-2xl sm:items-center text-center mb-8 gap-4">
+            <h2 className="text-2xl md:text-3xl font-bold">Trusted by F1 fans</h2>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {reviews.map((review, index) => (
+              <div
+                key={index}
+                className="bg-gray-900 rounded-xl border border-gray-800 hover:border-red-600
+                 transition-all cursor-default overflow-hidden"
+              >
+                <div className="p-6 pt-0">
+                  <h3 className="mt-5 text-lg md:text-xl font-semibold mb-2">
+                    {review.name}
+                  </h3>
+                  <p className="text-sm text-gray-500 mt-4">
+                    {review.content}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
