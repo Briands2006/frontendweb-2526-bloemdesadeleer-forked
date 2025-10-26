@@ -11,6 +11,7 @@ import Tracks from "./components/tracks/TrackCard.jsx";
 import Drivers from "./pages/Drivers.jsx";
 import { Calendar } from "./pages/Calendar.jsx";
 import { News } from "./pages/News.jsx";
+import { NewsDetail } from "./pages/NewsDetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: "news/:id",
-        Component: News, // Voor individuele nieuwsartikelen word nog veranderd :)
+        Component: NewsDetail, // Voor individuele nieuwsartikelen word nog veranderd :)
       },
       {
         path: "about",
