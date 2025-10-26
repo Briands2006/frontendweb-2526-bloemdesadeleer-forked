@@ -11,9 +11,10 @@ import Tracks from "./components/tracks/TrackCard.jsx";
 import Drivers from "./pages/Drivers.jsx";
 import { Calendar } from "./pages/Calendar.jsx";
 import { News } from "./pages/News.jsx";
-import { NewsDetail } from "./pages/NewsDetail.jsx";
+import { NewsDetail } from "./pages/detail/NewsDetail.jsx";
 import { About } from "./pages/About.jsx";
 import { Teams } from "./pages/Teams.jsx";
+import { TeamDetail } from "./pages/detail/TeamDetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "teams",
         Component: Teams,
+      },
+      {
+        path: "teams/:teamSlug",
+        Component: TeamDetail,
       },
       {
         path: "news",
