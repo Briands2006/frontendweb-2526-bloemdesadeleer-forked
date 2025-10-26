@@ -7,9 +7,10 @@ import Layout from "./Layout.jsx";
 import { Home } from "./pages/Home.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
-import Tracks from "./components/TrackCard.jsx";
+import Tracks from "./components/tracks/TrackCard.jsx";
 import Drivers from "./pages/Drivers.jsx";
 import { Calendar } from "./pages/Calendar.jsx";
+import { News } from "./pages/News.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: "news",
-        element: <h1 className="text-white text-3xl font-bold">news test</h1>,
+        Component: News,
+      },
+      {
+        path: "news/:id",
+        Component: News, // Voor individuele nieuwsartikelen word nog veranderd :)
       },
       {
         path: "about",
