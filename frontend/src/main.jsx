@@ -7,7 +7,7 @@ import Layout from "./Layout.jsx";
 import { Home } from "./pages/Home.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
 import NotFoundPage from "./pages/Notfound.jsx";
-import Tracks from "./components/tracks/TrackCard.jsx";
+import Tracks from "./pages/Tracks.jsx";
 import Drivers from "./pages/Drivers.jsx";
 import { Calendar } from "./pages/Calendar.jsx";
 import { News } from "./pages/News.jsx";
@@ -30,12 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "tracks",
-        element: (
-          <>
-            <h1 className="text-white text-5xl font-bold">tracks test</h1>
-            <Tracks />
-          </>
-        ),
+        Component: Tracks,
       },
       {
         path: "drivers",
