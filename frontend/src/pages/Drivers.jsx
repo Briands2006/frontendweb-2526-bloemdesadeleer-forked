@@ -1,12 +1,21 @@
+//import { React, useState } from "react";
+import { useNavigate} from  "react-router-dom";
+import DriverCard from "../components/DriverCard.jsx";
 import { React, useState } from "react";
 import DriverCard from "../components/drivers/DriverCard.jsx";
 import { DRIVERS } from "../api/mock-data.js"; // component moet nog aangepast worden :)
 import "./Drivers.css";
 
 const Drivers = () => {
-  const [selectedDriver, setSelectedDriver] = useState(null); 
+  //const [selectedDriver, setSelectedDriver] = useState(null); 
   // initialiseer state voor geselecteerde driver, deze is dus null bij start
-  const deselectDriver = () => setSelectedDriver(null); // functie om geselecteerde driver te deselecteren
+  //const deselectDriver = () => //setSelectedDriver(null); // functie om geselecteerde driver te deselecteren
+  const navigate = useNavigate();
+
+  const handleDriverClick = (driver) => {
+    const driverId =  driver.id;
+    navigate(`/drivers/${driverId}`);
+  };
 
   return (
     <main className="drivers-page" style={{ padding: 24 }}>
@@ -26,13 +35,13 @@ const Drivers = () => {
             photo={d.photo}
             country={d.country}
             onClick={() => {
-              setSelectedDriver(d);
+              handleDriverClick(d);
             }
             }
           />
         ))}
       </div>
-      {selectedDriver && (
+      {/* {selectedDriver && (
         <div
           onClick={deselectDriver}
           className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn"
@@ -75,7 +84,7 @@ const Drivers = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </main>
   );
 };

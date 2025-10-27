@@ -38,6 +38,10 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path:"drivers/:driverId",
+        Component: DriverDetails,
+      },
+      {
         path: "drivers",
         Component: Drivers,
       },
