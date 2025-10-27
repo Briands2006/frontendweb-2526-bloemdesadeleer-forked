@@ -1,10 +1,16 @@
 //import { React, useState } from "react";
 import { useNavigate} from  "react-router-dom";
-import DriverCard from "../components/DriverCard.jsx";
-import { React, useState } from "react";
 import DriverCard from "../components/drivers/DriverCard.jsx";
 import { DRIVERS } from "../api/mock-data.js"; // component moet nog aangepast worden :)
-import "./Drivers.css";
+
+const slugify = (text) => {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "") // Verwijder speciale tekens // V
+    .replace(/[\s_-]+/g, "")
+    .replace(/^-+|-+$/g, ""); // Verwijder streepjes aan begin/einde
+};
 
 const Drivers = () => {
   //const [selectedDriver, setSelectedDriver] = useState(null); 
@@ -13,8 +19,8 @@ const Drivers = () => {
   const navigate = useNavigate();
 
   const handleDriverClick = (driver) => {
-    const driverId =  driver.id;
-    navigate(`/drivers/${driverId}`);
+    const driverName =  slugify(driver.name);
+    navigate(`/drivers/${driverName}?id=${driver.id}`);
   };
 
   return (

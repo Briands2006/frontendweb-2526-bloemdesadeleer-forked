@@ -15,6 +15,7 @@ import { NewsDetail } from "./pages/detail/NewsDetail.jsx";
 import { About } from "./pages/About.jsx";
 import { Teams } from "./pages/Teams.jsx";
 import { TeamDetail } from "./pages/detail/TeamDetail.jsx";
+import DriverDetails from "./pages/DriverDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path:"drivers/:driverId",
+        path:"drivers/:driverName",
         Component: DriverDetails,
       },
       {

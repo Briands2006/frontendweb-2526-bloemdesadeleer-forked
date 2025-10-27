@@ -1,11 +1,23 @@
-import { useParams, Link } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { DRIVERS } from "../api/mock-data";
 
 const DriverDetails = () => {
-  const { driverId } = useParams();
+  const [searchParams] = useSearchParams();
+
+  const driverIdString = searchParams.get("id");
+
+  if(!driverIdString) {
+    return (
+      <main style={{padding: 24}}>
+        <h1>404 - Driver niet gevonden </h1>
+        <Link to="/drivers">Terug</Link>
+      </main>
+    );
+  }
 
   const foundDriver = DRIVERS.find((d) => {
-    return d.id === +driverId;
+    // Converteer de string ID naar een nummer voor de vergelijking
+    return d.id === +driverIdString; 
   });
 
   if(!foundDriver) {
@@ -22,7 +34,7 @@ const DriverDetails = () => {
   return (
     <main className="driver-details-page" style={{ padding: 24 }}>
       <Link to="/drivers" className='py-2 px-2.5 rounded-md text-white font-bold border
-             border-red-600 bg-red-600 mb-20'>Terug naar de Drivers</Link>
+             border-red-600 bg-red-600 mb-20 left-0'>Terug</Link>
       <div
         // Centrum de kaart op de pagina en geef het een vaste grootte
         className="max-w-4xl mx-auto" 
