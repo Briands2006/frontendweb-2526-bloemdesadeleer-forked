@@ -5,7 +5,7 @@ import Carrousel from "./../components/ui/Carrousel.jsx";
 import { ArrowRight, Users, Eye } from "lucide-react";
 import { NEWS_ARTICLES } from "../api/news-posts.js";
 
-const F1_IMAGE = "../../f1-frontwing.png";
+const F1_IMAGE = "../../ui/f1-frontwing.png";
 
 const parseDate = (dateString) => { // parst de date da in de API mock data staat, is gewoon voor nu 
   const monthMap = { // gebruik mapping voor nu want alles staat in het nederlands
