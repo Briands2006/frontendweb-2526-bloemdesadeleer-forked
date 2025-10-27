@@ -7,6 +7,13 @@ const slug = (text) => { // zelfde helper functie als bij et nieuws
     .replace(/[\s_-]+/g, "-")
     .replace(/^-+|-+$/g, "");
 };
+// mclaren logo => https://placehold.co/150x80/FF8700/000000?text=McLaren+Logo
+// redbullRacing logo => https://placehold.co/150x80/0A1F67/FFFFFF?text=RBR+Logo
+// ferrari logo => https://placehold.co/150x80/dc0000/FFFFFF?text=Ferrari+Logo
+// mercedes logo => https://placehold.co/150x80/00A99D/000000?text=Merc+Logo
+// AM => https://placehold.co/150x80/00554E/FFFFFF?text=Aston+Logo
+// Haas => https://placehold.co/150x80/FFFFFF/000000?text=Haas+Logo
+// Visa Cash App - Red Bull => https://placehold.co/150x80/081F48/FFFFFF?text=VCARB+Logo
 
 const RAW_TEAMS_DATA = [
   {
@@ -15,8 +22,8 @@ const RAW_TEAMS_DATA = [
     base: "Milton Keynes, UK",
     chief: "Christian Horner",
     championships: 6,
-    logo: "https://placehold.co/150x80/0A1F67/FFFFFF?text=RBR+Logo",
-    car: "https://placehold.co/600x300/0A1F67/FFFFFF?text=Red+Bull+Car",
+    logo: "../../teamLogos/redbull.png",
+    car: "../../teamCars/2025redbullracingcarright.avif",
     info: "Red Bull Racing is een van de meest succesvolle teams van de afgelopen tien jaar, bekend om zijn agressieve designfilosofie onder leiding van Adrian Newey.",
     primaryColor: "#3671C6",
   },
@@ -26,8 +33,8 @@ const RAW_TEAMS_DATA = [
     base: "Maranello, Italy",
     chief: "Frédéric Vasseur",
     championships: 16,
-    logo: "https://placehold.co/150x80/dc0000/FFFFFF?text=Ferrari+Logo",
-    car: "https://placehold.co/600x300/dc0000/FFFFFF?text=Ferrari+Car",
+    logo: "../../teamLogos/ferrari.png",
+    car: "../../teamCars/2025ferraricarright.avif",
     info: "Het oudste en meest succesvolle team in de geschiedenis van de Formule 1. Ferrari staat synoniem voor de sport.",
     primaryColor: "#DC0000",
   },
@@ -37,8 +44,8 @@ const RAW_TEAMS_DATA = [
     base: "Brackley, UK",
     chief: "Toto Wolff",
     championships: 8,
-    logo: "https://placehold.co/150x80/00A99D/000000?text=Merc+Logo",
-    car: "https://placehold.co/600x300/00A99D/000000?text=Mercedes+Car",
+    logo: "../../teamLogos/mercedes.png",
+    car: "../../teamCars/2025mercedescarright.avif",
     info: "Mercedes domineerde het hybridetijdperk van 2014 tot 2021. Ze staan bekend om hun technische uitmuntendheid en teammanagement.",
     primaryColor: "#00A99D",
   },
@@ -48,8 +55,8 @@ const RAW_TEAMS_DATA = [
     base: "Woking, UK",
     chief: "Andrea Stella",
     championships: 8,
-    logo: "https://placehold.co/150x80/FF8700/000000?text=McLaren+Logo",
-    car: "https://placehold.co/600x300/FF8700/000000?text=McLaren+Car",
+    logo: "../../teamLogos/mclaren.png",
+    car: "../../teamCars/2025mclarencarright.avif",
     info: "McLaren is een historisch team dat bekend staat om zijn papaja-oranje kleurstelling en ambitie om terug te keren naar de top.",
     primaryColor: "#FF8700",
   },
@@ -59,8 +66,8 @@ const RAW_TEAMS_DATA = [
     base: "Silverstone, UK",
     chief: "Mike Krack",
     championships: 0,
-    logo: "https://placehold.co/150x80/00554E/FFFFFF?text=Aston+Logo",
-    car: "https://placehold.co/600x300/00554E/FFFFFF?text=Aston+Car",
+    logo: "../../teamLogos/aston-martin.png",
+    car: "../../teamCars/2025astonmartincarright.avif",
     info: "Het iconische Britse merk streeft ernaar een topteam te worden met aanzienlijke investeringen en ambitieuze doelen.",
     primaryColor: "#006F62",
   },
@@ -70,8 +77,8 @@ const RAW_TEAMS_DATA = [
     base: "Enstone, UK",
     chief: "Bruno Famin",
     championships: 2,
-    logo: "https://placehold.co/150x80/FF80D4/FFFFFF?text=Alpine+Logo",
-    car: "https://placehold.co/600x300/FF80D4/FFFFFF?text=Alpine+Car",
+    logo: "../../teamLogos/alpine.png",
+    car: "../../teamCars/2025alpinecarright.avif",
     info: "Het Franse fabrieksteam met sterke banden met Renault. Bekend om hun opvallende blauw-roze livery.",
     primaryColor: "#0090FF",
   },
@@ -81,10 +88,10 @@ const RAW_TEAMS_DATA = [
     base: "Grove, UK",
     chief: "James Vowles",
     championships: 9,
-    logo: "https://placehold.co/150x80/005A8D/FFFFFF?text=Williams+Logo",
-    car: "https://placehold.co/600x300/005A8D/FFFFFF?text=Williams+Car",
+    logo: "../../teamLogos/williams.png",
+    car: "../../teamCars/2025williamscarright.avif",
     info: "Een van de meest succesvolle teams in de F1-geschiedenis, nu gericht op een heropleving onder nieuw leiderschap.",
-    primaryColor: "#005A8D",
+    primaryColor: "#00a1df",
   },
   {
     id: 8,
@@ -92,8 +99,8 @@ const RAW_TEAMS_DATA = [
     base: "Hinwil, Switzerland",
     chief: "Alessandro Alunni Bravi",
     championships: 0,
-    logo: "https://placehold.co/150x80/00E07A/000000?text=Sauber+Logo",
-    car: "https://placehold.co/600x300/00E07A/000000?text=Sauber+Car",
+    logo: "../../teamLogos/kick.webp",
+    car: "../../teamCars/2025kicksaubercarright.avif",
     info: "Het Zwitserse team, bekend als Alfa Romeo, opereert nu als Kick Sauber in afwachting van de overname door Audi.",
     primaryColor: "#00E07A",
   },
@@ -103,8 +110,8 @@ const RAW_TEAMS_DATA = [
     base: "Kannapolis, US",
     chief: "Ayao Komatsu",
     championships: 0,
-    logo: "https://placehold.co/150x80/FFFFFF/000000?text=Haas+Logo",
-    car: "https://placehold.co/600x300/808080/FFFFFF?text=Haas+Car",
+    logo: "../../teamLogos/haas.webp",
+    car: "../../teamCars/2025haasf1teamcarright.avif",
     info: "Het Amerikaanse team, opgericht door Gene Haas, richt zich op consistentie en maximale efficiëntie.",
     primaryColor: "#B6BABD",
   },
@@ -114,8 +121,8 @@ const RAW_TEAMS_DATA = [
     base: "Faenza, Italy",
     chief: "Laurent Mekies",
     championships: 0,
-    logo: "https://placehold.co/150x80/081F48/FFFFFF?text=VCARB+Logo",
-    car: "https://placehold.co/600x300/081F48/FFFFFF?text=VCARB+Car",
+    logo: "../../teamLogos/visa-rb.png",
+    car: "../../teamCars/2025racingbullscarright.avif",
     info: "Het zusterteam van Red Bull Racing, gericht op het ontwikkelen van jong talent. Voorheen bekend als AlphaTauri en Toro Rosso.",
     primaryColor: "#4B92DB",
   },
@@ -132,15 +139,15 @@ export const DRIVERS = [
     name: "Max Verstappen",
     team: "Red Bull Racing",
     number: 33,
-    photo: "https://placehold.co/100x100/3671C6/FFFFFF?text=MV",
+    photo: "../../driverHeadshots/max-verstappen.jpg",
     country: "NL",
   },
   {
     id: 2,
     name: "Yuki Tsunoda",
-    team: "Visa Cash App Racing Bulls",
+    team: "Red Bull Racing",
     number: 22,
-    photo: "https://placehold.co/100x100/4B92DB/FFFFFF?text=YT",
+    photo: "../../driverHeadshots/yuki-tsunoda.jpg",
     country: "JP",
   },
   {
@@ -148,7 +155,7 @@ export const DRIVERS = [
     name: "Lewis Hamilton",
     team: "Scuderia Ferrari",
     number: 44,
-    photo: "https://placehold.co/100x100/DC0000/FFFFFF?text=LH",
+    photo: "../../driverHeadshots/lewis-hamilton.png",
     country: "GB",
   },
   {
@@ -156,7 +163,7 @@ export const DRIVERS = [
     name: "Charles Leclerc",
     team: "Scuderia Ferrari",
     number: 16,
-    photo: "https://placehold.co/100x100/DC0000/FFFFFF?text=CL",
+    photo: "../../driverHeadshots/charles-leclerc.png",
     country: "MC",
   },
   {
@@ -164,7 +171,7 @@ export const DRIVERS = [
     name: "Lando Norris",
     team: "McLaren F1 Team",
     number: 4,
-    photo: "https://placehold.co/100x100/FF8700/000000?text=LN",
+    photo: "../../driverHeadshots/lando-norris.png",
     country: "GB",
   },
   {
@@ -172,7 +179,7 @@ export const DRIVERS = [
     name: "Oscar Piastri",
     team: "McLaren F1 Team",
     number: 81,
-    photo: "https://placehold.co/100x100/FF8700/000000?text=OP",
+    photo: "../../driverHeadshots/oscar-piastri.png",
     country: "AU",
   },
   {
@@ -180,7 +187,7 @@ export const DRIVERS = [
     name: "George Russell",
     team: "Mercedes-AMG Petronas",
     number: 63,
-    photo: "https://placehold.co/100x100/00A99D/000000?text=GR",
+    photo: "../../driverHeadshots/george-russel.png",
     country: "GB",
   },
   {
@@ -188,7 +195,7 @@ export const DRIVERS = [
     name: "Kimi Antonelli",
     team: "Mercedes-AMG Petronas",
     number: 12,
-    photo: "https://placehold.co/100x100/00A99D/000000?text=KA",
+    photo: "../../driverHeadshots/kimi-antonelli.png",
     country: "IT",
   },
   {
@@ -196,7 +203,7 @@ export const DRIVERS = [
     name: "Fernando Alonso",
     team: "Aston Martin Aramco F1",
     number: 14,
-    photo: "https://placehold.co/100x100/006F62/FFFFFF?text=FA",
+    photo: "../../driverHeadshots/fernando-alonso.png",
     country: "ES",
   },
   {
@@ -204,7 +211,7 @@ export const DRIVERS = [
     name: "Lance Stroll",
     team: "Aston Martin Aramco F1",
     number: 18,
-    photo: "https://placehold.co/100x100/006F62/FFFFFF?text=LS",
+    photo: "../../driverHeadshots/lance-stroll.png",
     country: "CA",
   },
   {
@@ -212,7 +219,7 @@ export const DRIVERS = [
     name: "Pierre Gasly",
     team: "BWT Alpine F1 Team",
     number: 10,
-    photo: "https://placehold.co/100x100/0090FF/FFFFFF?text=PG",
+    photo: "../../driverHeadshots/pierre-gasly.png",
     country: "FR",
   },
   {
@@ -220,7 +227,7 @@ export const DRIVERS = [
     name: "Franco Colapinto",
     team: "BWT Alpine F1 Team",
     number: 7,
-    photo: "https://placehold.co/100x100/0090FF/FFFFFF?text=FC",
+    photo: "../../driverHeadshots/franco-calopinto.webp",
     country: "AR",
   },
   {
@@ -228,7 +235,7 @@ export const DRIVERS = [
     name: "Alex Albon",
     team: "Williams Racing",
     number: 23,
-    photo: "https://placehold.co/100x100/005A8D/FFFFFF?text=AA",
+    photo: "../../driverHeadshots/alexander-albon.png",
     country: "TH",
   },
   {
@@ -236,7 +243,7 @@ export const DRIVERS = [
     name: "Carlos Sainz",
     team: "Williams Racing",
     number: 55,
-    photo: "https://placehold.co/100x100/005A8D/FFFFFF?text=CS",
+    photo: "../../driverHeadshots/carlos-sainz.jpeg",
     country: "ES",
   },
   {
@@ -244,7 +251,7 @@ export const DRIVERS = [
     name: "Nico Hülkenberg",
     team: "Kick Sauber F1 Team",
     number: 27,
-    photo: "https://placehold.co/100x100/00E07A/000000?text=NH",
+    photo: "../../driverHeadshots/nico-hulkenberg.png",
     country: "DE",
   },
   {
@@ -252,7 +259,7 @@ export const DRIVERS = [
     name: "Gabriel Bortoleto",
     team: "Kick Sauber F1 Team",
     number: 5,
-    photo: "https://placehold.co/100x100/00E07A/000000?text=GB",
+    photo: "../../driverHeadshots/gabriel-bortoleto.png",
     country: "BR",
   },
   {
@@ -260,7 +267,7 @@ export const DRIVERS = [
     name: "Oliver Bearman",
     team: "Haas F1 Team",
     number: 77,
-    photo: "https://placehold.co/100x100/B6BABD/000000?text=OB",
+    photo: "../../driverHeadshots/oliver-bearman.png",
     country: "GB",
   },
   {
@@ -268,7 +275,7 @@ export const DRIVERS = [
     name: "Esteban Ocon",
     team: "Haas F1 Team",
     number: 31,
-    photo: "https://placehold.co/100x100/B6BABD/000000?text=EO",
+    photo: "../../driverHeadshots/esteban-ocon.png",
     country: "FR",
   },
   {
@@ -276,7 +283,7 @@ export const DRIVERS = [
     name: "Liam Lawson",
     team: "Visa Cash App Racing Bulls",
     number: 30,
-    photo: "https://placehold.co/100x100/4B92DB/FFFFFF?text=LL",
+    photo: "../../driverHeadshots/liam-lawson.png",
     country: "NZ",
   },
   {
@@ -284,7 +291,7 @@ export const DRIVERS = [
     name: "Isack Hadjar",
     team: "Visa Cash App Racing Bulls",
     number: 6,
-    photo: "https://placehold.co/100x100/4B92DB/FFFFFF?text=IH",
+    photo: "../../driverHeadshots/isack-hadjar.png",
     country: "FR",
   },
 ];

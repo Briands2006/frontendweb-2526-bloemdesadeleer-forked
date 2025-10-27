@@ -17,13 +17,15 @@ const navLinks = [
 export default function Navbar() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) =>
+    location.pathname.startsWith(path) &&
+    (location.pathname.length === path.length ||
+      location.pathname[path.length] === "/");
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-content">
-          {/* LOGO */}
           <Link to="/" className="navbar-logo-link group">
             <div className="logo-icon-wrapper">
               <span className="logo-text-icon">F1</span>

@@ -1,15 +1,19 @@
-import React from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import {
   getTeamBySlug,
   getDriversByTeamName,
-//   slug,
+  //   slug,
 } from "../../api/mock-data.js";
 
 export const TeamDetail = () => {
   const { teamSlug } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   console.log("URL teamSlug:", teamSlug);
 
