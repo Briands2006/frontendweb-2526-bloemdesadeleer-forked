@@ -12,27 +12,35 @@
 //   );
     
 // }
-export default function Tracks() {
+export default function TrackCard({
+  name,
+  photo,
+  length,
+  location,
+  laps,
+  fastestLap,
+}) {
   return (
     <div className='grid grid-cols-2'>
       <div className='bg-gray-800 rounded-2xl h-auto flex flex-col p-4'> 
-        <img className='h-50 object-cover rounded-2xl' src="src/test" alt="test" />
+        <img className='h-50 object-cover rounded-2xl' src={photo} alt={name} />
       
-        <h1 className='text-white text-5xl mt-4 mb-2'>Circuit Name</h1>
+        <h1 className='text-white text-5xl mt-4 mb-2'>{name}</h1>
 
         <div className='grid grid-cols-2 gap-x-4 gap-y-1 text-white'>
         
           <p className='text-lg'>Circuit lengte</p> 
-          <p className='text-lg text-right'>??</p> 
+          <p className='text-lg text-right'>{length}</p> 
           
           <p className='text-lg'>Locatie</p>
-          <p className='text-lg text-right'>??</p>
+          <p className='text-lg text-right'>{location}</p>
           
           <p className='text-lg'>Aantal Rondes</p>
-          <p className='text-lg text-right'>??</p>
+          <p className='text-lg text-right'>{laps}</p>
           
           <p className='text-lg'>Snelste rondetijd</p>
-          <p className='text-lg text-right'>??</p>
+          <p className='text-lg text-right'>{fastestLap}</p>
+          <p className='text-lg text-right'>{fastestLap}</p>
         </div>
         <img className="hidden" src="src/test" alt="test" />
       </div>
