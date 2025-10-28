@@ -15,7 +15,7 @@ import { NewsDetail } from "./pages/detail/NewsDetail.jsx";
 import { About } from "./pages/About.jsx";
 import { Teams } from "./pages/Teams.jsx";
 import { TeamDetail } from "./pages/detail/TeamDetail.jsx";
-import DriverDetails from "./pages/DriverDetails.jsx";
+import { DriverDetails } from "./pages/detail/DriverDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         Component: Tracks,
       },
       {
-        path:"drivers/:driverName",
+        path: "drivers/:driverName",
         Component: DriverDetails,
       },
       {
@@ -71,7 +71,9 @@ const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <h1 className="text-white tetx-3xl font-bold">Register Page</h1>,
+        element: (
+          <h1 className="text-white tetx-3xl font-bold">Register Page</h1>
+        ),
       },
       {
         path: "*",

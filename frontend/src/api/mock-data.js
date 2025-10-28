@@ -148,7 +148,7 @@ export const RAW_DRIVERS_DATA = [
     name: "Yuki Tsunoda",
     team: "Red Bull Racing",
     number: 22,
-    photo: "../../driverHeadshots/yuki-tsunoda.jpg",
+    photo: "../../driverHeadshots/yuki-tsunoda.webp",
     country: "JP",
   },
   {

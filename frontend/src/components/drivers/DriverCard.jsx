@@ -1,4 +1,5 @@
 import React from "react";
+import Flags from "country-flag-icons/react/3x2";
 
 export default function DriverCard({
   name,
@@ -8,6 +9,8 @@ export default function DriverCard({
   country,
   onClick, // custom onClick handler moet doorgegeven worden
 }) {
+  const Flag = Flags[country];
+
   return (
     <div
       onClick={onClick}
@@ -42,7 +45,7 @@ export default function DriverCard({
         <p className="text-sm font-semibold col-span-1 text-gray-400">
           Country
         </p>
-        <p className="text-sm text-right pr-3 col-span-1">{country}</p>
+        <p className="text-sm text-right pr-3 col-span-1"><Flag className="w-10 ml-auto"/></p>
       </div>
     </div>
   );

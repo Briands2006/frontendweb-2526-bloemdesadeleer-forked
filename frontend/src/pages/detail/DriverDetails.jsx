@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
-import { DRIVERS, getDriverBySlug } from "../api/mock-data";
+import { getDriverBySlug } from "../../api/mock-data";
 
-const DriverDetails = () => {
+export const DriverDetails = () => {
   const { driverName } = useParams();
 
   if (!driverName) {
@@ -88,5 +88,3 @@ const DriverDetails = () => {
     </main>
   );
 };
-
-export default DriverDetails;
