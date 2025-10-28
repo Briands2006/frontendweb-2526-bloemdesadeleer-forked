@@ -1,4 +1,5 @@
-const slug = (text) => { // zelfde helper functie als bij et nieuws
+const slug = (text) => {
+  // zelfde helper functie als bij et nieuws
   return text
     .toString()
     .toLowerCase()
@@ -133,7 +134,7 @@ export const TEAMS = RAW_TEAMS_DATA.map((team) => ({
   slug: slug(team.name),
 }));
 
-export const DRIVERS = [
+export const RAW_DRIVERS_DATA = [
   {
     id: 1,
     name: "Max Verstappen",
@@ -296,12 +297,21 @@ export const DRIVERS = [
   },
 ];
 
+export const DRIVERS = RAW_DRIVERS_DATA.map((driver) => ({
+  ...driver,
+  slug: slug(driver.name),
+}));
+
 export const getTeamBySlug = (slugValue) => {
   return TEAMS.find((team) => team.slug === slugValue);
 };
 
 export const getDriversByTeamName = (teamName) => {
   return DRIVERS.filter((driver) => driver.team === teamName);
+};
+
+export const getDriverBySlug = (slugValue) => {
+  return DRIVERS.find((d) => d.slug === slugValue);
 };
 
 export { slug };
