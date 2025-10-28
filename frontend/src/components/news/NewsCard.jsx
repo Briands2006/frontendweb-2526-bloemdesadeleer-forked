@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-export const NewsCard = ({ post }) => {
+export const NewsCard = ({ post, onClick }) => {
   return (
     <div
+      onClick={onClick}
       className="bg-gray-900 rounded-xl border border-gray-800 hover:border-red-600
-     transition-all overflow-hidden shadow-xl"
+     transition-all overflow-hidden shadow-xl cursor-pointer"
     >
       <img
         src={post.imageUrl}

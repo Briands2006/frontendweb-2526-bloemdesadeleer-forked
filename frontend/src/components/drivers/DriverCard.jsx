@@ -45,7 +45,7 @@ export default function DriverCard({
         <p className="text-sm font-semibold col-span-1 text-gray-400">
           Country
         </p>
-        <p className="text-sm text-right pr-3 col-span-1"><Flag className="w-10 ml-auto"/></p>
+        <p className="text-sm text-right pr-3 col-span-1"><Flag className="w-10 ml-auto rounded"/></p>
       </div>
     </div>
   );

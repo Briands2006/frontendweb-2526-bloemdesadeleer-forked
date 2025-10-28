@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import {
   getTeamBySlug,
   getDriversByTeamName,
-  //   slug,
+  slug,
 } from "../../api/mock-data.js";
 
 export const TeamDetail = () => {
@@ -22,9 +22,9 @@ export const TeamDetail = () => {
   const drivers = team ? getDriversByTeamName(team.name) : [];
   // get alle drivers voor dat team en steek ze in een array
 
-  const handleDriverClick = () => {
-    // const driverSlug = slug(driverName);
-    navigate("/drivers");
+  const handleDriverClick = (driverName) => {
+    const driverSlug = slug(driverName);
+    navigate(`/drivers/${driverSlug}`);
   };
 
   if (!team) {

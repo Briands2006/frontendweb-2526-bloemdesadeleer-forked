@@ -295,6 +295,14 @@ export const RAW_DRIVERS_DATA = [
     photo: "../../driverHeadshots/isack-hadjar.png",
     country: "FR",
   },
+  {
+    id: 21,
+    name: "Dit is Tijl",
+    team: "Nonexistent",
+    number: -1,
+    photo: "../../driverHeadshots/isack-hadjar.png",
+    country: "AE",
+  },
 ];
 
 export const DRIVERS = RAW_DRIVERS_DATA.map((driver) => ({

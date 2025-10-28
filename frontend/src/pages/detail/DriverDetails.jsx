@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { getDriverBySlug } from "../../api/mock-data";
+import Flags from "country-flag-icons/react/3x2";
 
 export const DriverDetails = () => {
   const { driverName } = useParams();
@@ -25,6 +26,7 @@ export const DriverDetails = () => {
   }
 
   const { name, team, number, photo, country } = foundDriver;
+  const Flag = Flags[country];
 
   return (
     <main className="driver-details-page" style={{ padding: 24 }}>
@@ -73,7 +75,7 @@ export const DriverDetails = () => {
             <p className="text-base font-semibold col-span-1 text-gray-400">
               Country
             </p>
-            <p className="text-xl text-right pr-3 col-span-1">{country}</p>
+            <p className="text-xl text-right pr-3 col-span-1"><Flag className="w-10 ml-auto rounded"/></p>
           </div>
         </div>
       </div>
