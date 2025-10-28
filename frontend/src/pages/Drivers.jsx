@@ -2,6 +2,7 @@
 import { useNavigate} from  "react-router-dom";
 import DriverCard from "../components/drivers/DriverCard.jsx";
 import { DRIVERS, slug } from "../api/mock-data.js"; // component moet nog aangepast worden :)
+import { DRIVERS, slug } from "../api/mock-data.js"; // component moet nog aangepast worden :)
 import "./Drivers.css";
 
 const Drivers = () => {
@@ -11,6 +12,8 @@ const Drivers = () => {
   const navigate = useNavigate();
 
   const handleDriverClick = (driver) => {
+    const driverName =  slug(driver.name);
+    navigate(`/drivers/${driverName}`);
     const driverName =  slug(driver.name);
     navigate(`/drivers/${driverName}`);
   };
