@@ -1,9 +1,45 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserPlus, Mail, Lock, User, AlertTriangle } from "lucide-react";
+import {
+  UserPlus,
+  Mail,
+  Lock,
+  User,
+  AlertTriangle,
+  XCircle,
+  CheckCircle,
+} from "lucide-react";
 import { useAuth } from "../../hooks/useAuth.js";
 
+const calculatePassStrength = (pass) => {
+  const checks = [
+    { regex: /.{6,}/, message: "Minimaal 6 tekens" },
+    { regex: /[A-Z]/, message: "Minimaal 1 hoofdletter" },
+    { regex: /[a-z]/, message: "Minimaal 1 kleine letter" },
+    { regex: /[0-9]/, message: "Minimaal 1 cijfer" },
+    { regex: /[^A-Za-z0-9]/, message: "Minimaal 1 speciaal teken" },
+  ];
+
+  let passScore = 0;
+  const failedChecks = [];
+  let checksPassed = 0;
+
+  checks.forEach((check) => {
+    if (check.regex.test(pass)) {
+      passScore += 20; // want hij bestaat uit 5 checks
+      checksPassed++; // deze omhoog als een check is gepasseerd, zodat de button enabled als alle checks zijn voldaan
+    } else {
+      failedChecks.push(check.message);
+    }
+  });
+
+  return { passScore, failedChecks, isStrong: checksPassed === checks.length };
+};
+
 export const Register = () => {
+  const MIN_LENGTH = 6;
+  const NAME_MAX_LENGTH = 20;
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,14 +47,35 @@ export const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { register } = useAuth();
+  const strength = useMemo(() => calculatePassStrength(password), [password]); // 2e is om bij elke wijziging te checken
+
+  const handleStrengthColor = (score) => {
+    if (score < 40) return "bg-red-500";
+    if (score < 80) return "bg-yellow-500";
+    return "bg-green-500";
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    if (password.length < 6) {
+    if (!strength.isStrong) {
+      setError("Wachtwoord voldoet niet aan alle vereisten.");
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < MIN_LENGTH) {
       setError("Wachtwoord moet minstens 6 tekens lang zijn.");
+      setLoading(false);
+      return;
+    }
+
+    if (name.length > NAME_MAX_LENGTH) {
+      setError(
+        `Gebruikersnaam mag niet langer zijn dan ${NAME_MAX_LENGTH} tekens.`,
+      );
       setLoading(false);
       return;
     }
@@ -44,8 +101,10 @@ export const Register = () => {
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 p-3 mb-4 text-sm text-red-300
-           bg-red-900 border border-red-700 rounded-lg">
+          <div
+            className="flex items-center gap-2 p-3 mb-4 text-sm text-red-300
+           bg-red-900 border border-red-700 rounded-lg"
+          >
             <AlertTriangle className="w-4 h-4" />
             <span>{error}</span>
           </div>
@@ -100,14 +159,53 @@ export const Register = () => {
                 required
                 className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700
                  rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"
-                placeholder="Min. 6 tekens"
+                placeholder="Min. 6 tekens, hoofdletter, cijfer, speciaal teken"
               />
             </div>
           </div>
 
+          {password.length > 0 && (
+            <div className="w-full mt-1">
+              <div className="h-2 rounded-full bg-gray-700 overflow-hidden">
+                <div
+                  className={`h-full transition-all duration-500 ease-in-out ${handleStrengthColor(
+                    strength.passScore,
+                  )}`}
+                  style={{ width: `${strength.passScore}%` }}
+                ></div>
+              </div>
+              <p className="text-xs mt-1 text-gray-400">
+                Sterkte: {strength.passScore}%
+              </p>
+            </div>
+          )}
+
+          {password.length > 0 && (
+            <div className="text-sm space-y-1 mt-2 p-3 bg-gray-800 rounded-lg border border-gray-700">
+              {calculatePassStrength(password).failedChecks.length > 0 ? (
+                <p className="font-semibold text-red-400">Nog vereist:</p>
+              ) : (
+                <p className="font-semibold text-green-400 flex items-center gap-1">
+                  <CheckCircle className="w-4 h-4" /> Voldoet aan alle
+                  vereisten!
+                </p>
+              )}
+
+              {calculatePassStrength(password).failedChecks.map((message) => (
+                <p
+                  key={message}
+                  className="flex items-center gap-2 text-red-300"
+                >
+                  <XCircle className="w-3 h-3" />
+                  {message}
+                </p>
+              ))}
+            </div>
+          )}
+
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !strength.isStrong || !email || !password}
             className="w-full inline-flex items-center justify-center gap-2 bg-red-600
              text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50 mt-4"
           >
