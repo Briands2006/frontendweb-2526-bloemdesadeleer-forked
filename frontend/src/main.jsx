@@ -24,6 +24,7 @@ import { Profile } from "./pages/Profile.jsx";
 import { PrivateRoute } from "./pages/routes/PrivateRoute.jsx";
 import { AdminRoute } from "./pages/routes/AdminRoute.jsx";
 import { AdminDashboard } from "./pages/misc/Admin.jsx";
+import { TrackDetail } from "./pages/detail/TrackDetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "tracks",
         Component: Tracks,
+      },
+      {
+        path: "tracks/:trackName",
+        Component: TrackDetail,
       },
       {
         path: "drivers/:driverName",

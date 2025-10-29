@@ -1,33 +1,40 @@
-import { React, useState } from "react";
+//import { React, useState } from "react";
 import TrackCard from "../components/tracks/TrackCard.jsx";
-import { F1_MOCK_TRACKS } from "../api/mock-tracks.js";
+import { F1_MOCK_TRACKS, slug } from "../api/mock-tracks.js";
+import { useNavigate } from "react-router-dom";
+import "./Tracks.css";
 
 const Tracks = () => {
-  const [selectedTrack, setSelectedTrack] = useState(null);
+  // const [selectedTrack, setSelectedTrack] = useState(null);
 
-  const deselectTrack = () => setSelectedTrack(null);
+  // const deselectTrack = () => setSelectedTrack(null);
+  const navigate = useNavigate();
+  const handleTrackClick = (track) => {
+    const trackName =  slug(track.name);
+    navigate(`/tracks/${trackName}`);
+  };
 
   return (
-    <main className="drivers-page" style={{ padding: 24 }}>
-      <h1 className="text-5xl font-extrabold pb-4">F1 Drivers 2025</h1>
-      <p className="mb-8">The F1 drivers for the 2025 season</p>
-      <div className="drivers-grid">
+    <main className="track-page" style={{ padding: 24 }}>
+      <h1 className="text-5xl font-extrabold pb-4">F1 Tracks 2025</h1>
+      <p className="mb-8">Tracks 2025 season</p>
+      <div className="track-grid">
         {F1_MOCK_TRACKS.map((t, index) => (
           <TrackCard
             key={index}
             name={t.name}
             photo={t.photo}
-            length={t.length}
+            length_km={t.length_km}
             location={t.location}
             laps={t.laps}
-            fastestLap={t.fastestLap}
+            fastest_lap={t.fastest_lap}
             onClick={() => {
-              setSelectedTrack(t);
+              handleTrackClick(t);
             }}
           />
         ))}
       </div>
-      {selectedTrack && (
+      {/* {selectedTrack && (
         <div
           onClick={deselectTrack}
           className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn"
@@ -72,7 +79,9 @@ const Tracks = () => {
             </button>
           </div>
         </div>
-      )}
+      </main>
+      )}*/}
+
     </main>
   );
 };

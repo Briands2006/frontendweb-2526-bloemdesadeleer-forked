@@ -1,0 +1,12 @@
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (min-width: 768px) {
+  .track-grid {
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+  }
+}

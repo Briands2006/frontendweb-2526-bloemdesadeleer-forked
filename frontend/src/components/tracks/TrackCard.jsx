@@ -15,14 +15,15 @@
 export default function TrackCard({
   name,
   photo,
-  length,
+  length_km,
   location,
   laps,
-  fastestLap,
+  fastest_lap,
+  onClick,
 }) {
   return (
     <div className='grid grid-cols-2'>
-      <div className='bg-gray-800 rounded-2xl h-auto flex flex-col p-4'> 
+      <div className='bg-gray-800 rounded-2xl h-auto flex flex-col p-4' onClick={onClick}> 
         <img className='h-50 object-cover rounded-2xl' src={photo} alt={name} />
       
         <h1 className='text-white text-5xl mt-4 mb-2'>{name}</h1>
@@ -30,7 +31,7 @@ export default function TrackCard({
         <div className='grid grid-cols-2 gap-x-4 gap-y-1 text-white'>
         
           <p className='text-lg'>Circuit lengte</p> 
-          <p className='text-lg text-right'>{length}</p> 
+          <p className='text-lg text-right'>{length_km}</p> 
           
           <p className='text-lg'>Locatie</p>
           <p className='text-lg text-right'>{location}</p>
@@ -39,8 +40,10 @@ export default function TrackCard({
           <p className='text-lg text-right'>{laps}</p>
           
           <p className='text-lg'>Snelste rondetijd</p>
-          <p className='text-lg text-right'>{fastestLap}</p>
-          <p className='text-lg text-right'>{fastestLap}</p>
+          <p className='text-lg text-right'>{fastest_lap.time}</p>
+          <p className='text-lg text-right'>{fastest_lap.driver}</p>
+          <p className='text-lg text-right'>{fastest_lap.year}</p>
+
         </div>
         <img className="hidden" src="src/test" alt="test" />
       </div>

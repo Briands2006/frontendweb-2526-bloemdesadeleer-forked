@@ -1,3 +1,14 @@
+const slug = (text) => {
+  // zelfde helper functie als bij et nieuws
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
 export const F1_MOCK_TRACKS = [
   {
     name: "Bahrain International Circuit",
@@ -172,3 +183,9 @@ export const F1_MOCK_TRACKS = [
     fastest_lap: { time: "1:26.103", driver: "Max Verstappen", year: 2021 },
   },
 ];
+
+export const getTrackBySlug = (slugValue) => {
+  return F1_MOCK_TRACKS.find((t) => slug(t.name) === slugValue);
+};
+
+export { slug };
