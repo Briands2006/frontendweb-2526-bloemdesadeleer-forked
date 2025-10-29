@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import { AuthProvider } from "./context/auth.context.jsx";
+
 import Layout from "./Layout.jsx";
 import { Home } from "./pages/Home.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
@@ -16,6 +18,12 @@ import { About } from "./pages/About.jsx";
 import { Teams } from "./pages/Teams.jsx";
 import { TeamDetail } from "./pages/detail/TeamDetail.jsx";
 import { DriverDetails } from "./pages/detail/DriverDetails.jsx";
+import { Login } from "./pages/auth/Login.jsx";
+import { Register } from "./pages/auth/Register.jsx";
+import { Profile } from "./pages/Profile.jsx";
+import { PrivateRoute } from "./pages/routes/PrivateRoute.jsx";
+import { AdminRoute } from "./pages/routes/AdminRoute.jsx";
+import { AdminDashboard } from "./pages/misc/Admin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path: "news/:id",
-        Component: NewsDetail, // Voor individuele nieuwsartikelen word nog veranderd :)
+        Component: NewsDetail,
       },
       {
         path: "about",
@@ -67,12 +75,26 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <h1 className="text-white text-3xl font-bold">Login Page</h1>,
+        Component: Login,
       },
       {
         path: "register",
+        Component: Register,
+      },
+      {
+        path: "profile",
         element: (
-          <h1 className="text-white tetx-3xl font-bold">Register Page</h1>
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin-dashboard",
+        element: (
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
         ),
       },
       {
@@ -85,6 +107,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 );
