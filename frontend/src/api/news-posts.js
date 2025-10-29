@@ -1,4 +1,4 @@
-// generated with AI tool, purely because im too lazy to write dummy content myself :
+// generated with AI tool, purely because im too lazy to write dummy content myself :)
 
 const slug = (title) => { // moet eig door backend gedaan worden maar voor nu zo
   return title
