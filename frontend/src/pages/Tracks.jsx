@@ -4,6 +4,8 @@ import { F1_MOCK_TRACKS, slug } from "../api/mock-tracks.js";
 import { useNavigate } from "react-router-dom";
 import "./Tracks.css";
 
+// https://cdn.racingnews365.com/Circuits/Australia/_503xAUTO_crop_center-center_none/f1_2024_aus_outline.png?v=1708703688
+
 const Tracks = () => {
   // const [selectedTrack, setSelectedTrack] = useState(null);
 

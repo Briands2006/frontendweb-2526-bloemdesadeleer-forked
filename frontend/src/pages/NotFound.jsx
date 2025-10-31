@@ -14,7 +14,7 @@ export const NotFoundPage = () => {
   };
 
   return (
-    <div className="min-h-screen text-white flex items-center justify-center p-6 font-sans">
+    <div className="h-full text-white flex items-start justify-center p-5 font-sans">
       <div className="text-center space-y-8 max-w-lg w-full">
         <h1
           className="

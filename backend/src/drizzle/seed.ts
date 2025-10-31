@@ -1,9 +1,7 @@
 import { drizzle } from 'drizzle-orm/mysql2';
 import * as mysql from 'mysql2/promise';
-import * as schema from './schema'; // Zorg ervoor dat dit pad klopt
-import { sql } from 'drizzle-orm';
+import * as schema from './schema';
 
-// Connectie en Drizzle instantie, zoals in je voorbeeld
 const connection = mysql.createPool({
   uri: process.env.DATABASE_URL,
   connectionLimit: 5,

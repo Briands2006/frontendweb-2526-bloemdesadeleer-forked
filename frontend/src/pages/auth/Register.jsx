@@ -91,7 +91,7 @@ export const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent flex flex-col items-center justify-center text-white p-4">
+    <div className="h-full bg-transparent flex flex-col items-center justify-center text-white p-4">
       <div className="w-full max-w-md p-8 bg-gray-900 rounded-xl border border-gray-800 shadow-xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">
