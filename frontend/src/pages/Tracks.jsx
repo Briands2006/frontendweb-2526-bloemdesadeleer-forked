@@ -8,7 +8,7 @@ import "./Tracks.css";
 const BASE_URL_TRACKS = "https://cdn.racingnews365.com/Circuits";
 // Dit is het constante deel voor grootte en cropping.
 const CONSTANT_IMAGE_PART = "/_503xAUTO_crop_center-center_none/f1_2024";
-const VERSION_PARAM = "?v=1708703502";
+const VERSION_PARAM = "?v=1708703580";
 
 // Deze mapping is nodig omdat de URL-mappen en bestandsafkortingen 
 // niet direct uit de naam of locatie kunnen worden afgeleid.
@@ -32,8 +32,8 @@ const TRACK_URL_MAPPING = {
   "baku-city-circuit": { folder: "Azerbaijan", code: "aze" },
   "marina-bay-street-circuit": { folder: "Singapore", code: "sgp" },
   "circuit-of-the-americas-cota": { folder: "United-States", code: "usa" },
-  "autdromo-hermanos-rodrguez": { folder: "Mexico", code: "mex" },
-  "autdromo-jos-carlos-pace-interlagos": { folder: "Brazil", code: "bra" },
+  "autodromo-hermanos-rodriguez": { folder: "Mexico", code: "mex" },
+  "autodromo-jose-carlos-pace-interlagos": { folder: "Brazil", code: "bra" },
   "las-vegas-strip-circuit": { folder: "Las-Vegas", code: "lve" },
   "lusail-international-circuit": { folder: "Qatar", code: "qat" },
   "yas-marina-circuit": { folder: "Abu-Dhabi", code: "abu" },
@@ -58,7 +58,7 @@ const Tracks = () => {
           let imageUrl = null;
 
           if (details) {
-            // Voorbeeld van opbouw voor Albert Park Circuit (Australia):
+            // Voorbeeld: Albert Park Circuit (Australia):
             // https://cdn.racingnews365.com/Circuits/Australia/
             // _639xAUTO_crop_center-center_none/
             // f1_2024_aus_outline.png?v=1708703502
@@ -70,7 +70,7 @@ const Tracks = () => {
             <TrackCard
               key={index}
               name={t.name}
-              photo={imageUrl} // De dynamisch gecreëerde URL
+              photo={imageUrl} 
               length_km={t.length_km}
               location={t.location}
               laps={t.laps}

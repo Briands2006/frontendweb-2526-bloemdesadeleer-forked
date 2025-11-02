@@ -5,6 +5,7 @@ import {
   mysqlTable,
   datetime,
   boolean,
+  primaryKey,
 } from 'drizzle-orm/mysql-core';
 import { relations, sql } from 'drizzle-orm';
 
@@ -44,7 +45,7 @@ export const drivers = mysqlTable('drivers', {
     .notNull(),
 });
 
-export const tracks = mysqlTable('tracks', {
+export const track = mysqlTable('tracks', {
   id: int('id', { unsigned: true }).primaryKey().autoincrement(),
   name: varchar('name', { length: 255 }).notNull(),
   location: varchar('location', { length: 255 }).notNull(),
@@ -67,20 +68,56 @@ export const news = mysqlTable('news', {
   authorId: int('author_id', { unsigned: true }).references(() => users.id, {
     onDelete: 'set null',
   }),
-  trackId: int('track_id', { unsigned: true }).references(() => tracks.id, {
+  trackId: int('track_id', { unsigned: true }).references(() => track.id, {
     onDelete: 'set null',
   }),
 });
+
+export const race = mysqlTable('race', {
+  id: int('id', { unsigned: true }).primaryKey(),
+  date: datetime('date').notNull(),
+  weahter: varchar('weather', { length: 100 }).notNull(),
+  trackRecord: varchar('trackRecord', { length: 50 }),
+  trackId: int('trackId', { unsigned: true })
+    .references(() => track.id, { onDelete: 'set null' })
+    .notNull(),
+  calendarYear: int('calendarYear')
+    .references(() => calendar.year, { onDelete: 'set null' })
+    .notNull(),
+  slug: varchar('slug', { length: 255 }).notNull().unique(),
+});
+
+export const calendar = mysqlTable('calender', {
+  year: int('year', { unsigned: true }).primaryKey(),
+  nrOfRaces: int('nrOfRaces').notNull(),
+});
+
+export const raceResults = mysqlTable(
+  'raceResults',
+  {
+    raceId: int('raceId', { unsigned: true })
+      .references(() => race.id, { onDelete: 'cascade' })
+      .notNull(),
+    driverId: int('driverId', { unsigned: true })
+      .references(() => drivers.id, { onDelete: 'cascade' })
+      .notNull(),
+    position: int('position').notNull(),
+    points: int('points').notNull(),
+    isWinner: boolean('isWinner').notNull().default(false),
+  },
+  (table) => [primaryKey({ columns: [table.raceId, table.driverId] })],
+);
 
 export const teamsRelations = relations(teams, ({ many }) => ({
   drivers: many(drivers),
 }));
 
-export const driversRelations = relations(drivers, ({ one }) => ({
+export const driversRelations = relations(drivers, ({ one, many }) => ({
   team: one(teams, {
     fields: [drivers.teamId],
     references: [teams.id],
   }),
+  raceRelations: many(raceResults),
 }));
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -92,12 +129,40 @@ export const newsRelations = relations(news, ({ one }) => ({
     fields: [news.authorId],
     references: [users.id],
   }),
-  track: one(tracks, {
+  track: one(track, {
     fields: [news.trackId],
-    references: [tracks.id],
+    references: [track.id],
   }),
 }));
 
-export const tracksRelations = relations(tracks, ({ many }) => ({
+export const tracksRelations = relations(track, ({ many }) => ({
   relatedNews: many(news),
+  race: many(race),
+}));
+
+export const raceRelations = relations(race, ({ one, many }) => ({
+  track: one(track, {
+    fields: [race.trackId],
+    references: [track.id],
+  }),
+  calendar: one(calendar, {
+    fields: [race.calendarYear],
+    references: [calendar.year],
+  }),
+  results: many(raceResults),
+}));
+
+export const raceResultRelations = relations(raceResults, ({ one }) => ({
+  race: one(race, {
+    fields: [raceResults.raceId],
+    references: [race.id],
+  }),
+  drivers: one(drivers, {
+    fields: [raceResults.driverId],
+    references: [drivers.id],
+  }),
+}));
+
+export const calendarRelations = relations(calendar, ({ many }) => ({
+  races: many(race),
 }));

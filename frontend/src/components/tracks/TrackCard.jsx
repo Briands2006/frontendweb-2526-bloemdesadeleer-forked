@@ -22,11 +22,24 @@ export default function TrackCard({
   onClick,
 }) {
   return (
-    <div className='grid grid-cols-2'>
+    <div   
+      onClick={onClick}
+      className={[
+        "bg-gray-900",
+        "rounded-2xl",
+        "grid",
+        "auto-cols-auto",
+        "cursor-pointer",
+        "hover:scale-[1.02]",
+        "hover:shadow-xl",
+        "transition-transform",
+        "duration-300",
+        "overflow-hidden",
+      ].join(" ")}>
       <div className='bg-gray-800 rounded-2xl h-auto flex flex-col p-4' onClick={onClick}> 
-        <img className='h-50 object-cover rounded-2xl' src={photo} alt={name} />
+        <img className='h-auto w-auto rounded-l-2xl' src={photo} alt={name} />
       
-        <h1 className='text-white text-5xl mt-4 mb-2'>{name}</h1>
+        <h1 className='text-white text-3xl mt-4 mb-2 font-bold'>{name}</h1>
 
         <div className='grid grid-cols-2 gap-x-4 gap-y-1 text-white'>
         
@@ -41,11 +54,10 @@ export default function TrackCard({
           
           <p className='text-lg'>Snelste rondetijd</p>
           <p className='text-lg text-right'>{fastest_lap.time}</p>
-          <p className='text-lg text-right'>{fastest_lap.driver}</p>
-          <p className='text-lg text-right'>{fastest_lap.year}</p>
+          <p className='text-lg text-right col-span-2'>{fastest_lap.driver}</p>
+          <p className='text-lg text-right col-span-2'>{fastest_lap.year}</p>
 
         </div>
-        <img className="hidden" src="src/test" alt="test" />
       </div>
     </div>
   );
