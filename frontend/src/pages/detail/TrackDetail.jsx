@@ -1,6 +1,39 @@
 import { useParams,Link } from "react-router-dom";
 import { getTrackBySlug } from "../../api/mock-tracks";
 
+// constants
+const BASE_URL_TRACKS = "https://cdn.racingnews365.com/Circuits";
+const CONSTANT_IMAGE_PART = "/_503xAUTO_crop_center-center_none/f1_2024";
+const VERSION_PARAM = "?v=1708703502";
+
+// mapping
+const TRACK_URL_MAPPING = {
+  "bahrain-international-circuit": { folder: "Bahrain", code: "bhr" },
+  "jeddah-corniche-circuit": { folder: "Saudi-Arabia", code: "sau" },
+  "albert-park-circuit": { folder: "Australia", code: "aus" },
+  "suzuka-international-racing-course": { folder: "Japan", code: "jap" },
+  "shanghai-international-circuit": { folder: "China", code: "chn" },
+  "miami-international-autodrome": { folder: "Miami", code: "mia" },
+  "autodromo-enzo-e-dino-ferrari-imola": { folder: "Italy", code: "ita" },
+  "circuit-de-monaco": { folder: "Monaco", code: "mco" },
+  "circuit-de-barcelona-catalunya": { folder: "Spain", code: "spn" },
+  "circuit-gilles-villeneuve": { folder: "Canada", code: "can" },
+  "red-bull-ring": { folder: "Austria", code: "aut" },
+  "silverstone-circuit": { folder: "Great-Britain", code: "gbr" },
+  "hungaroring": { folder: "Hungary", code: "hun" },
+  "circuit-de-spa-francorchamps": { folder: "Belgium", code: "bel" },
+  "circuit-zandvoort": { folder: "The-Netherlands", code: "nld" },
+  "autodromo-nazionale-monza": { folder: "Italy", code: "ita" },
+  "baku-city-circuit": { folder: "Azerbaijan", code: "aze" },
+  "marina-bay-street-circuit": { folder: "Singapore", code: "sgp" },
+  "circuit-of-the-americas-cota": { folder: "United-States", code: "usa" },
+  "autdromo-hermanos-rodrguez": { folder: "Mexico", code: "mex" },
+  "autdromo-jos-carlos-pace-interlagos": { folder: "Brazil", code: "bra" },
+  "las-vegas-strip-circuit": { folder: "Las-Vegas", code: "lve" },
+  "lusail-international-circuit": { folder: "Qatar", code: "qat" },
+  "yas-marina-circuit": { folder: "Abu-Dhabi", code: "abu" },
+};
+
 export const TrackDetail = () => {
   const {trackName} = useParams();
     
@@ -24,7 +57,17 @@ export const TrackDetail = () => {
     );
   }
 
-  const {name, photo, location, length_km, laps, fastest_lap} = foundTrack;
+  const details = TRACK_URL_MAPPING[trackName];
+  let imageUrl = null;
+
+  if (details) {
+    const imagePath = `${details.folder}${CONSTANT_IMAGE_PART}_${details.code}_outline.png`;
+    imageUrl = `${BASE_URL_TRACKS}/${imagePath}${VERSION_PARAM}`;
+  }
+  
+  const photoUrl = imageUrl || foundTrack.photo || "fallback-image-url.png";
+
+  const {name, location, length_km, laps, fastest_lap} = foundTrack;
 
   return (
     <main className="track-detail-page" style={{ padding: 24 }}>
@@ -50,7 +93,7 @@ export const TrackDetail = () => {
         >
           <img
             className="h-full w-full object-cover rounded-2xl mt-3"
-            src={photo}
+            src={photoUrl}
             alt={name}
           />
 
