@@ -12,14 +12,12 @@ const db = drizzle(connection, {
   mode: 'default',
 });
 
-// --- Utility Functies ---
-
 async function resetDatabase() {
   console.log('🗑️ Database leegmaken...');
   await db.delete(schema.news);
   await db.delete(schema.drivers);
   await db.delete(schema.teams);
-  await db.delete(schema.tracks);
+  await db.delete(schema.track);
   await db.delete(schema.users);
   console.log('✅ Database leegmaken voltooid\n');
 }
@@ -269,7 +267,7 @@ async function seedDrivers() {
 
 async function seedTracks() {
   console.log('🛣️ Circuits zaaien...');
-  await db.insert(schema.tracks).values([
+  await db.insert(schema.track).values([
     {
       id: 1,
       name: 'Circuit de Spa-Francorchamps',

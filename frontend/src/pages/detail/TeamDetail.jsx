@@ -15,8 +15,6 @@ export const TeamDetail = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
-  console.log("URL teamSlug:", teamSlug);
-
   const team = getTeamBySlug(teamSlug); // get team data from "mock" api
 
   const drivers = team ? getDriversByTeamName(team.name) : [];

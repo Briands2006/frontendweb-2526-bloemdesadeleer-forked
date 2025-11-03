@@ -27,8 +27,8 @@ const TRACK_URL_MAPPING = {
   "baku-city-circuit": { folder: "Azerbaijan", code: "aze" },
   "marina-bay-street-circuit": { folder: "Singapore", code: "sgp" },
   "circuit-of-the-americas-cota": { folder: "United-States", code: "usa" },
-  "autdromo-hermanos-rodrguez": { folder: "Mexico", code: "mex" },
-  "autdromo-jos-carlos-pace-interlagos": { folder: "Brazil", code: "bra" },
+  "autodromo-hermanos-rodriguez": { folder: "Mexico", code: "mex" },
+  "autodromo-jose-carlos-pace-interlagos": { folder: "Brazil", code: "bra" },
   "las-vegas-strip-circuit": { folder: "Las-Vegas", code: "lve" },
   "lusail-international-circuit": { folder: "Qatar", code: "qat" },
   "yas-marina-circuit": { folder: "Abu-Dhabi", code: "abu" },
@@ -84,9 +84,10 @@ export const TrackDetail = () => {
         <div
           className={[
             "bg-gray-90oshadow-2xl",
+            "w-full",
             "rounded-2xl",
             "grid",
-            "grid-cols-2",
+            "grid-cols-1 sm:grid-cols-2",
             "overflow-hidden",
             "transition-transform",
           ].join(" ")}

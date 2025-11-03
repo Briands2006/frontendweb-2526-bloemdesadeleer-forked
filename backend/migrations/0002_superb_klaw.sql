@@ -1,0 +1,1 @@
+ALTER TABLE `race` MODIFY COLUMN `trackId` int unsigned;

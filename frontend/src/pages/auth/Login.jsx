@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LogIn, UserPlus, Mail, Lock, AlertTriangle } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth.js";
+import { Divider } from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,7 +11,7 @@ export const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +20,21 @@ export const Login = () => {
 
     try {
       await login(email, password);
+      navigate("/");
+    } catch (e) {
+      setError(e.message || "Login mislukt. Controleer uw gegevens.");
+      console.error(e);
+    }
+    setLoading(false);
+  };
+
+  const handleGoogleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      await loginWithGoogle();
       navigate("/");
     } catch (e) {
       setError(e.message || "Login mislukt. Controleer uw gegevens.");
@@ -37,8 +54,10 @@ export const Login = () => {
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 p-3 mb-4 text-sm text-red-300
-           bg-red-900 border border-red-700 rounded-lg">
+          <div
+            className="flex items-center gap-2 p-3 mb-4 text-sm text-red-300
+           bg-red-900 border border-red-700 rounded-lg"
+          >
             <AlertTriangle className="w-4 h-4" />
             <span>{error}</span>
           </div>
@@ -81,14 +100,44 @@ export const Login = () => {
             </div>
           </div>
 
+          <br />
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full inline-flex items-center justify-center gap-2 bg-red-600
+            className="w-full inline-flex cursor-pointer items-center justify-center gap-2 bg-red-600
              text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50"
           >
             <LogIn className="w-5 h-5" />
             {loading ? "Laden..." : "Inloggen"}
+          </button>
+
+          <br />
+          <Divider
+            className="text-white"
+            sx={{
+              "&::before, &::after": {
+                borderColor: "white",
+                opacity: 0.2,
+              },
+              "& .MuiDivider-wrapper": {
+                backgroundColor: "rgb(17 24 39)",
+              },
+            }}
+          >
+            of
+          </Divider>
+          <br />
+
+          <button
+            type="button"
+            onClick={handleGoogleSubmit}
+            disabled={loading}
+            className="w-full inline-flex cursor-pointer items-center justify-center gap-2 bg-white
+             text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors disabled:opacity-50"
+          >
+            <GoogleIcon className="w-5 h-5" />
+            {loading ? "Laden..." : "Inloggen met Google"}
           </button>
         </form>
 

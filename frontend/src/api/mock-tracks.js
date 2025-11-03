@@ -3,6 +3,8 @@ const slug = (text) => {
   return text
     .toString()
     .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .trim()
     .replace(/[^\w\s-]/g, "")
     .replace(/[\s_-]+/g, "-")

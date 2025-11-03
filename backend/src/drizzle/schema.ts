@@ -78,9 +78,9 @@ export const race = mysqlTable('race', {
   date: datetime('date').notNull(),
   weahter: varchar('weather', { length: 100 }).notNull(),
   trackRecord: varchar('trackRecord', { length: 50 }),
-  trackId: int('trackId', { unsigned: true })
-    .references(() => track.id, { onDelete: 'set null' })
-    .notNull(),
+  trackId: int('trackId', { unsigned: true }).references(() => track.id, {
+    onDelete: 'set null',
+  }),
   calendarYear: int('calendarYear')
     .references(() => calendar.year, { onDelete: 'set null' })
     .notNull(),
