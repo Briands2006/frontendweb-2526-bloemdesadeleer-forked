@@ -1,10 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { TrackService } from './track.service';
-import { TrackResponseDto, TrackListResponseDto } from './track.dto';
+import { TracksService } from './tracks.service';
+import { TrackResponseDto, TrackListResponseDto } from './tracks.dto';
 
 @Controller('tracks')
 export class TrackController {
-  constructor(private trackService: TrackService) {}
+  constructor(private trackService: TracksService) {}
 
   @Get()
   async getAllTracks(): Promise<TrackListResponseDto> {

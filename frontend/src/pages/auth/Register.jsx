@@ -36,6 +36,14 @@ const calculatePassStrength = (pass) => {
   return { passScore, failedChecks, isStrong: checksPassed === checks.length };
 };
 
+const isNotFutureDate = (dateString) => {
+  if (!dateString) return false;
+  const selectDate = new Date(dateString);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return selectDate <= today;
+};
+
 export const Register = () => {
   const MIN_LENGTH = 6;
   const NAME_MAX_LENGTH = 20;
@@ -43,6 +51,7 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [date, setDate] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -80,8 +89,20 @@ export const Register = () => {
       return;
     }
 
+    if (!date) {
+      setError("Geboortedatum is verplicht");
+      setLoading(false);
+      return;
+    }
+
+    if(!isNotFutureDate(date)) {
+      setError("Geboortedatum kan niet in de toekomst liggen");
+      setLoading(false);
+      return;
+    }
+
     try {
-      await register(email, password, name);
+      await register(email, password, name, date);
       navigate("/profile");
     } catch (e) {
       setError(e.message || "Registratie mislukt. Probeer het opnieuw.");
@@ -202,6 +223,20 @@ export const Register = () => {
               ))}
             </div>
           )}
+          <div>
+            <label className='block text-sm font-medium mb-1 text-gray-300'>Geboortedatum</label>
+            <input 
+              type="date" 
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+              placeholder='dd/mm/jjjj'
+              className="w-full pl-3 pr-4 py-2 bg-gray-800 border border-gray-700
+              rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"
+            />
+            {date && !isNotFutureDate(date) && (<p className='text-xs text-red-400 mt-1'>
+              Geboortedatum kan niet in de toekomst liggen.</p>)}
+          </div>
 
           <button
             type="submit"

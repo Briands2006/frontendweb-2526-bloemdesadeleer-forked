@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { HealthController } from './health/health.controller';
 import { UploadsModule } from '../uploads/uploads.module';
 import { ConfigModule } from '@nestjs/config';
-import { TracksController } from './tracks/tracks.controller';
+import { TrackController } from './tracks/tracks.controller';
 import { TracksModule } from './tracks/tracks.module';
 import { DrizzleModule } from './drizzle/drizzle.module';
 import config from '../config/config';
@@ -19,7 +19,7 @@ import config from '../config/config';
     TracksModule,
     DrizzleModule,
   ],
-  controllers: [AppController, HealthController, TracksController],
+  controllers: [AppController, HealthController, TrackController],
   providers: [AppService],
 })
 export class AppModule {}
