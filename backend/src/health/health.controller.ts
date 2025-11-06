@@ -34,7 +34,7 @@ export class HealthController {
     const isDatabaseConnected = dbStatus.database === 'UP'; // boolean voor de check door te geven aan dev
 
     if (!isDatabaseConnected) {
-      if (dbStatus.error) customLogger.error('Check failed:', dbStatus.error);
+      if (dbStatus.error) customLogger.error('check failed!', dbStatus.error);
 
       return {
         status: 'DOWN',
