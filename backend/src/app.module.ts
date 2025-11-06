@@ -2,12 +2,16 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthController } from './health/health.controller';
-import { UploadsModule } from '../uploads/uploads.module';
+import { UploadsModule } from './uploads/uploads.module';
 import { ConfigModule } from '@nestjs/config';
 import { TrackController } from './tracks/tracks.controller';
 import { TracksModule } from './tracks/tracks.module';
 import { DrizzleModule } from './drizzle/drizzle.module';
-import config from '../config/config';
+import { DriversModule } from './drivers/drivers.module';
+import config from './config/config';
+import { DriversController } from './drivers/drivers.controller';
+import { TeamsModule } from './teams/teams.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -18,8 +22,16 @@ import config from '../config/config';
     }),
     TracksModule,
     DrizzleModule,
+    DriversModule,
+    TeamsModule,
+    HealthModule,
   ],
-  controllers: [AppController, HealthController, TrackController],
+  controllers: [
+    AppController,
+    HealthController,
+    TrackController,
+    DriversController,
+  ],
   providers: [AppService],
 })
 export class AppModule {}

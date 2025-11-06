@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { TracksService } from './tracks.service';
 import { TrackResponseDto, TrackListResponseDto } from './tracks.dto';
 
@@ -11,7 +11,14 @@ export class TrackController {
     return this.trackService.getAll();
   }
 
-  @Get(':slug')
+  @Get(':id')
+  async getTrackById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<TrackResponseDto> {
+    return this.trackService.getById(id);
+  }
+
+  @Get('n/:slug')
   async getTrackBySlug(@Param('slug') slug: string): Promise<TrackResponseDto> {
     return this.trackService.getBySlug(slug);
   }

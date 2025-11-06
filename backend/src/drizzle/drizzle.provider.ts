@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { drizzle, MySql2Database } from 'drizzle-orm/mysql2';
 import * as mysql from 'mysql2/promise';
-import { DatabaseConfig, ServerConfig } from '../../config/config';
+import { DatabaseConfig, ServerConfig } from '../config/config';
 import * as schema from './schema';
 import { Inject } from '@nestjs/common';
 

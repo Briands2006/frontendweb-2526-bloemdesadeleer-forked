@@ -9,6 +9,7 @@ import {
 } from 'drizzle-orm/mysql-core';
 import { relations, sql } from 'drizzle-orm';
 
+// ---------- USERS ----------
 export const users = mysqlTable('users', {
   id: int('id', { unsigned: true }).primaryKey().autoincrement(),
   email: varchar('email', { length: 255 }).notNull().unique(),
@@ -20,6 +21,7 @@ export const users = mysqlTable('users', {
   isAdmin: boolean('is_admin').notNull().default(false),
 });
 
+// ---------- TEAMS ----------
 export const teams = mysqlTable('teams', {
   id: int('id', { unsigned: true }).primaryKey().autoincrement(),
   name: varchar('name', { length: 255 }).notNull(),
@@ -33,6 +35,7 @@ export const teams = mysqlTable('teams', {
   slug: varchar('slug', { length: 255 }).notNull().unique(),
 });
 
+// ---------- DRIVERS ----------
 export const drivers = mysqlTable('drivers', {
   id: int('id', { unsigned: true }).primaryKey().autoincrement(),
   name: varchar('name', { length: 255 }).notNull(),
@@ -41,11 +44,12 @@ export const drivers = mysqlTable('drivers', {
   photo: varchar('photo', { length: 255 }).notNull(),
   slug: varchar('slug', { length: 255 }).notNull().unique(),
   teamId: int('team_id', { unsigned: true })
-    .references(() => teams.id, { onDelete: 'cascade' })
-    .notNull(),
+    .notNull()
+    .references(() => teams.id, { onDelete: 'cascade' }),
 });
 
-export const track = mysqlTable('tracks', {
+// ---------- TRACKS ----------
+export const tracks = mysqlTable('tracks', {
   id: int('id', { unsigned: true }).primaryKey().autoincrement(),
   name: varchar('name', { length: 255 }).notNull(),
   location: varchar('location', { length: 255 }).notNull(),
@@ -57,6 +61,45 @@ export const track = mysqlTable('tracks', {
   slug: varchar('slug', { length: 255 }).notNull().unique(),
 });
 
+// ---------- CALENDAR ----------
+export const calendar = mysqlTable('calendar', {
+  year: int('year', { unsigned: true }).primaryKey(),
+  nrOfRaces: int('nr_of_races').notNull(),
+});
+
+// ---------- RACES ----------
+export const races = mysqlTable('races', {
+  id: int('id', { unsigned: true }).primaryKey().autoincrement(),
+  date: datetime('date').notNull(),
+  weather: varchar('weather', { length: 100 }).notNull(),
+  trackRecord: varchar('track_record', { length: 50 }),
+  trackId: int('track_id', { unsigned: true })
+    .notNull()
+    .references(() => tracks.id, { onDelete: 'cascade' }),
+  calendarYear: int('calendar_year', { unsigned: true })
+    .notNull()
+    .references(() => calendar.year, { onDelete: 'cascade' }),
+  slug: varchar('slug', { length: 255 }).notNull().unique(),
+});
+
+// ---------- RACE RESULTS ----------
+export const raceResults = mysqlTable(
+  'race_results',
+  {
+    raceId: int('race_id', { unsigned: true })
+      .notNull()
+      .references(() => races.id, { onDelete: 'cascade' }),
+    driverId: int('driver_id', { unsigned: true })
+      .notNull()
+      .references(() => drivers.id, { onDelete: 'cascade' }),
+    position: int('position').notNull(),
+    points: int('points').notNull(),
+    isWinner: boolean('is_winner').notNull().default(false),
+  },
+  (table) => [primaryKey({ columns: [table.raceId, table.driverId] })],
+);
+
+// ---------- NEWS ----------
 export const news = mysqlTable('news', {
   id: int('id', { unsigned: true }).primaryKey().autoincrement(),
   title: varchar('title', { length: 255 }).notNull(),
@@ -68,56 +111,19 @@ export const news = mysqlTable('news', {
   authorId: int('author_id', { unsigned: true }).references(() => users.id, {
     onDelete: 'set null',
   }),
-  trackId: int('track_id', { unsigned: true }).references(() => track.id, {
+  trackId: int('track_id', { unsigned: true }).references(() => tracks.id, {
     onDelete: 'set null',
   }),
 });
 
-export const race = mysqlTable('race', {
-  id: int('id', { unsigned: true }).primaryKey(),
-  date: datetime('date').notNull(),
-  weahter: varchar('weather', { length: 100 }).notNull(),
-  trackRecord: varchar('trackRecord', { length: 50 }),
-  trackId: int('trackId', { unsigned: true }).references(() => track.id, {
-    onDelete: 'set null',
-  }),
-  calendarYear: int('calendarYear')
-    .references(() => calendar.year, { onDelete: 'set null' })
-    .notNull(),
-  slug: varchar('slug', { length: 255 }).notNull().unique(),
-});
-
-export const calendar = mysqlTable('calender', {
-  year: int('year', { unsigned: true }).primaryKey(),
-  nrOfRaces: int('nrOfRaces').notNull(),
-});
-
-export const raceResults = mysqlTable(
-  'raceResults',
-  {
-    raceId: int('raceId', { unsigned: true })
-      .references(() => race.id, { onDelete: 'cascade' })
-      .notNull(),
-    driverId: int('driverId', { unsigned: true })
-      .references(() => drivers.id, { onDelete: 'cascade' })
-      .notNull(),
-    position: int('position').notNull(),
-    points: int('points').notNull(),
-    isWinner: boolean('isWinner').notNull().default(false),
-  },
-  (table) => [primaryKey({ columns: [table.raceId, table.driverId] })],
-);
-
+// ---------- RELATIONS ----------
 export const teamsRelations = relations(teams, ({ many }) => ({
   drivers: many(drivers),
 }));
 
 export const driversRelations = relations(drivers, ({ one, many }) => ({
-  team: one(teams, {
-    fields: [drivers.teamId],
-    references: [teams.id],
-  }),
-  raceRelations: many(raceResults),
+  team: one(teams, { fields: [drivers.teamId], references: [teams.id] }),
+  raceResults: many(raceResults),
 }));
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -125,44 +131,32 @@ export const usersRelations = relations(users, ({ many }) => ({
 }));
 
 export const newsRelations = relations(news, ({ one }) => ({
-  author: one(users, {
-    fields: [news.authorId],
-    references: [users.id],
-  }),
-  track: one(track, {
-    fields: [news.trackId],
-    references: [track.id],
-  }),
+  author: one(users, { fields: [news.authorId], references: [users.id] }),
+  track: one(tracks, { fields: [news.trackId], references: [tracks.id] }),
 }));
 
-export const tracksRelations = relations(track, ({ many }) => ({
-  relatedNews: many(news),
-  race: many(race),
+export const tracksRelations = relations(tracks, ({ many }) => ({
+  newsArticles: many(news),
+  races: many(races),
 }));
 
-export const raceRelations = relations(race, ({ one, many }) => ({
-  track: one(track, {
-    fields: [race.trackId],
-    references: [track.id],
-  }),
+export const racesRelations = relations(races, ({ one, many }) => ({
+  track: one(tracks, { fields: [races.trackId], references: [tracks.id] }),
   calendar: one(calendar, {
-    fields: [race.calendarYear],
+    fields: [races.calendarYear],
     references: [calendar.year],
   }),
   results: many(raceResults),
 }));
 
-export const raceResultRelations = relations(raceResults, ({ one }) => ({
-  race: one(race, {
-    fields: [raceResults.raceId],
-    references: [race.id],
-  }),
-  drivers: one(drivers, {
+export const raceResultsRelations = relations(raceResults, ({ one }) => ({
+  race: one(races, { fields: [raceResults.raceId], references: [races.id] }),
+  driver: one(drivers, {
     fields: [raceResults.driverId],
     references: [drivers.id],
   }),
 }));
 
 export const calendarRelations = relations(calendar, ({ many }) => ({
-  races: many(race),
+  races: many(races),
 }));

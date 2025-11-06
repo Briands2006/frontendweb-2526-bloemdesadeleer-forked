@@ -1,17 +1,23 @@
 import {
   IsInt,
   IsNotEmpty,
-  IsNumber,
+  IsOptional,
   IsString,
   MaxLength,
 } from 'class-validator';
 
 export class FastestLapDto {
-  time: string;
+  @IsOptional()
   @IsString()
-  driver: string;
-  @IsNumber()
-  year: number;
+  time?: string;
+
+  @IsOptional()
+  @IsString()
+  driver?: string;
+
+  @IsOptional()
+  @IsInt()
+  year?: number;
 }
 
 export class TrackResponseDto {
@@ -19,15 +25,28 @@ export class TrackResponseDto {
   @IsNotEmpty()
   @MaxLength(255)
   name: string;
+
   @IsString()
   @IsNotEmpty()
   @MaxLength(255)
   location: string;
-  @IsNumber()
-  length_km: number;
+
+  @IsString()
+  lengthKm: string;
+
   @IsInt()
   laps: number;
-  fastest_lap: FastestLapDto;
+
+  @IsOptional()
+  fastestLapTime?: string | null;
+
+  @IsOptional()
+  fastestLapDriver?: string | null;
+
+  @IsOptional()
+  fastestLapYear?: number | null;
+
+  @IsString()
   slug: string;
 }
 
