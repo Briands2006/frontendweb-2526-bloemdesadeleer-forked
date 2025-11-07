@@ -9,6 +9,9 @@ import { AuthConfig, ServerConfig } from '../config/config';
 import * as argon2 from 'argon2';
 import { User } from '../types/user';
 import { JwtPayload } from '../types/auth';
+import { LoginRequestDto } from '../session/session.dto';
+import { eq } from 'drizzle-orm';
+import { users } from '../drizzle/schema';
 
 @Injectable()
 export class AuthService {
@@ -49,5 +52,30 @@ export class AuthService {
     }
 
     return payload;
+  }
+
+  async login({ email, password }: LoginRequestDto): Promise<string> {
+    const user = await this.db.query.users.findFirst({
+      where: eq(users.email, email),
+    });
+
+    if (!user) {
+      throw new UnauthorizedException(
+        'The given email and password do not match a user',
+      );
+    }
+
+    const validPassword = await this.verifyPassword(
+      password,
+      user.passwordHash,
+    );
+
+    if (!validPassword) {
+      throw new UnauthorizedException(
+        'The given email and password do not match',
+      );
+    }
+
+    return this.signJwt(user);
   }
 }

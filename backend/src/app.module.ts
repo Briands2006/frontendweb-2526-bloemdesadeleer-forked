@@ -16,6 +16,10 @@ import { AuthModule } from './auth/auth.module';
 import { NewsController } from './news/news.controller';
 import { NewsService } from './news/news.service';
 import { NewsModule } from './news/news.module';
+import { SessionModule } from './session/session.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { AdminGuard } from './auth/guards/admin.guard';
 
 @Module({
   imports: [
@@ -31,6 +35,7 @@ import { NewsModule } from './news/news.module';
     HealthModule,
     AuthModule,
     NewsModule,
+    SessionModule,
   ],
   controllers: [
     AppController,
@@ -39,6 +44,17 @@ import { NewsModule } from './news/news.module';
     DriversController,
     NewsController,
   ],
-  providers: [AppService, NewsService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AdminGuard,
+    },
+    AppService,
+    NewsService,
+  ],
 })
 export class AppModule {}
