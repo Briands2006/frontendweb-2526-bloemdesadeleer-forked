@@ -1,23 +1,83 @@
 [Driver]
-*name
+*id
+name
 position
 points
 country
 birthdate
+nr
+teamId
 
 [Team]
-*name
+*id
+name
 points
 position
 teamChief
 
 [Track]
-*name
+*id
+name
+location
 length
 nrOfLaps
 fastestLapTime
+
+[Race]
+*id
 date
-winner
+weather
+trackRecord
+trackId
+calendarYear
+
+[RaceResult]
+*raceId
+*driverId
+position
+points
+isWinner
+
+[Calendar]
+*year
+nrOfRaces
+
+[News]
+*id
+title
+date
+content
+source
+
+[User]
+*id
+name
+email
+password
+birthdate
+dateJoined
+isAdmin
+
+[FavoriteDriver]
+*driverId
+*userId
+
+[FavoriteTrack]
+*trackId
+*userId
+
 
 Driver *--1 Team
-Track *--1 Driver
+Team 1--* Driver
+Track 1--* Race
+Calendar 1--* Race
+Race 1--* RaceResult
+Driver 1--* RaceResult
+User 1--* FavoriteDriver
+Driver 1--* FavoriteDriver
+User 1--* FavoriteTrack
+Track 1--* FavoriteTrack
+
+
+
+

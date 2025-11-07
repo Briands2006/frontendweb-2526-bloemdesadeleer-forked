@@ -13,6 +13,9 @@ import { DriversController } from './drivers/drivers.controller';
 import { TeamsModule } from './teams/teams.module';
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './auth/auth.module';
+import { NewsController } from './news/news.controller';
+import { NewsService } from './news/news.service';
+import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
@@ -27,13 +30,15 @@ import { AuthModule } from './auth/auth.module';
     TeamsModule,
     HealthModule,
     AuthModule,
+    NewsModule,
   ],
   controllers: [
     AppController,
     HealthController,
     TrackController,
     DriversController,
+    NewsController,
   ],
-  providers: [AppService],
+  providers: [AppService, NewsService],
 })
 export class AppModule {}
