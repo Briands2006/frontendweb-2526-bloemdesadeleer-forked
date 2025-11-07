@@ -21,16 +21,19 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:drop": "drizzle-kit drop && docker compose down -v",
-    "db:start": "docker compose up -d && drizzle-kit generate && drizzle-kit migrate && env-cmd tsx src/drizzle/seed.ts",
-    "db:seed": "env-cmd tsx src/drizzle/seed.ts"
+    "db:start": "docker compose -f docker-compose.yml up -d && drizzle-kit generate",
+    "db:seed": "env-cmd tsx src/drizzle/seed.ts",
+    "env:jwtToken": "node -e \"console.log(require('crypto').randomBytes(32).toString('hex'));\""
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/serve-static": "^5.0.3",
     "@nestjs/swagger": "^11.2.0",
+    "argon2": "^0.44.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "drizzle-orm": "^0.44.7",

@@ -82,12 +82,13 @@ CREATE TABLE `tracks` (
 CREATE TABLE `users` (
 	`id` int unsigned AUTO_INCREMENT NOT NULL,
 	`email` varchar(255) NOT NULL,
-	`password` varchar(255) NOT NULL,
+	`password_hash` varchar(255) NOT NULL,
 	`name` varchar(255) NOT NULL,
 	`date_joined` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`is_admin` boolean NOT NULL DEFAULT false,
 	CONSTRAINT `users_id` PRIMARY KEY(`id`),
-	CONSTRAINT `users_email_unique` UNIQUE(`email`)
+	CONSTRAINT `users_email_unique` UNIQUE(`email`),
+	CONSTRAINT `idx_user_email_unique` UNIQUE(`email`)
 );
 --> statement-breakpoint
 ALTER TABLE `drivers` ADD CONSTRAINT `drivers_team_id_teams_id_fk` FOREIGN KEY (`team_id`) REFERENCES `teams`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint

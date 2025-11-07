@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "4bfd7a1a-1ef4-4bca-ad6f-af47d1e9a0b4",
+  "id": "b4cd1eeb-87c8-4d69-b25c-4302a66fbc32",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "calendar": {
@@ -609,8 +609,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "password": {
-          "name": "password",
+        "password_hash": {
+          "name": "password_hash",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -640,7 +640,15 @@
           "default": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "idx_user_email_unique": {
+          "name": "idx_user_email_unique",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {
         "users_id": {

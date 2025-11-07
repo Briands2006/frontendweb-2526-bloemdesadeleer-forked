@@ -1,6 +1,7 @@
 import { drizzle } from 'drizzle-orm/mysql2';
 import * as mysql from 'mysql2/promise';
 import * as schema from './schema';
+import * as argon2 from 'argon2';
 
 const connection = mysql.createPool({
   uri: process.env.DATABASE_URL,
@@ -11,6 +12,15 @@ const db = drizzle(connection, {
   schema,
   mode: 'default',
 });
+
+async function hashPassword(password: string): Promise<string> {
+  return argon2.hash(password, {
+    type: argon2.argon2id,
+    hashLength: 32,
+    timeCost: 2,
+    memoryCost: 2 ** 16,
+  });
+}
 
 async function resetDatabase() {
   console.log('🗑️ Database leegmaken...');
@@ -29,17 +39,17 @@ async function seedUsers() {
       id: 1,
       name: 'Admin User',
       email: 'admin@f1site.com',
-      password: 'hashed_admin_password_placeholder',
+      passwordHash: await hashPassword('testPassword'),
       isAdmin: true,
-      dateJoined: new Date(2023, 0, 1),
+      dateJoined: new Date(2025, 0, 1),
     },
     {
       id: 2,
       name: 'Regular Fan',
       email: 'fan@f1site.com',
-      password: 'hashed_fan_password_placeholder',
+      passwordHash: await hashPassword('testPassword2'),
       isAdmin: false,
-      dateJoined: new Date(2023, 0, 15),
+      dateJoined: new Date(2025, 0, 15),
     },
   ]);
   console.log('✅ Gebruikers succesvol gezaaid\n');

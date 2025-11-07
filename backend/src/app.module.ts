@@ -12,6 +12,7 @@ import config from './config/config';
 import { DriversController } from './drivers/drivers.controller';
 import { TeamsModule } from './teams/teams.module';
 import { HealthModule } from './health/health.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { HealthModule } from './health/health.module';
     DriversModule,
     TeamsModule,
     HealthModule,
+    AuthModule,
   ],
   controllers: [
     AppController,
