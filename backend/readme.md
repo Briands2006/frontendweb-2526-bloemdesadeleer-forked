@@ -31,6 +31,30 @@
 $ pnpm install
 ```
 
+```env
+NODE_ENV=development
+PORT=3000
+DATABASE_URL=mysql://devbrihan:devpwdforbrianandelias@localhost:3309/f1tracker
+
+CORS_ORIGINS=["http://localhost:5173"]
+CORS_MAX_AGE=10800
+
+LOG_LEVELS=["log","error","warn","debug","verbose"]
+
+# Authentication (Argon2 Hashing) Configuration
+AUTH_HASH_LENGTH=32
+AUTH_HASH_TIME_COST=6
+AUTH_HASH_MEMORY_COST=65536
+AUTH_MAX_DELAY=2000
+
+# Authentication (JWT) Configuration
+# Use the command "pnpm env:jwtToken" to generate a random crypto 32 string for the JWT TOKEN
+AUTH_JWT_EXPIRATION_INTERVAL=3600
+AUTH_JWT_SECRET=d5e0c084a9ebc0876222960ebeaf01f503462a6807d13e6e42aaad9b90fdac59
+AUTH_JWT_AUDIENCE=f1tracker.com
+AUTH_JWT_ISSUER=f1tracker.com
+```
+
 ## Compile and run the project
 
 ```bash
