@@ -20,6 +20,9 @@ import { SessionModule } from './session/session.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AdminGuard } from './auth/guards/admin.guard';
+import { UsersModule } from './users/users.module';
+import { UserController } from './user/user.controller';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -36,6 +39,8 @@ import { AdminGuard } from './auth/guards/admin.guard';
     AuthModule,
     NewsModule,
     SessionModule,
+    UsersModule,
+    UserModule,
   ],
   controllers: [
     AppController,
@@ -43,6 +48,7 @@ import { AdminGuard } from './auth/guards/admin.guard';
     TrackController,
     DriversController,
     NewsController,
+    UserController,
   ],
   providers: [
     {

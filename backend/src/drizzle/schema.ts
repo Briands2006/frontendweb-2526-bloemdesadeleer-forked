@@ -18,6 +18,7 @@ export const users = mysqlTable(
     email: varchar('email', { length: 255 }).notNull().unique(),
     passwordHash: varchar('password_hash', { length: 255 }).notNull(),
     name: varchar('name', { length: 255 }).notNull(),
+    birhtdate: datetime('birhtdate').notNull(),
     dateJoined: datetime('date_joined')
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
@@ -25,17 +26,6 @@ export const users = mysqlTable(
   },
   (table) => [uniqueIndex('idx_user_email_unique').on(table.email)],
 );
-export const users = mysqlTable('users', {
-  id: int('id', { unsigned: true }).primaryKey().autoincrement(),
-  email: varchar('email', { length: 255 }).notNull().unique(),
-  password: varchar('password', { length: 255 }).notNull(),
-  name: varchar('name', { length: 255 }).notNull(),
-  birhtdate: datetime('birhtdate').notNull(),
-  dateJoined: datetime('date_joined')
-    .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
-  isAdmin: boolean('is_admin').notNull().default(false),
-});
 
 // ---------- TEAMS ----------
 export const teams = mysqlTable('teams', {
