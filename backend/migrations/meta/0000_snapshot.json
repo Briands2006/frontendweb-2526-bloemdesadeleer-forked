@@ -1,9 +1,119 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "b4cd1eeb-87c8-4d69-b25c-4302a66fbc32",
+  "id": "c63960de-9a25-4860-89ef-aad800f9f5f6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "favoriteDriver": {
+      "name": "favoriteDriver",
+      "columns": {
+        "userId": {
+          "name": "userId",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "driverId": {
+          "name": "driverId",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "favoriteDriver_userId_users_id_fk": {
+          "name": "favoriteDriver_userId_users_id_fk",
+          "tableFrom": "favoriteDriver",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "favoriteDriver_driverId_drivers_id_fk": {
+          "name": "favoriteDriver_driverId_drivers_id_fk",
+          "tableFrom": "favoriteDriver",
+          "tableTo": "drivers",
+          "columnsFrom": [
+            "driverId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "favoriteTrack": {
+      "name": "favoriteTrack",
+      "columns": {
+        "userId": {
+          "name": "userId",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "trackId": {
+          "name": "trackId",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "favoriteTrack_userId_users_id_fk": {
+          "name": "favoriteTrack_userId_users_id_fk",
+          "tableFrom": "favoriteTrack",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "favoriteTrack_trackId_tracks_id_fk": {
+          "name": "favoriteTrack_trackId_tracks_id_fk",
+          "tableFrom": "favoriteTrack",
+          "tableTo": "tracks",
+          "columnsFrom": [
+            "trackId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "favoriteTrack_userId_trackId_pk": {
+          "name": "favoriteTrack_userId_trackId_pk",
+          "columns": [
+            "userId",
+            "trackId"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
     "calendar": {
       "name": "calendar",
       "columns": {
@@ -619,6 +729,13 @@
         "name": {
           "name": "name",
           "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "birthdate": {
+          "name": "birthdate",
+          "type": "datetime",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

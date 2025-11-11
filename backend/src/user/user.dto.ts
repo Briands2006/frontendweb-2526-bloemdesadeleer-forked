@@ -21,15 +21,11 @@ export class UserResponseDto {
 
   @IsString()
   @IsNotEmpty()
-  password: string;
-
-  @IsString()
-  @IsNotEmpty()
-  birhtdate: Date;
+  birthdate: Date;
 
   // moeten volgens mij geen checks op komen aangezien dit geen user input is
   dateJoined: Date;
-  IsAdmin: boolean;
+  isAdmin: boolean;
 }
 
 export class UserListResponseDto {

@@ -18,7 +18,7 @@ export const users = mysqlTable(
     email: varchar('email', { length: 255 }).notNull().unique(),
     passwordHash: varchar('password_hash', { length: 255 }).notNull(),
     name: varchar('name', { length: 255 }).notNull(),
-    birhtdate: datetime('birhtdate').notNull(),
+    birthdate: datetime('birthdate').notNull(),
     dateJoined: datetime('date_joined')
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),

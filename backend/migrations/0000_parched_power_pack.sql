@@ -1,3 +1,14 @@
+CREATE TABLE `favoriteDriver` (
+	`userId` int unsigned NOT NULL,
+	`driverId` int unsigned NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `favoriteTrack` (
+	`userId` int unsigned NOT NULL,
+	`trackId` int unsigned NOT NULL,
+	CONSTRAINT `favoriteTrack_userId_trackId_pk` PRIMARY KEY(`userId`,`trackId`)
+);
+--> statement-breakpoint
 CREATE TABLE `calendar` (
 	`year` int unsigned NOT NULL,
 	`nr_of_races` int NOT NULL,
@@ -84,6 +95,7 @@ CREATE TABLE `users` (
 	`email` varchar(255) NOT NULL,
 	`password_hash` varchar(255) NOT NULL,
 	`name` varchar(255) NOT NULL,
+	`birthdate` datetime NOT NULL,
 	`date_joined` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`is_admin` boolean NOT NULL DEFAULT false,
 	CONSTRAINT `users_id` PRIMARY KEY(`id`),
@@ -91,6 +103,10 @@ CREATE TABLE `users` (
 	CONSTRAINT `idx_user_email_unique` UNIQUE(`email`)
 );
 --> statement-breakpoint
+ALTER TABLE `favoriteDriver` ADD CONSTRAINT `favoriteDriver_userId_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `favoriteDriver` ADD CONSTRAINT `favoriteDriver_driverId_drivers_id_fk` FOREIGN KEY (`driverId`) REFERENCES `drivers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `favoriteTrack` ADD CONSTRAINT `favoriteTrack_userId_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `favoriteTrack` ADD CONSTRAINT `favoriteTrack_trackId_tracks_id_fk` FOREIGN KEY (`trackId`) REFERENCES `tracks`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `drivers` ADD CONSTRAINT `drivers_team_id_teams_id_fk` FOREIGN KEY (`team_id`) REFERENCES `teams`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `news` ADD CONSTRAINT `news_author_id_users_id_fk` FOREIGN KEY (`author_id`) REFERENCES `users`(`id`) ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `news` ADD CONSTRAINT `news_track_id_tracks_id_fk` FOREIGN KEY (`track_id`) REFERENCES `tracks`(`id`) ON DELETE set null ON UPDATE no action;--> statement-breakpoint

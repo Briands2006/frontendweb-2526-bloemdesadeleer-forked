@@ -5,6 +5,7 @@ import {
 } from '../drizzle/drizzle.provider';
 import { UserListResponseDto, UserResponseDto } from './user.dto';
 import { eq } from 'drizzle-orm';
+import { users } from '../drizzle/schema';
 
 @Injectable()
 export class UserService {
@@ -18,22 +19,12 @@ export class UserService {
     return { users };
   }
 
-  async getById(id: number): Promise<TrackResponseDto> {
-    const track = await this.db.query.users.findFirst({
+  async getById(id: number): Promise<UserResponseDto> {
+    const user = await this.db.query.users.findFirst({
       where: eq(users.id, id),
     });
-    if (!track) {
-      throw new NotFoundException('No track with that id exist');
-    }
-    return track;
-  }
-
-  async getBySlug(slug: string): Promise<UserResponseDto> {
-    const user = await this.db.query.users.findFirst({
-      where: eq(users.slug, slug),
-    });
     if (!user) {
-      throw new NotFoundException('No track with this slug exists');
+      throw new NotFoundException('No user with that id exist');
     }
     return user;
   }
