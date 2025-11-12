@@ -1,4 +1,16 @@
-import { IsInt, IsNotEmpty, IsString, MaxLength, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsBoolean,
+  IsDate,
+  IsEmail,
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  MaxDate,
+  MaxLength,
+  Min,
+  MinLength,
+} from 'class-validator';
 
 export class UserResponseDto {
   @IsInt()
@@ -12,22 +24,47 @@ export class UserResponseDto {
 
   @IsString()
   @IsNotEmpty()
-  @MaxLength(255)
-  passwordHash: string;
-
-  @IsString()
-  @IsNotEmpty()
   email: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate()
+  @MaxDate(new Date(), { message: 'Date must not be in the future' })
   birthdate: Date;
 
-  // moeten volgens mij geen checks op komen aangezien dit geen user input is
+  @IsDate()
   dateJoined: Date;
+
+  @IsBoolean()
   isAdmin: boolean;
 }
 
 export class UserListResponseDto {
   users: UserResponseDto[];
+}
+
+export class UpdateUserRequestDto {
+  @IsString()
+  @MinLength(2)
+  @MaxLength(255)
+  name: string;
+
+  @IsString()
+  @IsEmail()
+  email: string;
+}
+
+export class RegisterUserRequestDto {
+  @IsString()
+  @MinLength(2)
+  @MaxLength(255)
+  name: string;
+
+  @IsString()
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(8)
+  @MaxLength(128)
+  password: string;
 }

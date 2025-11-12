@@ -3,7 +3,11 @@ import {
   type DatabaseProvider,
   InjectDrizzle,
 } from '../drizzle/drizzle.provider';
-import { UserListResponseDto, UserResponseDto } from './user.dto';
+import {
+  CreateUserRequestDto,
+  UserListResponseDto,
+  UserResponseDto,
+} from './user.dto';
 import { eq } from 'drizzle-orm';
 import { users } from '../drizzle/schema';
 
@@ -27,5 +31,26 @@ export class UserService {
       throw new NotFoundException('No user with that id exist');
     }
     return user;
+  }
+
+  async create(dto: CreateUserRequestDto): Promise<UserResponseDto> {
+    const passwordHash = 'PLACEHOLDER_HASH';
+    const [newUser] = await this.db
+      .insert(users)
+      .values({
+        name: dto.name,
+        email: dto.email,
+        birthdate: dto.birthdate,
+        passwordHash: passwordHash,
+        isAdmin: false,
+        dateJoined: new Date(),
+      })
+      .$returningId();
+
+    if (!newUser || !newUser.id) {
+      throw new Error('User creation failed to return ID');
+    }
+
+    return this.getById(newUser.id);
   }
 }
