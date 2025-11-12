@@ -35,6 +35,7 @@ async function bootstrap() {
     .setTitle('f1-tracker')
     .setDescription('The f1-tracker API')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () =>
