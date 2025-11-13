@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthController } from './health/health.controller';
-import { UploadsModule } from './uploads/uploads.module';
 import { ConfigModule } from '@nestjs/config';
 import { TrackController } from './tracks/tracks.controller';
 import { TracksModule } from './tracks/tracks.module';
@@ -22,12 +21,17 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { AdminGuard } from './auth/guards/admin.guard';
 import { UserModule } from './user/user.module';
 import { UserController } from './user/user.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
   imports: [
-    UploadsModule,
     ConfigModule.forRoot({
       load: [config],
       isGlobal: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'public'),
+      serveRoot: '/assets',
     }),
     TracksModule,
     DrizzleModule,
