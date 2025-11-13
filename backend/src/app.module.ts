@@ -23,6 +23,8 @@ import { UserModule } from './user/user.module';
 import { UserController } from './user/user.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CalendarController } from './calendar/calendar.controller';
+import { CalendarModule } from './calendar/calendar.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,6 +44,7 @@ import { join } from 'path';
     NewsModule,
     SessionModule,
     UserModule,
+    CalendarModule,
   ],
   controllers: [
     AppController,
@@ -50,6 +53,7 @@ import { join } from 'path';
     DriversController,
     NewsController,
     UserController,
+    CalendarController,
   ],
   providers: [
     {

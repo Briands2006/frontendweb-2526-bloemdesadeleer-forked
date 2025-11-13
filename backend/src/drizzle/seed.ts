@@ -29,6 +29,8 @@ async function resetDatabase() {
   await db.delete(schema.teams);
   await db.delete(schema.tracks);
   await db.delete(schema.users);
+  await db.delete(schema.calendar);
+  await db.delete(schema.races);
   console.log('✅ Database leegmaken voltooid\n');
 }
 
@@ -55,6 +57,58 @@ async function seedUsers() {
     },
   ]);
   console.log('✅ Gebruikers succesvol gezaaid\n');
+}
+async function seedCalendar() {
+  console.log('📅 Kalender zaaien...');
+
+  await db.insert(schema.calendar).values([
+    {
+      year: 2025,
+      nrOfRaces: 24,
+    },
+    {
+      year: 2024,
+      nrOfRaces: 22,
+    },
+  ]);
+
+  console.log('✅ Kalender succesvol gezaaid\n');
+}
+
+async function seedRaces() {
+  console.log('🏎️ Races zaaien...');
+
+  await db.insert(schema.races).values([
+    {
+      id: 1,
+      date: new Date(2025, 2, 14, 15, 0),
+      weather: 'Sunny',
+      trackRecord: '1:31.447',
+      trackId: 1,
+      calendarYear: 2025,
+      slug: 'belgian-gp-2025',
+    },
+    {
+      id: 2,
+      date: new Date(2025, 8, 7, 15, 0),
+      weather: 'Clear',
+      trackRecord: '1:21.046',
+      trackId: 2,
+      calendarYear: 2025,
+      slug: 'italian-gp-2025',
+    },
+    {
+      id: 3,
+      date: new Date(2024, 6, 30, 15, 0),
+      weather: 'Rainy',
+      trackRecord: '1:46.286',
+      trackId: 1,
+      calendarYear: 2024,
+      slug: 'belgian-gp-2024',
+    },
+  ]);
+
+  console.log('✅ Races succesvol gezaaid\n');
 }
 
 async function seedTeams() {
@@ -442,6 +496,8 @@ async function main() {
   await seedTeams();
   await seedDrivers();
   await seedTracks();
+  await seedCalendar();
+  await seedRaces();
   await seedNews();
 
   console.log('🎉 Database seeding succesvol voltooid!');
