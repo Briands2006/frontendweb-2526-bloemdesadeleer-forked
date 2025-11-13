@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthController } from './health/health.controller';
-import { UploadsModule } from './uploads/uploads.module';
 import { ConfigModule } from '@nestjs/config';
 import { TrackController } from './tracks/tracks.controller';
 import { TracksModule } from './tracks/tracks.module';
@@ -26,7 +25,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 @Module({
   imports: [
-    UploadsModule,
     ConfigModule.forRoot({
       load: [config],
       isGlobal: true,
