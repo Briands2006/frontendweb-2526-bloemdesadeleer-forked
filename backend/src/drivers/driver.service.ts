@@ -15,7 +15,11 @@ export class DriverService {
   ) {}
 
   async getAll(): Promise<DriverListResponseDto> {
-    const drivers = await this.db.query.drivers.findMany();
+    const drivers = await this.db.query.drivers.findMany({
+      with: {
+        team: true,
+      },
+    });
     return { drivers };
   }
 
