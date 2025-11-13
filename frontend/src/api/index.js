@@ -28,6 +28,11 @@ export async function getById(url) {
   return data;
 }
 
+export async function getBySlug(url, slug) {
+  const { data } = await axios.get(`${url}/n/${slug}`);
+  return data;
+}
+
 export const deleteById = async (url, { arg: id }) => {
   await axios.delete(`${url}/${id}`);
 };

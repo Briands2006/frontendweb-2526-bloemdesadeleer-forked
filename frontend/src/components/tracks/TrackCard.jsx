@@ -18,7 +18,9 @@ export default function TrackCard({
   length_km,
   location,
   laps,
-  fastest_lap,
+  fastestLapTime,
+  fastestLapDriver,
+  fastestLapYear,
   onClick,
 }) {
   return (
@@ -53,9 +55,9 @@ export default function TrackCard({
           <p className='text-lg text-right'>{laps}</p>
           
           <p className='text-lg'>Snelste rondetijd</p>
-          <p className='text-lg text-right'>{fastest_lap.time}</p>
-          <p className='text-lg text-right col-span-2'>{fastest_lap.driver}</p>
-          <p className='text-lg text-right col-span-2'>{fastest_lap.year}</p>
+          <p className='text-lg text-right'>{fastestLapTime}</p>
+          <p className='text-lg text-right col-span-2'>{fastestLapDriver}</p>
+          <p className='text-lg text-right col-span-2'>{fastestLapYear}</p>
 
         </div>
       </div>

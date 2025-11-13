@@ -49,13 +49,13 @@ const Tracks = () => {
     navigate(`/tracks/${trackName}`);
   };
 
-  const { data: tracks = [], isLoading, error } = useSWR("tracks", getAll);
-  console.log(tracks);
+  const { data: response = [], isLoading, error } = useSWR("tracks", getAll);
+  console.log(response);
+  const tracks = response?.tracks ?? [];
 
   return (
     <main className="track-page" style={{ padding: 24 }}>
       <h1 className="text-5xl font-extrabold pb-4">F1 Tracks 2025</h1>
-      <p className="mb-8">Tracks 2025 season</p>
       <div className="track-grid">
         <AsyncData loading={isLoading} error={error}>
           {tracks.map((t, index) => {
@@ -81,7 +81,9 @@ const Tracks = () => {
                 length_km={t.length_km}
                 location={t.location}
                 laps={t.laps}
-                fastest_lap={t.fastest_lap}
+                fastestLapTime={t.fastestLapTime}
+                fastestLapDriver={t.fastestLapDriver}
+                fastestLapYear={t.fastestLapYear}
                 onClick={() => {
                   handleTrackClick(t);
                 }}

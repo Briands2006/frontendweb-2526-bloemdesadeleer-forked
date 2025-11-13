@@ -1,12 +1,12 @@
-import { useParams,Link } from "react-router-dom";
-import { getTrackBySlug } from "../../api/mock-tracks";
+import { useParams, Link } from "react-router-dom";
+import useSWR from "swr";
+import { getBySlug } from "../../api/index.js";
+import AsyncData from "../../components/AsyncData.jsx";
 
-// constants
 const BASE_URL_TRACKS = "https://cdn.racingnews365.com/Circuits";
 const CONSTANT_IMAGE_PART = "/_503xAUTO_crop_center-center_none/f1_2024";
 const VERSION_PARAM = "?v=1708703502";
 
-// mapping
 const TRACK_URL_MAPPING = {
   "bahrain-international-circuit": { folder: "Bahrain", code: "bhr" },
   "jeddah-corniche-circuit": { folder: "Saudi-Arabia", code: "sau" },
@@ -20,7 +20,7 @@ const TRACK_URL_MAPPING = {
   "circuit-gilles-villeneuve": { folder: "Canada", code: "can" },
   "red-bull-ring": { folder: "Austria", code: "aut" },
   "silverstone-circuit": { folder: "Great-Britain", code: "gbr" },
-  "hungaroring": { folder: "Hungary", code: "hun" },
+  hungaroring: { folder: "Hungary", code: "hun" },
   "circuit-de-spa-francorchamps": { folder: "Belgium", code: "bel" },
   "circuit-zandvoort": { folder: "The-Netherlands", code: "nld" },
   "autodromo-nazionale-monza": { folder: "Italy", code: "ita" },
@@ -35,39 +35,25 @@ const TRACK_URL_MAPPING = {
 };
 
 export const TrackDetail = () => {
-  const {trackName} = useParams();
-    
-  if(!trackName) {
-    return (
-      <main style={{ padding: 24 }}>
-        <h1>404 - Track niet gevonden </h1>
-        <Link to="/tracks">Terug</Link>
-      </main>
-    ); 
+  const { trackName } = useParams();
+
+  const key = trackName ? ["/tracks", trackName] : null;
+
+  const {
+    data: track,
+    isLoading,
+    error,
+  } = useSWR(key, ([url, slug]) => getBySlug(url, slug));
+
+  if (isLoading || !track) {
+    return <AsyncData loading={isLoading} error={error} />;
   }
 
-  const foundTrack = getTrackBySlug(trackName);
-
-  if (!foundTrack) {
-    return (
-      <main style={{ padding: 24 }}>
-        <h1>404 - Track niet gevonden </h1>
-        <Link to="/tracks">Terug</Link>
-      </main>
-    );
-  }
-
+  // Image logic
   const details = TRACK_URL_MAPPING[trackName];
-  let imageUrl = null;
-
-  if (details) {
-    const imagePath = `${details.folder}${CONSTANT_IMAGE_PART}_${details.code}_outline.png`;
-    imageUrl = `${BASE_URL_TRACKS}/${imagePath}${VERSION_PARAM}`;
-  }
-  
-  const photoUrl = imageUrl || foundTrack.photo || "fallback-image-url.png";
-
-  const {name, location, length_km, laps, fastest_lap} = foundTrack;
+  const imageUrl = details
+    ? `${BASE_URL_TRACKS}/${details.folder}${CONSTANT_IMAGE_PART}_${details.code}_outline.png${VERSION_PARAM}`
+    : "fallback-image-url.png";
 
   return (
     <main className="track-detail-page" style={{ padding: 24 }}>
@@ -77,13 +63,11 @@ export const TrackDetail = () => {
       >
         Terug
       </Link>
-      <div
-        // Centrum de kaart op de pagina en geef het een vaste grootte
-        className="max-w-4xl mx-auto"
-      >
+
+      <div className="max-w-4xl mx-auto">
         <div
           className={[
-            "bg-gray-90oshadow-2xl",
+            "bg-transparent",
             "w-full",
             "rounded-2xl",
             "grid",
@@ -94,45 +78,35 @@ export const TrackDetail = () => {
         >
           <img
             className="h-full w-full object-cover rounded-2xl mt-3"
-            src={photoUrl}
-            alt={name}
+            src={imageUrl}
+            alt={track.name}
           />
 
           <div className="grid grid-cols-2 gap-y-2 text-white p-8 self-center">
             <p className="text-5xl font-bold col-span-2 leading-tight mb-2">
-              {name}
+              {track.name}
             </p>
 
-            <p className="text-base font-semibold col-span-1 text-gray-400">
-              Location
-            </p>
-            <p className="text-xl text-right pr-3 col-span-1">{location}</p>
+            <p className="text-base font-semibold text-gray-400">Location</p>
+            <p className="text-xl text-right pr-3">{track.location}</p>
 
-            <p className="text-base font-semibold col-span-1 text-gray-400">
-              Length
-            </p>
-            <p className="text-xl text-right pr-3 col-span-1">{length_km}</p>
-            
-            <p className="text-base font-semibold col-span-1 text-gray-400">
-              Laps
-            </p>
-            <p className="text-xl text-right pr-3 col-span-1">{laps}</p>
-            <p className="text-base font-semibold col-span-1 text-gray-400">
-              Fastest lap
-            </p>
-            <p className="text-xl text-right pr-3 col-span-1">{fastest_lap.time}</p>
-            <p className="text-base font-semibold col-span-1 text-gray-400 text-center">
-              Driver
-            </p>
-            <p className="text-xl text-right pr-3 col-span-1">{fastest_lap.driver}</p>
-            <p className="text-base font-semibold col-span-1 text-gray-400 text-center">
-              Jaar
-            </p>
-            <p className="text-xl text-right pr-3 col-span-1">{fastest_lap.year}</p>
+            <p className="text-base font-semibold text-gray-400">Length</p>
+            <p className="text-xl text-right pr-3">{track.lengthKm} km</p>
+
+            <p className="text-base font-semibold text-gray-400">Laps</p>
+            <p className="text-xl text-right pr-3">{track.laps}</p>
+
+            <p className="text-base font-semibold text-gray-400">Fastest lap</p>
+            <p className="text-xl text-right pr-3">{track.fastestLapTime}</p>
+
+            <p className="text-base font-semibold text-gray-400">Driver</p>
+            <p className="text-xl text-right pr-3">{track.fastestLapDriver}</p>
+
+            <p className="text-base font-semibold text-gray-400">Year</p>
+            <p className="text-xl text-right pr-3">{track.fastestLapYear}</p>
           </div>
         </div>
       </div>
     </main>
   );
 };
-
