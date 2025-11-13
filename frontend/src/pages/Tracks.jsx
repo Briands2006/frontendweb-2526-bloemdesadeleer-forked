@@ -4,6 +4,9 @@ import TrackCard from "../components/tracks/TrackCard.jsx";
 import { F1_MOCK_TRACKS, slug } from "../api/mock-tracks.js"; 
 import { useNavigate } from "react-router-dom";
 import "./Tracks.css";
+import AsyncData from "../components/AsyncData.jsx";
+import useSWR from "swr";
+import { getAll } from "../api/index.js";
 
 const BASE_URL_TRACKS = "https://cdn.racingnews365.com/Circuits";
 // Dit is het constante deel voor grootte en cropping.
@@ -46,41 +49,46 @@ const Tracks = () => {
     navigate(`/tracks/${trackName}`);
   };
 
+  const { data: tracks = [], isLoading, error } = useSWR("tracks", getAll);
+  console.log(tracks);
+
   return (
     <main className="track-page" style={{ padding: 24 }}>
       <h1 className="text-5xl font-extrabold pb-4">F1 Tracks 2025</h1>
       <p className="mb-8">Tracks 2025 season</p>
       <div className="track-grid">
-        {F1_MOCK_TRACKS.map((t, index) => {
-          const trackSlug = slug(t.name);
-          const details = TRACK_URL_MAPPING[trackSlug];
+        <AsyncData loading={isLoading} error={error}>
+          {tracks.map((t, index) => {
+            const trackSlug = slug(t.name);
+            const details = TRACK_URL_MAPPING[trackSlug];
 
-          let imageUrl = null;
+            let imageUrl = null;
 
-          if (details) {
+            if (details) {
             // Voorbeeld: Albert Park Circuit (Australia):
             // https://cdn.racingnews365.com/Circuits/Australia/
             // _639xAUTO_crop_center-center_none/
             // f1_2024_aus_outline.png?v=1708703502
-            const imagePath = `${details.folder}${CONSTANT_IMAGE_PART}_${details.code}_outline.png`;
-            imageUrl = `${BASE_URL_TRACKS}/${imagePath}${VERSION_PARAM}`;
-          }
+              const imagePath = `${details.folder}${CONSTANT_IMAGE_PART}_${details.code}_outline.png`;
+              imageUrl = `${BASE_URL_TRACKS}/${imagePath}${VERSION_PARAM}`;
+            }
 
-          return (
-            <TrackCard
-              key={index}
-              name={t.name}
-              photo={imageUrl} 
-              length_km={t.length_km}
-              location={t.location}
-              laps={t.laps}
-              fastest_lap={t.fastest_lap}
-              onClick={() => {
-                handleTrackClick(t);
-              }}
-            />
-          );
-        })}
+            return (
+              <TrackCard
+                key={index}
+                name={t.name}
+                photo={imageUrl} 
+                length_km={t.length_km}
+                location={t.location}
+                laps={t.laps}
+                fastest_lap={t.fastest_lap}
+                onClick={() => {
+                  handleTrackClick(t);
+                }}
+              />
+            );
+          })}
+        </AsyncData>
       </div>
     </main>
   );
