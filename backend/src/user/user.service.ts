@@ -4,12 +4,13 @@ import {
   InjectDrizzle,
 } from '../drizzle/drizzle.provider';
 import {
-  CreateUserRequestDto,
+  UpdateUserRequestDto,
+  PublicUserResponseDto,
   UserListResponseDto,
-  UserResponseDto,
 } from './user.dto';
 import { eq } from 'drizzle-orm';
 import { users } from '../drizzle/schema';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UserService {
@@ -19,38 +20,48 @@ export class UserService {
   ) {}
 
   async getAll(): Promise<UserListResponseDto> {
-    const users = await this.db.query.users.findMany();
+    const userList = await this.db.query.users.findMany();
+    const users = userList.map((u) =>
+      plainToInstance(PublicUserResponseDto, u, {
+        excludeExtraneousValues: true,
+      }),
+    );
     return { users };
   }
 
-  async getById(id: number): Promise<UserResponseDto> {
+  async getById(id: number): Promise<PublicUserResponseDto> {
     const user = await this.db.query.users.findFirst({
       where: eq(users.id, id),
     });
     if (!user) {
       throw new NotFoundException('No user with that id exist');
     }
-    return user;
+    return plainToInstance(PublicUserResponseDto, user, {
+      excludeExtraneousValues: true,
+    });
   }
 
-  async create(dto: CreateUserRequestDto): Promise<UserResponseDto> {
-    const passwordHash = 'PLACEHOLDER_HASH';
-    const [newUser] = await this.db
-      .insert(users)
-      .values({
-        name: dto.name,
-        email: dto.email,
-        birthdate: dto.birthdate,
-        passwordHash: passwordHash,
-        isAdmin: false,
-        dateJoined: new Date(),
-      })
-      .$returningId();
+  async deleteById(id: number): Promise<void> {
+    const [result] = await this.db.delete(users).where(eq(users.id, id));
 
-    if (!newUser || !newUser.id) {
-      throw new Error('User creation failed to return ID');
+    if (result.affectedRows === 0) {
+      throw new NotFoundException('No user with this id exists');
+    }
+  }
+
+  async updateById(
+    id: number,
+    changes: UpdateUserRequestDto,
+  ): Promise<PublicUserResponseDto> {
+    const [result] = await this.db
+      .update(users)
+      .set(changes)
+      .where(eq(users.id, id));
+
+    if (result.affectedRows === 0) {
+      throw new NotFoundException('No user with this id exists');
     }
 
-    return this.getById(newUser.id);
+    return this.getById(id);
   }
 }
