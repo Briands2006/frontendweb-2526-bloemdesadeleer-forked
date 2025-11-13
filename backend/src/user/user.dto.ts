@@ -1,21 +1,42 @@
+import { Type } from 'class-transformer';
 import {
+  IsBoolean,
+  IsDate,
   IsEmail,
+  IsInt,
+  IsNotEmpty,
   IsString,
+  MaxDate,
   MaxLength,
+  Min,
   MinLength,
   IsDateString,
 } from 'class-validator';
-import { Expose } from 'class-transformer';
 
 export class PublicUserResponseDto {
-  @Expose()
+  @IsInt()
+  @Min(1)
   id: number;
 
-  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(255)
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
   email: string;
 
-  @Expose()
-  name: string;
+  @Type(() => Date)
+  @IsDate()
+  @MaxDate(new Date(), { message: 'Date must not be in the future' })
+  birthdate: Date;
+
+  @IsDate()
+  dateJoined: Date;
+
+  @IsBoolean()
+  isAdmin: boolean;
 }
 
 export class UserListResponseDto {

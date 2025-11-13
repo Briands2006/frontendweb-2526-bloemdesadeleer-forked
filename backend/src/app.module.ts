@@ -22,12 +22,18 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { AdminGuard } from './auth/guards/admin.guard';
 import { UserModule } from './user/user.module';
 import { UserController } from './user/user.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
   imports: [
     UploadsModule,
     ConfigModule.forRoot({
       load: [config],
       isGlobal: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'public'),
+      serveRoot: '/assets',
     }),
     TracksModule,
     DrizzleModule,

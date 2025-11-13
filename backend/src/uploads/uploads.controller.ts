@@ -1,4 +1,3 @@
-// src/uploads/uploads.controller.ts
 import {
   Controller,
   Get,
