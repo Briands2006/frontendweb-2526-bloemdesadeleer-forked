@@ -14,7 +14,7 @@ import { join } from 'path';
 export class UploadsController {
   @Get()
   getAllFiles() {
-    const files = readdirSync(join(__dirname, '..', '..', 'uploads'));
+    const files = readdirSync(join(__dirname, '..', 'uploads'));
     return files.map((file) => ({
       filename: file,
       url: `/api/uploads/${file}`,

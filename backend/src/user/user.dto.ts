@@ -3,7 +3,7 @@ import {
   IsString,
   MaxLength,
   MinLength,
-  IsDate,
+  IsDateString,
 } from 'class-validator';
 import { Expose } from 'class-transformer';
 
@@ -48,6 +48,6 @@ export class RegisterUserRequestDto {
   @MaxLength(128)
   password: string;
 
-  @IsDate()
+  @IsDateString()
   birthdate: string;
 }
