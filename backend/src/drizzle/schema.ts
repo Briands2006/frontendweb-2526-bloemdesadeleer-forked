@@ -7,7 +7,6 @@ import {
   boolean,
   primaryKey,
   uniqueIndex,
-  json,
 } from 'drizzle-orm/mysql-core';
 import { relations, sql } from 'drizzle-orm';
 
@@ -19,12 +18,11 @@ export const users = mysqlTable(
     email: varchar('email', { length: 255 }).notNull().unique(),
     passwordHash: varchar('password_hash', { length: 255 }).notNull(),
     name: varchar('name', { length: 255 }).notNull(),
-    birthdate: datetime('birhtdate').notNull(),
+    birthdate: datetime('birthdate').notNull(),
     dateJoined: datetime('date_joined')
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
     isAdmin: boolean('is_admin').notNull().default(false),
-    roles: json('roles').notNull(),
   },
   (table) => [uniqueIndex('idx_user_email_unique').on(table.email)],
 );
