@@ -12,6 +12,7 @@ import { JwtPayload } from '../types/auth';
 import { LoginRequestDto } from '../session/session.dto';
 import { eq } from 'drizzle-orm';
 import { users } from '../drizzle/schema';
+import { RegisterUserRequestDto } from '../user/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -77,5 +78,31 @@ export class AuthService {
     }
 
     return this.signJwt(user);
+  }
+
+  async register({
+    name,
+    email,
+    password,
+    birthdate,
+  }: RegisterUserRequestDto): Promise<string> {
+    const passwordHash = await this.hashPassword(password);
+
+    const [newUser] = await this.db
+      .insert(users)
+      .values({
+        name,
+        email,
+        passwordHash: passwordHash,
+        isAdmin: false,
+        birthdate: new Date(birthdate),
+      })
+      .$returningId();
+
+    const user = await this.db.query.users.findFirst({
+      where: eq(users.id, newUser.id),
+    });
+
+    return this.signJwt(user!);
   }
 }
