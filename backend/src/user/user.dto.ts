@@ -1,4 +1,10 @@
-import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  MaxLength,
+  MinLength,
+  IsDate,
+} from 'class-validator';
 import { Expose } from 'class-transformer';
 
 export class PublicUserResponseDto {
@@ -41,4 +47,7 @@ export class RegisterUserRequestDto {
   @MinLength(8)
   @MaxLength(128)
   password: string;
+
+  @IsDate()
+  birthdate: string;
 }

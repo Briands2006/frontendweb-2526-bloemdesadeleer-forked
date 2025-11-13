@@ -84,12 +84,19 @@ export class AuthService {
     name,
     email,
     password,
+    birthdate,
   }: RegisterUserRequestDto): Promise<string> {
     const passwordHash = await this.hashPassword(password);
 
     const [newUser] = await this.db
       .insert(users)
-      .values({ name, email, passwordHash: passwordHash, isAdmin: false })
+      .values({
+        name,
+        email,
+        passwordHash: passwordHash,
+        isAdmin: false,
+        birthdate: new Date(birthdate),
+      })
       .$returningId();
 
     const user = await this.db.query.users.findFirst({
