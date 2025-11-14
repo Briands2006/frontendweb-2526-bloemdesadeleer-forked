@@ -1,4 +1,3 @@
-// src/contexts/Auth.context.jsx
 import { useState, useCallback, useMemo } from "react";
 import useSWRMutation from "swr/mutation";
 import * as api from "../api";
@@ -18,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     trigger: doLogin,
     isMutating: loginLoading,
     error: loginError,
-  } = useSWRMutation("sessions", api.post);
+  } = useSWRMutation("session", api.post);
 
   const {
     isMutating: registerLoading,
