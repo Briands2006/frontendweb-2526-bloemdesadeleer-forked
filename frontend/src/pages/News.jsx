@@ -4,6 +4,9 @@ import { NewsCard } from "../components/news/NewsCard.jsx";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { slug } from "../api/mock-data.js";
 import { useNavigate } from "react-router-dom";
+import { getAll } from "../api/index.js";
+import AsyncData from "../components/AsyncData.jsx";
+import useSWR from "swr";
 
 const POSTS_PER_PAGE = 10;
 
@@ -15,11 +18,17 @@ export const News = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []); // scroll naar boven bij laden van de pagina
 
+  const { data: news = [], isLoading, error} = useSWR("news", getAll);
+  console.log(news);
+
   // logica voor paginering, berekeningen, enz... (saaie dingen dus)
-  const totalPages = Math.ceil(NEWS_ARTICLES.length / POSTS_PER_PAGE);
+
+  const safeNews = Array.isArray(news) ? news : [];
+  const totalPages = Math.ceil(safeNews.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
-  const currentPosts = NEWS_ARTICLES.slice(startIndex, endIndex);
+  const currentPosts = safeNews
+    .slice(startIndex, endIndex);
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
@@ -46,14 +55,16 @@ export const News = () => {
         <h1 className="text-5xl font-extrabold mb-8 pb-4">F1 News</h1>
 
         <div className="grid md:grid-cols-3 gap-10">
-          {currentPosts.map((post) => (
-            <NewsCard
-              key={post.id}
-              post={post}
-              onClick={() => handleNewsPostClick(post)}
-              className="cursor-pointer"
-            />
-          ))}
+          <AsyncData loading = {isLoading} error={error}>
+            {currentPosts.map((post) => (
+              <NewsCard
+                key={post.id}
+                post={post}
+                onClick={() => handleNewsPostClick(post)}
+                className="cursor-pointer"
+              />
+            ))}
+          </AsyncData>
         </div>
 
         <div className="flex justify-center items-center gap-6 mt-16">

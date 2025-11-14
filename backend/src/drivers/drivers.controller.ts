@@ -21,6 +21,7 @@ export class DriversController {
   }
 
   @Get('n/:slug')
+  @Public()
   async getDriverBySlug(
     @Param('slug') slug: string,
   ): Promise<DriverResponseDto> {

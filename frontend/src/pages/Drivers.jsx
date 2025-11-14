@@ -1,7 +1,7 @@
 //import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DriverCard from "../components/drivers/DriverCard.jsx";
-import { DRIVERS, slug } from "../api/mock-data.js"; // component moet nog aangepast worden :)
+import { DRIVERS, slug } from "../api/mock-data.js";
 import "./Drivers.css";
 import useSWR from "swr";
 import AsyncData from "../components/AsyncData.jsx";
@@ -27,7 +27,7 @@ const Drivers = () => {
       <p className="mb-8">The F1 drivers for the 2025 season</p>
       <div className="drivers-grid">
         <AsyncData loading={isLoading} error={error}>
-          {drivers.map((d) => (
+          {Array.isArray(drivers) && drivers.map((d) => (
             <DriverCard
               key={d.id}
               name={d.name}
