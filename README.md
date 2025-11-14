@@ -23,7 +23,7 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 ## Opstarten
 
 > Schrijf hier hoe we de applicatie starten (.env bestanden aanmaken, commando's om uit te voeren...)
-pnpm dev
+- pnpm dev
 
 ## Testen
 
@@ -32,9 +32,9 @@ pnpm dev
 ## Back-end
 
 ## Opstarten
-pnmp start:dev
-pnmp db:start
-pnpm db:seed
+- pnmp start:dev
+- pnmp db:start
+- pnpm db:seed
 
 > Schrijf hier hoe we de applicatie starten (.env bestanden aanmaken, commando's om uit te voeren...)
 
