@@ -148,6 +148,20 @@ export const Register = () => {
               />
             </div>
           </div>
+          <div>
+            <label className='block text-sm font-medium mb-1 text-gray-300'>Geboortedatum</label>
+            <input 
+              type="date" 
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+              placeholder='dd/mm/jjjj'
+              className="w-full pl-3 pr-4 py-2 bg-gray-800 border border-gray-700
+              rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"
+            />
+            {date && !isNotFutureDate(date) && (<p className='text-xs text-red-400 mt-1'>
+              Geboortedatum kan niet in de toekomst liggen.</p>)}
+          </div>
 
           <div>
             <label className="block text-sm font-medium mb-1 text-gray-300">
@@ -223,20 +237,6 @@ export const Register = () => {
               ))}
             </div>
           )}
-          <div>
-            <label className='block text-sm font-medium mb-1 text-gray-300'>Geboortedatum</label>
-            <input 
-              type="date" 
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-              placeholder='dd/mm/jjjj'
-              className="w-full pl-3 pr-4 py-2 bg-gray-800 border border-gray-700
-              rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"
-            />
-            {date && !isNotFutureDate(date) && (<p className='text-xs text-red-400 mt-1'>
-              Geboortedatum kan niet in de toekomst liggen.</p>)}
-          </div>
 
           <button
             type="submit"
