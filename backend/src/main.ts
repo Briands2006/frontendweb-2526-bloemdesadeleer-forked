@@ -6,6 +6,7 @@ import { ServerConfig, CorsConfig, LogConfig } from './config/config';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import CustomLogger from './core/customLogger';
 import { HttpExceptionFilter } from './lib/http-exception.filter';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -30,6 +31,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.use(helmet());
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('f1-tracker')

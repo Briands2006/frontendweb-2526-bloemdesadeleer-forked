@@ -14,6 +14,7 @@ export class RacesController {
   }
 
   @Get(':id')
+  @Public()
   async getRaceById(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<RaceResponseDto> {

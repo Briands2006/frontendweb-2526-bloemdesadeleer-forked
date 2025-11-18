@@ -18,6 +18,19 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      console.error("401 Unauthorized: Invalid token. Forcing removal of JWT token");
+
+      localStorage.removeItem(JWT_TOKEN_KEY);
+      
+    }
+    return Promise.reject(error);
+  },
+);
+
 export async function getAll(url) {
   const { data } = await axios.get(url);
   return data.items ||data.drivers || data.news ||data;

@@ -8,10 +8,44 @@ import {
   CloudRain,
   Sunrise,
   Sun,
+  MapPin,
+  Ruler,
 } from "lucide-react";
 import Flags from "country-flag-icons/react/3x2";
 import AsyncData from "../../components/AsyncData.jsx";
 import { getBySlug } from "../../api/index.js";
+import { getTrackImageUrl } from "../utils/getTrackImage.js";
+
+const COUNTRY_CODE_MAP = {
+  Bahrain: "BH",
+  "Saudi Arabia": "SA",
+  Japan: "JP",
+  China: "CN",
+  Azerbaijan: "AZ",
+  Singapore: "SG",
+  Qatar: "QA",
+  UAE: "AE",
+  Italy: "IT",
+  Monaco: "MC",
+  Spain: "ES",
+  Austria: "AT",
+  "United Kingdom": "GB",
+  Hungary: "HU",
+  Belgium: "BE",
+  Netherlands: "NL",
+  "United States": "US",
+  Canada: "CA",
+  Mexico: "MX",
+  Brazil: "BR",
+  Australia: "AU",
+};
+
+const getCountryCode = (locationString) => {
+  if (!locationString) return null;
+  const parts = locationString.split(",").map((s) => s.trim());
+  const countryName = parts[parts.length - 1];
+  return COUNTRY_CODE_MAP[countryName] || null;
+};
 
 const formatDate = (dateString) => {
   const options = {
@@ -61,27 +95,32 @@ export const RaceDetail = () => {
 
   const key = raceName ? ["/races", raceName] : null;
 
-  console.log("Race Key: ", key);
-
   const { data, isLoading, error } = useSWR(key, ([url, slug]) =>
     getBySlug(url, slug),
   );
 
-  console.log("Data Obj: ", data);
-
   const race = data?.race || data;
-
-  console.log("Race Obj: ", race);
+  const track = race?.track;
 
   if (isLoading || error) {
     return <AsyncData loading={isLoading} error={error} />;
   }
 
+  const handleTrackCardClick = () => {
+    if (track?.slug) {
+      navigate(`/tracks/${track.slug}`);
+    }
+  };
+
+  const trackCountryCode = getCountryCode(track?.location);
+  const trackImageUrl = getTrackImageUrl(track?.slug);
+  const Flag = Flags[trackCountryCode];
+
   if (!race) {
     return (
       <div
         className="min-h-screen bg-transparent text-white p-20 flex
-       flex-col items-center justify-center text-center"
+        flex-col items-center justify-center text-center"
       >
         <h1 className="text-4xl font-extrabold text-red-600 mb-4">
           Fout: Race niet gevonden
@@ -123,8 +162,8 @@ export const RaceDetail = () => {
           <h1 className="text-5xl font-extrabold text-red-500">
             {slugToTitle(race.slug || raceName)}
           </h1>
-          <div className="w-20 h-auto rounded-md shadow-lg overflow-hidden flex justify-center items-center">
-            <p>Not yet implemented</p>
+          <div className="w-20 h-auto rounded-md shadow-lg overflow-hidden flex justify-center items-center -mb-8">
+            <Flag className="w-20 ml-auto rounded" />
           </div>
         </div>
         <p className="text-lg text-gray-300 mt-2">Brian is niet beschikbaar</p>
@@ -163,25 +202,79 @@ export const RaceDetail = () => {
             </div>
           </div>
 
-          <div className="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center">
-            <h2 className="text-2xl font-bold text-gray-500">
-              Baan Informatie (WIP)
-            </h2>
-            <p className="mt-2 text-gray-600 italic">
-              Info van de baan zal hier verschijnen...
-            </p>
-          </div>
+          {track && (
+            <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
+              <h2 className="text-3xl font-bold mb-4 border-b border-gray-800 pb-2">
+                Baan Informatie
+              </h2>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <p className="font-semibold text-gray-500 flex items-center">
+                  Naam
+                </p>
+                <p className="text-right text-white font-bold">{track.name}</p>
+
+                <p className="font-semibold text-gray-500 flex items-center">
+                  <MapPin className="w-4 h-4 mr-2" /> Locatie
+                </p>
+                <p className="text-right text-white">{track.location}</p>
+
+                <p className="font-semibold text-gray-500 flex items-center">
+                  <Ruler className="w-4 h-4 mr-2" /> Lengte
+                </p>
+                <p className="text-right text-white">{track.lengthKm} km</p>
+
+                <p className="font-semibold text-gray-500 flex items-center">
+                  Aantal Ronden
+                </p>
+                <p className="text-right text-white">{track.laps}</p>
+
+                <p className="font-semibold text-gray-500 flex items-center">
+                  Snelste Ronde Tijd
+                </p>
+                <p className="text-right text-red-500 font-bold">
+                  {track.fastestLapTime || "N/A"}
+                </p>
+
+                <p className="font-semibold text-gray-500 flex items-center">
+                  Snelste Ronde Coureur
+                </p>
+                <p className="text-right text-white">
+                  {track.fastestLapDriver || "N/A"} (
+                  {track.fastestLapYear || "N/A"})
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="lg:col-span-1">
           <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
             <h2 className="text-3xl font-bold mb-4">Baan Layout</h2>
-            <div
-              className="h-64 bg-gray-800 rounded-lg flex 
-            items-center justify-center text-gray-500 italic text-center p-4"
-            >
-              (image van de baan, gelinkt met Track.jsx)
-            </div>
+            {trackImageUrl ? (
+              <div
+                onClick={handleTrackCardClick}
+                className="h-100 w-auto rounded-lg bg-contain bg-center bg-no-repeat 
+                           cursor-pointer transition-transform hover:scale-[1.02] 
+                           border-2 border-gray-800"
+                style={{
+                  backgroundImage: `url('${trackImageUrl}')`,
+                  backgroundColor: "rgba(255, 255, 255, 0.05)",
+                }}
+                title={`Bekijk details van ${track.name}`}
+              >
+                <div className="h-full flex items-end justify-end p-2 text-sm
+                 text-white/70 font-bold bg-black/10 hover:bg-black/20 transition">
+                  Klik voor Baan Details
+                </div>
+              </div>
+            ) : (
+              <div
+                className="h-64 bg-gray-800 rounded-lg flex 
+                           items-center justify-center text-gray-500 italic text-center p-4"
+              >
+                (Image van de baan niet beschikbaar)
+              </div>
+            )}
           </div>
         </div>
       </div>

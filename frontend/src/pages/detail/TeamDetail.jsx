@@ -44,7 +44,6 @@ export const TeamDetail = () => {
 
   return (
     <div className="min-h-screen bg-transparent text-white py-12 px-8 md:px-16">
-      {/* Terugknop */}
       <button
         onClick={() => navigate("/teams")}
         className="text-red-500 hover:text-red-400 flex items-center mb-8 transition-colors cursor-pointer"
