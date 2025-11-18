@@ -4,7 +4,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import useSWR from "swr";
 import { getAll } from "../api/index.js";
 import AsyncData from "../components/AsyncData.jsx";
-import { FullCalendarEvent, Race } from "../types/calendarTypes.js";
 
 const slugToTitle = (slug) => {
   return slug
@@ -14,9 +13,32 @@ const slugToTitle = (slug) => {
 };
 
 export const Calendar = () => {
+  const { data: races = [], isLoading, error } = useSWR("races", getAll);
+
+  const events = Array.isArray(races)
+    ? races.map((race) => ({
+    // mapping race => FullCalendar format
+      id: race.id,
+      title: slugToTitle(race.slug),
+      start: race.date,
+      url: `/races/${race.slug}`,
+    }))
+    : [];
+
   return (
     <main className="p-8 text-white">
-      <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" />
+      <AsyncData loading={isLoading} error={error}>
+        <FullCalendar
+          plugins={[dayGridPlugin]}
+          initialView="dayGridMonth"
+          events={events}
+          headerToolbar={{
+            left: "prev, next today",
+            center: "title",
+            right: "dayGridMonth,dayGridWeek",
+          }}
+        />
+      </AsyncData>
     </main>
   );
 };
