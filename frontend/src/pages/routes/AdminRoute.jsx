@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/useAuth.js";
 import { Loader2 } from "lucide-react";
 
 export const AdminRoute = ({ children }) => {
-  const { currentUser, loading, isAdmin } = useAuth();
+  const { isAuthed, loading, isAdmin } = useAuth();
 
   if (loading) {
     return (
@@ -14,5 +14,5 @@ export const AdminRoute = ({ children }) => {
     );
   }
 
-  return (currentUser && isAdmin) ? children : <Navigate to="/" replace />;
+  return (isAuthed && isAdmin) ? children : <Navigate to="/" replace />;
 };

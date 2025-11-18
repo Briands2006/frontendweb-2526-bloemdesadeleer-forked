@@ -46,7 +46,7 @@ export class UserController {
     @Param('id', ParseUserIdPipe) id: 'me' | number,
     @CurrentUser() user: Session,
   ): Promise<PublicUserResponseDto> {
-    const userId = id === 'me' ? user.id : id;
+    const userId = id === 'me' ? Number(user.id) : id;
     return this.userService.getById(userId);
   }
 

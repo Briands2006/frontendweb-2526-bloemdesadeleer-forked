@@ -4,8 +4,10 @@ import { User, Mail, Calendar, LogOut, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
-  const { currentUser, logout, loading } = useAuth();
+  const { isAuthed, user, logout, loading } = useAuth();
   const navigate = useNavigate();
+
+  console.log(user);
 
   if (loading) {
     return (
@@ -15,9 +17,18 @@ export const Profile = () => {
     );
   }
 
-  if (!currentUser) {
+  if (!isAuthed) {
     return (
       <div className="text-center p-10 text-white">U bent niet ingelogd.</div>
+    );
+  }
+
+  if (!user || !user.email) {
+    console.log("User is authenticated but user object is not yet loaded. Showing spinner.");
+    return (
+      <div className="min-h-[500px] flex items-center justify-center">
+        <Loader2 className="w-10 h-10 animate-spin text-red-600" />
+      </div>
     );
   }
 
@@ -30,8 +41,8 @@ export const Profile = () => {
     }
   };
 
-  const formattedDate = currentUser.dateJoined
-    ? new Date(currentUser.dateJoined).toLocaleDateString("nl-BE", {
+  const formattedDate = user.dateJoined
+    ? new Date(user.dateJoined).toLocaleDateString("nl-BE", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -49,7 +60,7 @@ export const Profile = () => {
           <h1 className="text-4xl font-bold mb-1">
             Welkom,{" "}
             <span className="text-red-600">
-              {currentUser.name || currentUser.email.split("@")[0]}
+              {user.name || user.email.split("@")[0]}
             </span>
             !
           </h1>
@@ -62,18 +73,18 @@ export const Profile = () => {
             <Mail className="w-5 h-5 text-red-500 mr-4" />
             <div>
               <p className="text-sm font-semibold text-gray-400">E-mail</p>
-              <p className="text-lg">{currentUser.email}</p>
+              <p className="text-lg">{user.email}</p>
             </div>
           </div>
 
-          {currentUser.name && (
+          {user.name && (
             <div className="flex items-center p-4 bg-gray-800 rounded-lg border border-gray-700">
               <User className="w-5 h-5 text-red-500 mr-4" />
               <div>
                 <p className="text-sm font-semibold text-gray-400">
                   Gebruikersnaam
                 </p>
-                <p className="text-lg">{currentUser.name}</p>
+                <p className="text-lg">{user.name}</p>
               </div>
             </div>
           )}
@@ -99,7 +110,7 @@ export const Profile = () => {
         </button>
 
         <div className="mt-6 text-center text-sm text-gray-500">
-          Gebruikers ID: {currentUser.id}
+          Gebruikers ID: {user.id}
         </div>
       </div>
     </div>

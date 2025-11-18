@@ -3,15 +3,26 @@ import useSWRMutation from "swr/mutation";
 import * as api from "../api";
 import useSWR from "swr";
 import { JWT_TOKEN_KEY, AuthContext } from "./auth";
+import { mutate } from "swr";
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem(JWT_TOKEN_KEY)); //
+  const [token, setToken] = useState(localStorage.getItem(JWT_TOKEN_KEY));
 
   const {
     data: user,
-    loading: userLoading,
+    isLoading: userLoading,
     error: userError,
   } = useSWR(token ? "users/me" : null, api.getById);
+
+  console.log("[AuthProvider] token:", token);
+  console.log(
+    "[AuthProvider] swr user:",
+    user,
+    "userLoading:",
+    userLoading,
+    "userError:",
+    userError,
+  );
 
   const {
     trigger: doLogin,
@@ -39,6 +50,7 @@ export const AuthProvider = ({ children }) => {
         });
 
         setSession(token);
+        mutate("users/me");
 
         return true;
       } catch (error) {
@@ -76,6 +88,7 @@ export const AuthProvider = ({ children }) => {
       error: loginError || userError || registerError,
       loading: loginLoading || userLoading || registerLoading,
       isAuthed: Boolean(token),
+      isAdmin: user?.isAdmin === true,
       ready: !userLoading,
       login,
       logout,

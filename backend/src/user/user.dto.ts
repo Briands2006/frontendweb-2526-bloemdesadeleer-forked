@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDate,
@@ -14,27 +14,33 @@ import {
 } from 'class-validator';
 
 export class PublicUserResponseDto {
+  @Expose()
   @IsInt()
   @Min(1)
   id: number;
 
+  @Expose()
   @IsString()
   @IsNotEmpty()
   @MaxLength(255)
   name: string;
 
+  @Expose()
   @IsString()
   @IsNotEmpty()
   email: string;
 
+  @Expose()
   @Type(() => Date)
   @IsDate()
   @MaxDate(new Date(), { message: 'Date must not be in the future' })
   birthdate: Date;
 
+  @Expose()
   @IsDate()
   dateJoined: Date;
 
+  @Expose()
   @IsBoolean()
   isAdmin: boolean;
 }

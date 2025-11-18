@@ -18,14 +18,14 @@ export default function Navbar() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { currentUser, logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const isActive = (path) =>
     location.pathname.startsWith(path) &&
     (location.pathname.length === path.length ||
       location.pathname[path.length] === "/");
 
-  const dynamicNavLinks = currentUser
+  const dynamicNavLinks = user
     ? [...navLinks, { path: "/profile", label: "Profile", isAuth: true }]
     : [...navLinks, { path: "/login", label: "Login", isAuth: true }];
 
@@ -39,7 +39,7 @@ export default function Navbar() {
   };
 
   const renderAuthLink = (link) => {
-    if (currentUser && link.path === "/profile") {
+    if (user && link.path === "/profile") {
       return (
         <Link
           key={link.path}
@@ -52,7 +52,7 @@ export default function Navbar() {
       );
     }
 
-    if (!currentUser && link.path === "/login") {
+    if (!user && link.path === "/login") {
       return (
         <Link
           key={link.path}
@@ -82,7 +82,7 @@ export default function Navbar() {
   };
 
   const renderLogoutButton = () => {
-    if (currentUser) {
+    if (user) {
       return (
         <button onClick={handleLogout} className="nav-link logout-button">
           <LogOut className="nav-icon" size={20} />

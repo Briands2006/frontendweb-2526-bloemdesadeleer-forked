@@ -1,0 +1,13 @@
+{
+  "name": "f1-project-root",
+  "version": "1.0.0",
+  "description": "Project root combining front and back end",
+  "scripts": {
+    "dev": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"green,blue\" \"pnpm:backend\" \"pnpm:frontend\"",
+    "backend": "cd backend && pnpm start",
+    "frontend": "cd frontend && pnpm dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
