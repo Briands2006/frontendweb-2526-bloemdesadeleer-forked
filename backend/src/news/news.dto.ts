@@ -1,9 +1,7 @@
 import {
   IsDate,
-  IsIn,
   IsInt,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
   MaxDate,
