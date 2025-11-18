@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import useSWR from "swr";
@@ -13,17 +13,23 @@ const slugToTitle = (slug) => {
 };
 
 export const Calendar = () => {
+  const [calendarEvent, setCalendarEvent] = useState([]);
   const { data: races = [], isLoading, error } = useSWR("races", getAll);
 
-  const events = Array.isArray(races)
-    ? races.map((race) => ({
-    // mapping race => FullCalendar format
-      id: race.id,
-      title: slugToTitle(race.slug),
-      start: race.date,
-      url: `/races/${race.slug}`,
-    }))
-    : [];
+  useEffect(() => {
+    if (Array.isArray(races) && races.length > 0) {
+      const formattedEvents = races.map((race) => ({
+        id: race.id,
+        title: slugToTitle(race.slug),
+        start: race.date,
+        url: `/races/${race.slug}`,
+      }));
+
+      setCalendarEvent(formattedEvents);
+    } else if (races.length === 0) {
+      setCalendarEvent([]);
+    }
+  }, [races]);
 
   return (
     <main className="p-8 text-white">
@@ -31,7 +37,7 @@ export const Calendar = () => {
         <FullCalendar
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
-          events={events}
+          events={calendarEvent}
           headerToolbar={{
             left: "prev, next today",
             center: "title",
