@@ -25,9 +25,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CalendarController } from './calendar/calendar.controller';
 import { CalendarModule } from './calendar/calendar.module';
-import { RaceModule } from './race/race.module';
 import { RacesModule } from './races/races.module';
-import { RaceService } from './race/race.service';
+import { RacesService } from './races/races.service';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -48,7 +48,6 @@ import { RaceService } from './race/race.service';
     SessionModule,
     UserModule,
     CalendarModule,
-    RaceModule,
     RacesModule,
   ],
   controllers: [
@@ -71,7 +70,7 @@ import { RaceService } from './race/race.service';
     },
     AppService,
     NewsService,
-    RaceService,
+    RacesService,
   ],
 })
 export class AppModule {}

@@ -14,6 +14,7 @@ export class TrackController {
   }
 
   @Get(':id')
+  @Public()
   async getTrackById(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<TrackResponseDto> {
