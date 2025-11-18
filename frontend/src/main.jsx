@@ -25,6 +25,7 @@ import { PrivateRoute } from "./pages/routes/PrivateRoute.jsx";
 import { AdminRoute } from "./pages/routes/AdminRoute.jsx";
 import { AdminDashboard } from "./pages/misc/Admin.jsx";
 import { TrackDetail } from "./pages/detail/TrackDetail.jsx";
+import { RaceDetail } from './pages/detail/RaceDetail.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "calendar",
         Component: Calendar,
+      },
+      {
+        path:"races/:raceName",
+        Component: RaceDetail,
       },
       {
         path: "tracks",
