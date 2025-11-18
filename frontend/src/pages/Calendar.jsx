@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import useSWR from "swr";
@@ -14,7 +14,13 @@ const slugToTitle = (slug) => {
 
 export const Calendar = () => {
   const [calendarEvent, setCalendarEvent] = useState([]);
-  const { data: races = [], isLoading, error } = useSWR("races", getAll);
+  const { data, isLoading, error } = useSWR("races", getAll);
+
+  const races = useMemo(() => {
+    return data?.races || [];
+  }, [data]);
+
+  console.log(races);
 
   useEffect(() => {
     if (Array.isArray(races) && races.length > 0) {
@@ -25,11 +31,15 @@ export const Calendar = () => {
         url: `/races/${race.slug}`,
       }));
 
+      console.log("first formatted event: ", formattedEvents[0]);
+
       setCalendarEvent(formattedEvents);
-    } else if (races.length === 0) {
+    } else if (races.length === 0 && !isLoading) {
       setCalendarEvent([]);
     }
-  }, [races]);
+  }, [races, isLoading]);
+
+  console.log("Final State:", calendarEvent);
 
   return (
     <main className="p-8 text-white">
@@ -39,7 +49,7 @@ export const Calendar = () => {
           initialView="dayGridMonth"
           events={calendarEvent}
           headerToolbar={{
-            left: "prev, next today",
+            left: "prev,next today",
             center: "title",
             right: "dayGridMonth,dayGridWeek",
           }}
