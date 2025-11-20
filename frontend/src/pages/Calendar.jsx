@@ -20,8 +20,6 @@ export const Calendar = () => {
     return data?.races || [];
   }, [data]);
 
-  console.log(races);
-
   useEffect(() => {
     if (Array.isArray(races) && races.length > 0) {
       const formattedEvents = races.map((race) => ({
@@ -31,15 +29,11 @@ export const Calendar = () => {
         url: `/races/${race.slug}`,
       }));
 
-      console.log("first formatted event: ", formattedEvents[0]);
-
       setCalendarEvent(formattedEvents);
     } else if (races.length === 0 && !isLoading) {
       setCalendarEvent([]);
     }
   }, [races, isLoading]);
-
-  console.log("Final State:", calendarEvent);
 
   return (
     <main className="p-8 text-white">

@@ -51,16 +51,11 @@ export const deleteById = async (url, { arg: id }) => {
 };
 
 export const post = async (url, { arg }) => {
-  console.log("🟦 POST Request URL:", url);
-  console.log("🟦 POST Request Body:", arg);
-
   try {
     const response = await axios.post(url, arg);
-    console.log("🟩 POST Response:", response.data);
     return response.data;
   } catch (err) {
     console.log("🟥 POST Error Response:", err.response?.data);
-    console.log("🟥 POST Error Status:", err.response?.status);
     throw err;
   }
 };

@@ -19,7 +19,6 @@ const Drivers = () => {
   };
 
   const { data: drivers = [], isLoading, error } = useSWR("drivers", getAll);
-  console.log(drivers);
 
   return (
     <main className="drivers-page" style={{ padding: 24 }}>

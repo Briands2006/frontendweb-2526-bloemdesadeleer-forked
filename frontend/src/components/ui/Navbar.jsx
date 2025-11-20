@@ -84,7 +84,7 @@ export default function Navbar() {
   const renderLogoutButton = () => {
     if (user) {
       return (
-        <button onClick={handleLogout} className="nav-link logout-button">
+        <button onClick={handleLogout} className="nav-link logout-button cursor-pointer">
           <LogOut className="nav-icon" size={20} />
         </button>
       );

@@ -19,7 +19,6 @@ export const News = () => {
   }, []); // scroll naar boven bij laden van de pagina
 
   const { data: news = [], isLoading, error} = useSWR("news", getAll);
-  console.log(news);
 
   // logica voor paginering, berekeningen, enz... (saaie dingen dus)
 

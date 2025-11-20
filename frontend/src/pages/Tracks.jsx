@@ -17,7 +17,6 @@ const Tracks = () => {
   };
 
   const { data: response = [], isLoading, error } = useSWR("tracks", getAll);
-  console.log(response);
   const tracks = response?.tracks ?? [];
 
   return (

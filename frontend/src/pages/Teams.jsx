@@ -9,7 +9,6 @@ export const Teams = () => {
   const { data: response = [], isLoading, error } = useSWR("teams", getAll);
   
   const teams = response?.teams || [];
-  console.log(teams);
 
   return (
     <main className="min-h-screen bg-transparent text-white py-12 px-8 md:px-16">
