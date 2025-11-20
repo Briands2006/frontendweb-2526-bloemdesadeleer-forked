@@ -43,9 +43,11 @@ export const Profile = () => {
       return "Onbekend";
     }
 
-    if (isNaN(date)) {
-      console.error("Ongeldige datumswaarde:", date);
-      return "Ongeldig formaat";
+    const newDate = new Date(date);
+
+    if (isNaN(newDate.getTime())) {
+      console.error("Ongeldige date: ", newDate);
+      return "Ongeldig Formaat";
     }
 
     return new Date(date).toLocaleDateString("nl-BE", {

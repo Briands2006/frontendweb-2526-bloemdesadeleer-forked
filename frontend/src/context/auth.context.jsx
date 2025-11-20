@@ -14,15 +14,17 @@ export const AuthProvider = ({ children }) => {
     error: userError,
   } = useSWR(token ? "users/me" : null, api.getById);
 
-  console.log("[AuthProvider] token:", token);
-  console.log(
-    "[AuthProvider] swr user:",
-    user,
-    "userLoading:",
-    userLoading,
-    "userError:",
-    userError,
-  );
+  // Debugging for token [AuthProvider]
+
+  // console.log("[AuthProvider] token:", token);
+  // console.log(
+  //   "[AuthProvider] swr user:",
+  //   user,
+  //   "userLoading:",
+  //   userLoading,
+  //   "userError:",
+  //   userError,
+  // );
 
   const {
     trigger: doLogin,
