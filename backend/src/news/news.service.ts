@@ -28,4 +28,14 @@ export class NewsService {
     }
     return newsMessage;
   }
+
+  async getBySlug(slug: string): Promise<NewsResponseDto> {
+    const article = await this.db.query.news.findFirst({
+      where: eq(news.slug, slug),
+    });
+    if (!article) {
+      throw new NotFoundException('No news with this slug exists');
+    }
+    return article;
+  }
 }

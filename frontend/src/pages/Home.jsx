@@ -3,23 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { DRIVERS, slug } from "../api/mock-data.js";
 import Carrousel from "./../components/ui/Carrousel.jsx";
 import { ArrowRight, Users, Eye } from "lucide-react";
-import { NEWS_ARTICLES } from "../api/news-posts.js";
+//import { NEWS_ARTICLES } from "../api/news-posts.js";
+import  useSWR  from "swr";
+import { getAll } from "../api/index.js";
 
 const F1_IMAGE = "../../ui/f1-frontwing.png";
-
-const parseDate = (dateString) => { // parst de date da in de API mock data staat, is gewoon voor nu 
-  const monthMap = { // gebruik mapping voor nu want alles staat in het nederlands
-    "januari": 0, "februari": 1, "maart": 2, "april": 3, "mei": 4, "juni": 5,
-    "juli": 6, "augustus": 7, "september": 8, "oktober": 9, "november": 10, "december": 11,
-  };
-  
-  const parts = dateString.split(" ");
-  const day = parseInt(parts[0], 10);
-  const monthIndex = monthMap[parts[1].toLowerCase()];
-  const year = parseInt(parts[2], 10);
-
-  return new Date(year, monthIndex, day);
-};
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -27,9 +15,13 @@ export const Home = () => {
 
   const handleScroll = () => setOffsetY(window.scrollY);
 
-  const handlePostClick = (postTitle) => {
-    const postSlug = slug(postTitle);
-    navigate(`/news/${postSlug}`);
+  // const handlePostClick = (postTitle) => {
+  //   const postSlug = slug(postTitle);
+  //   navigate(`/news/${postSlug}`);
+  // };
+  const handlePostClick = (post) => { // Pas aan om de hele 'post' te ontvangen
+    const postSlug = slug(post);
+    navigate(`/news/${postSlug}`, { state: { post } }); // Voeg 'state' toe
   };
 
   useEffect(() => {
@@ -37,7 +29,19 @@ export const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const latestPosts = NEWS_ARTICLES
+  const { data: news = [], isLoading, error} = useSWR("news", getAll);
+  console.log(news);
+
+  const allDates = news.map((article) => article.date);
+
+  console.log(allDates);
+
+  const parseDate = (dateString) => {
+    const date = new Date(dateString);
+    return date;
+  };
+
+  const latestPosts = news
     .slice() // maakt een copy van de array zodat we deze niet aanpassen
     .sort((a, b) => {
       const aDate = parseDate(a.date);
@@ -194,7 +198,8 @@ export const Home = () => {
               <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-          <Carrousel data={DRIVERS} />
+          <Carrousel data={DRIVERS}
+          />
         </div>
       </section>
 
@@ -210,31 +215,50 @@ export const Home = () => {
               <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {latestPosts.map((post, index) => (
-              <div
-                key={index}
-                onClick={() => handlePostClick(post.title)}
-                className="bg-gray-900 rounded-xl border border-gray-800 hover:border-red-600
+
+          {isLoading && <p className="text-center text-gray-400">Loading latest news...</p>}
+          {error && <p className="text-center text-red-500">Error loading news: {error.message}</p>}
+          {!isLoading && !error && latestPosts.length === 0 && (
+            <p className="text-center text-gray-400">No news articles found.</p>
+          )}
+          
+          {!isLoading && !error && latestPosts.length > 0 && (
+
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {latestPosts.map((post, index) => {
+                const formattedDate = 
+                  parseDate(post.date).
+                    toLocaleDateString("nl-NL", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    });
+                return (
+                  <div
+                    key={index}
+                    onClick={() => handlePostClick(post)}
+                    className="bg-gray-900 rounded-xl border border-gray-800 hover:border-red-600
                  transition-all cursor-pointer overflow-hidden"
-              >
-                <img
-                  src={post.imageUrl}
-                  alt={post.title}
-                  className="w-full h-48 object-cover mb-4"
-                />
-                <div className="p-6 pt-0">
-                  <h3 className="text-lg md:text-xl font-semibold mb-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-gray-400">{post.date}</p>
-                  <p className="text-sm text-gray-500 mt-4">
-                    Bla bla bla bla bla bla bla...
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+                  >
+                    <img
+                      src={post.imageUrl}
+                      alt={post.title}
+                      className="w-full h-48 object-cover mb-4"
+                    />
+                    <div className="p-6 pt-0">
+                      <h3 className="text-lg md:text-xl font-semibold mb-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-sm text-gray-400">{formattedDate}</p>
+                      <p className="text-sm text-gray-500 mt-4">
+                        Bla bla bla bla bla bla bla...
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
     </>

@@ -1,7 +1,17 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = { day: "numeric", month: "long", year: "numeric" };
+  return new Intl.DateTimeFormat("nl-NL", options).format(date);
+
+};
+
 export const NewsCard = ({ post, onClick }) => {
+  const formattedDate = formatDate(post.date);
+  const articleSlug = post && post.slug ? post.slug : null;
+
   return (
     <div
       onClick={onClick}
@@ -14,11 +24,12 @@ export const NewsCard = ({ post, onClick }) => {
         className="w-full h-48 object-cover"
       />
       <div className="p-6">
-        <p className="text-sm text-gray-500 mb-2">{post.date}</p>
+        <p className="text-sm text-gray-500 mb-2">{formattedDate}</p>
         <h3 className="text-xl font-semibold mb-3 text-white">{post.title}</h3>
         <p className="text-gray-400 mb-4">{post.summary}</p>
         <Link
-          to={`/news/${post.slug}`}
+          to={`/news/${articleSlug}`}
+          
           className="text-red-500 font-semibold inline-flex items-center group"
         >
           Lees verder

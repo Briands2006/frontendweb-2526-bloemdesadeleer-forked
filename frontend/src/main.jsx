@@ -17,7 +17,7 @@ import { NewsDetail } from "./pages/detail/NewsDetail.jsx";
 import { About } from "./pages/About.jsx";
 import { Teams } from "./pages/Teams.jsx";
 import { TeamDetail } from "./pages/detail/TeamDetail.jsx";
-import { DriverDetails } from "./pages/detail/DriverDetails.jsx";
+
 import { Login } from "./pages/auth/Login.jsx";
 import { Register } from "./pages/auth/Register.jsx";
 import { Profile } from "./pages/Profile.jsx";
@@ -26,6 +26,7 @@ import { AdminRoute } from "./pages/routes/AdminRoute.jsx";
 import { AdminDashboard } from "./pages/misc/Admin.jsx";
 import { TrackDetail } from "./pages/detail/TrackDetail.jsx";
 import { RaceDetail } from "./pages/detail/RaceDetail.jsx";
+import DriverDetails from "./pages/detail/DriverDetails.jsx";
 
 const router = createBrowserRouter([
   {

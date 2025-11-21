@@ -37,7 +37,9 @@ CREATE TABLE `news` (
 	`tags` varchar(255),
 	`author_id` int unsigned,
 	`track_id` int unsigned,
-	CONSTRAINT `news_id` PRIMARY KEY(`id`)
+	`slug` varchar(255) NOT NULL,
+	CONSTRAINT `news_id` PRIMARY KEY(`id`),
+	CONSTRAINT `news_slug_unique` UNIQUE(`slug`)
 );
 --> statement-breakpoint
 CREATE TABLE `race_results` (

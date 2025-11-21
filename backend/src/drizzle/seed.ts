@@ -710,6 +710,7 @@ async function seedNews() {
       tags: 'Verstappen, Red Bull, Spa-Francorchamps',
       authorId: 1, // Admin User
       trackId: 1, // Spa-Francorchamps
+      slug: 'verstappen-wint-de-grand-prix-van-belgië',
     },
     {
       id: 2,
@@ -723,6 +724,7 @@ async function seedNews() {
       tags: 'Mercedes, Monza, Upgrades',
       authorId: 1, // Admin User
       trackId: 2, // Monza
+      slug: 'mercedes-kondigt-upgrades-aan-voor-monza',
     },
     // Voeg hier meer nieuwsitems toe...
   ]);

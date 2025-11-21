@@ -45,6 +45,10 @@ export class NewsResponseDto {
   @IsOptional()
   @IsInt()
   trackId: number | null;
+
+  @IsString()
+  @IsNotEmpty()
+  slug: string;
 }
 
 export class NewsListResponseDto {

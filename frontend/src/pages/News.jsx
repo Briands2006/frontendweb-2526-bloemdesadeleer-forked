@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NEWS_ARTICLES } from "../api/news-posts.js";
+// import { NEWS_ARTICLES } from "../api/news-posts.js";
 import { NewsCard } from "../components/news/NewsCard.jsx";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { slug } from "../api/mock-data.js";

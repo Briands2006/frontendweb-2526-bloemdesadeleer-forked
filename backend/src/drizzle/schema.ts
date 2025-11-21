@@ -120,6 +120,7 @@ export const news = mysqlTable('news', {
   trackId: int('track_id', { unsigned: true }).references(() => tracks.id, {
     onDelete: 'set null',
   }),
+  slug: varchar('slug', { length: 255 }).notNull().unique(),
 });
 
 // ---------- FavoriteDriver ----------
