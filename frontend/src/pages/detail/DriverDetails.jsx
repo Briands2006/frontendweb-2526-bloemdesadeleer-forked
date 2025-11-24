@@ -1,35 +1,52 @@
-import { useSearchParams, Link } from "react-router-dom";
-import { DRIVERS } from "../../api/mock-data";
+import { Link, useParams } from "react-router-dom";
+//import { DRIVERS } from "../../api/mock-data";
+import useSWR from 'swr';
+import { getBySlug } from '../../api';
 
 const DriverDetails = () => {
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
+  const { slug } = useParams();
 
-  const driverIdString = searchParams.get("id");
+  // const driverIdString = searchParams.get("id");
+  const { data: drivers = [], isLoading, error} = useSWR(`drivers/${slug}`, () => getBySlug(slug));
+  console.log(drivers); // Zou juist moeten zijn vomgens mij
 
-  if(!driverIdString) {
-    return (
-      <main style={{padding: 24}}>
-        <h1>404 - Driver niet gevonden </h1>
-        <Link to="/drivers">Terug</Link>
-      </main>
-    );
+  // if(!driverIdString) {
+  //   return (
+  //     <main style={{padding: 24}}>
+  //       <h1>404 - Driver niet gevonden </h1>
+  //       <Link to="/drivers">Terug</Link>
+  //     </main>
+  //   );
+  // }
+
+  // const foundDriver = drivers.find((d) => {
+  //   // Converteer de string ID naar een nummer voor de vergelijking
+  //   return d.id === +driverIdString; 
+  // });
+
+  // if(!foundDriver) {
+  //   return (
+  //     <main style={{padding: 24}}>
+  //       <h1>404 - Driver niet gevonden </h1>
+  //       <Link to="/drivers">Terug</Link>
+  //     </main>
+  //   );
+  // }
+
+  if (isLoading || !driver) {
+        return <main className="driver-details-page" style={{ padding: 24 }}>Laden...</main>;
+    }
+    
+  if (error) {
+      // Log de fout voor debuggen
+      console.error("Fout bij het laden van de driver:", error);
+      return <main className="driver-details-page" style={{ padding: 24 }}>Fout bij het laden van de driver. <Link to="/drivers">Terug</Link></main>;
   }
 
-  const foundDriver = DRIVERS.find((d) => {
-    // Converteer de string ID naar een nummer voor de vergelijking
-    return d.id === +driverIdString; 
-  });
+  
+  
 
-  if(!foundDriver) {
-    return (
-      <main style={{padding: 24}}>
-        <h1>404 - Driver niet gevonden </h1>
-        <Link to="/drivers">Terug</Link>
-      </main>
-    );
-  }
-
-  const {name, team, number, photo, country} = foundDriver;
 
   return (
     <main className="driver-details-page" style={{ padding: 24 }}>
@@ -50,21 +67,21 @@ const DriverDetails = () => {
         >
           <img
             className="h-full w-full object-cover rounded-2xl mt-3" 
-            src={photo}
-            alt={name}
+            src={drivers.photo}
+            alt={drivers.name}
           />
 
           <div className="grid grid-cols-2 gap-y-2 text-white p-8 self-center">
-            <p className="text-5xl font-bold col-span-2 leading-tight mb-2">{name}</p>
+            <p className="text-5xl font-bold col-span-2 leading-tight mb-2">{drivers.name}</p>
 
             <p className="text-base font-semibold col-span-1 text-gray-400">Team</p>
-            <p className="text-xl text-right pr-3 col-span-1">{team}</p>
+            <p className="text-xl text-right pr-3 col-span-1">{drivers.team}</p>
 
             <p className="text-base font-semibold col-span-1 text-gray-400">Car #</p>
-            <p className="text-xl text-right pr-3 col-span-1">{number}</p>
+            <p className="text-xl text-right pr-3 col-span-1">{drivers.number}</p>
 
             <p className="text-base font-semibold col-span-1 text-gray-400">Country</p>
-            <p className="text-xl text-right pr-3 col-span-1">{country}</p>
+            <p className="text-xl text-right pr-3 col-span-1">{drivers.country}</p>
           </div>
         </div>
       </div>

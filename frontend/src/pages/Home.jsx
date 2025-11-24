@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { DRIVERS, slug } from "../api/mock-data.js";
+//import { DRIVERS, slug } from "../api/mock-data.js";
 import Carrousel from "./../components/ui/Carrousel.jsx";
 import { ArrowRight, Users, Eye } from "lucide-react";
 //import { NEWS_ARTICLES } from "../api/news-posts.js";
 import  useSWR  from "swr";
-import { getAll } from "../api/index.js";
+import { getAll, getBySlug } from "../api/index.js";
 
 const F1_IMAGE = "../../ui/f1-frontwing.png";
 
@@ -29,9 +29,13 @@ export const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const { data: news = [], isLoading, error} = useSWR("news", getAll);
+  const { data: news = [], isLoadingNews, errorNews} = useSWR("news", getAll);
   console.log(news);
 
+  const { data: drivers = [], isLoadingDrivers, errorDrivers} = useSWR("drivers", getAll); //Hier gaat het waarschijnlijk ergens fout, maar zie niet direct waar.
+  console.log(drivers);
+
+  
   const allDates = news.map((article) => article.date);
 
   console.log(allDates);
@@ -198,8 +202,14 @@ export const Home = () => {
               <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-          <Carrousel data={DRIVERS}
-          />
+          {isLoadingDrivers && <p className="text-center text-gray-400">Laden van coureurs...</p>}
+          {errorDrivers && <p className="text-center text-red-500">Fout bij laden van coureurs: {errorDrivers.message}</p>}
+          {!isLoadingDrivers && !errorDrivers && drivers.length > 0 && (
+            <Carrousel data={drivers} />
+          )}
+          {!isLoadingDrivers && !errorDrivers && drivers.length === 0 && (
+            <p className="text-center text-gray-400">Geen coureurs gevonden.</p>
+          )}
         </div>
       </section>
 
@@ -216,14 +226,13 @@ export const Home = () => {
             </Link>
           </div>
 
-          {isLoading && <p className="text-center text-gray-400">Loading latest news...</p>}
-          {error && <p className="text-center text-red-500">Error loading news: {error.message}</p>}
-          {!isLoading && !error && latestPosts.length === 0 && (
+          {isLoadingNews && <p className="text-center text-gray-400">Loading latest news...</p>}
+          {errorNews && <p className="text-center text-red-500">Error loading news: {error.message}</p>}
+          {!isLoadingNews && !errorNews && latestPosts.length === 0 && (
             <p className="text-center text-gray-400">No news articles found.</p>
           )}
           
-          {!isLoading && !error && latestPosts.length > 0 && (
-
+          {!isLoadingNews && !errorNews && latestPosts.length > 0 && (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {latestPosts.map((post, index) => {
                 const formattedDate = 
