@@ -1,15 +1,22 @@
 import { Link, useParams } from "react-router-dom";
 //import { DRIVERS } from "../../api/mock-data";
-import useSWR from 'swr';
-import { getBySlug } from '../../api';
+import useSWR from "swr";
+import { getBySlug } from "../../api";
 
 const DriverDetails = () => {
   // const [searchParams] = useSearchParams();
-  const { slug } = useParams();
+  const { driverName } = useParams();
 
   // const driverIdString = searchParams.get("id");
-  const { data: drivers = [], isLoading, error} = useSWR(`drivers/${slug}`, () => getBySlug(slug));
-  console.log(drivers); // Zou juist moeten zijn vomgens mij
+
+  const key = driverName ? ["/drivers", driverName] : null;
+  const {
+    data: driver,
+    isLoading,
+    error,
+  } = useSWR(key, () => getBySlug("drivers", driverName));
+
+  console.log(driver); // Zou juist moeten zijn vomgens mij
 
   // if(!driverIdString) {
   //   return (
@@ -22,7 +29,7 @@ const DriverDetails = () => {
 
   // const foundDriver = drivers.find((d) => {
   //   // Converteer de string ID naar een nummer voor de vergelijking
-  //   return d.id === +driverIdString; 
+  //   return d.id === +driverIdString;
   // });
 
   // if(!foundDriver) {
@@ -35,29 +42,38 @@ const DriverDetails = () => {
   // }
 
   if (isLoading || !driver) {
-        return <main className="driver-details-page" style={{ padding: 24 }}>Laden...</main>;
-    }
-    
-  if (error) {
-      // Log de fout voor debuggen
-      console.error("Fout bij het laden van de driver:", error);
-      return <main className="driver-details-page" style={{ padding: 24 }}>Fout bij het laden van de driver. <Link to="/drivers">Terug</Link></main>;
+    return (
+      <main className="driver-details-page" style={{ padding: 24 }}>
+        Laden...
+      </main>
+    );
   }
 
-  
-  
-
+  if (error) {
+    // Log de fout voor debuggen
+    console.error("Fout bij het laden van de driver:", error);
+    return (
+      <main className="driver-details-page" style={{ padding: 24 }}>
+        Fout bij het laden van de driver. <Link to="/drivers">Terug</Link>
+      </main>
+    );
+  }
 
   return (
     <main className="driver-details-page" style={{ padding: 24 }}>
-      <Link to="/drivers" className='py-2 px-2.5 rounded-md text-red-600 mb-20 left-0'>Terug</Link>
+      <Link
+        to="/drivers"
+        className="py-2 px-2.5 rounded-md text-red-600 mb-20 left-0"
+      >
+        Terug
+      </Link>
       <div
         // Centrum de kaart op de pagina en geef het een vaste grootte
-        className="max-w-4xl mx-auto" 
+        className="max-w-4xl mx-auto"
       >
         <div
           className={[
-            "bg-gray-90oshadow-2xl", 
+            "bg-gray-90oshadow-2xl",
             "rounded-2xl",
             "grid",
             "grid-cols-2",
@@ -66,32 +82,45 @@ const DriverDetails = () => {
           ].join(" ")}
         >
           <img
-            className="h-full w-full object-cover rounded-2xl mt-3" 
-            src={drivers.photo}
-            alt={drivers.name}
+            className="h-full w-full object-cover rounded-2xl mt-3"
+            src={driver.photo}
+            alt={driver.name}
           />
 
           <div className="grid grid-cols-2 gap-y-2 text-white p-8 self-center">
-            <p className="text-5xl font-bold col-span-2 leading-tight mb-2">{drivers.name}</p>
+            <p className="text-5xl font-bold col-span-2 leading-tight mb-2">
+              {driver.name}
+            </p>
 
-            <p className="text-base font-semibold col-span-1 text-gray-400">Team</p>
-            <p className="text-xl text-right pr-3 col-span-1">{drivers.team}</p>
+            <p className="text-base font-semibold col-span-1 text-gray-400">
+              Team
+            </p>
+            <p className="text-xl text-right pr-3 col-span-1">{driver.team}</p>
 
-            <p className="text-base font-semibold col-span-1 text-gray-400">Car #</p>
-            <p className="text-xl text-right pr-3 col-span-1">{drivers.number}</p>
+            <p className="text-base font-semibold col-span-1 text-gray-400">
+              Car #
+            </p>
+            <p className="text-xl text-right pr-3 col-span-1">
+              {driver.number}
+            </p>
 
-            <p className="text-base font-semibold col-span-1 text-gray-400">Country</p>
-            <p className="text-xl text-right pr-3 col-span-1">{drivers.country}</p>
+            <p className="text-base font-semibold col-span-1 text-gray-400">
+              Country
+            </p>
+            <p className="text-xl text-right pr-3 col-span-1">
+              {driver.country}
+            </p>
           </div>
         </div>
       </div>
-            
+
       <div className="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-gray-800">Extra Details</h2>
-        <p className="mt-2 text-gray-600">Voeg hier 
-          statistieken, biografie of carrièrehoogtepunten toe die niet op de kaart stonden.</p>
+        <p className="mt-2 text-gray-600">
+          Voeg hier statistieken, biografie of carrièrehoogtepunten toe die niet
+          op de kaart stonden.
+        </p>
       </div>
-
     </main>
   );
 };
