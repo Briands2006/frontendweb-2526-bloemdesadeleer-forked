@@ -138,7 +138,7 @@ async function seedTeams() {
       slug: 'scuderia-ferrari',
     },
     {
-      id: 3,
+      id: 4,
       name: 'Mercedes-AMG Petronas',
       base: 'Brackley, UK',
       chief: 'Toto Wolff',
@@ -150,7 +150,7 @@ async function seedTeams() {
       slug: 'mercedes-amg-petronas',
     },
     {
-      id: 4,
+      id: 3,
       name: 'McLaren F1 Team',
       base: 'Woking, UK',
       chief: 'Andrea Stella',

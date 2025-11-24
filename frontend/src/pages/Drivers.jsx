@@ -1,7 +1,7 @@
 //import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DriverCard from "../components/drivers/DriverCard.jsx";
-import { DRIVERS, slug } from "../api/mock-data.js";
+import { slug } from "../utils/slugify.js";
 import "./Drivers.css";
 import useSWR from "swr";
 import AsyncData from "../components/AsyncData.jsx";

@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-//import { DRIVERS, slug } from "../api/mock-data.js";
 import Carrousel from "./../components/ui/Carrousel.jsx";
 import { ArrowRight, Users, Eye } from "lucide-react";
-//import { NEWS_ARTICLES } from "../api/news-posts.js";
-import  useSWR  from "swr";
-import { getAll, getBySlug } from "../api/index.js";
+import useSWR from "swr";
+import { getAll } from "../api/index.js";
+import { slug } from "../utils/slugify.js";
 
 const F1_IMAGE = "../../ui/f1-frontwing.png";
 
@@ -19,7 +18,8 @@ export const Home = () => {
   //   const postSlug = slug(postTitle);
   //   navigate(`/news/${postSlug}`);
   // };
-  const handlePostClick = (post) => { // Pas aan om de hele 'post' te ontvangen
+  const handlePostClick = (post) => {
+    // Pas aan om de hele 'post' te ontvangen
     const postSlug = slug(post);
     navigate(`/news/${postSlug}`, { state: { post } }); // Voeg 'state' toe
   };
@@ -29,13 +29,16 @@ export const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const { data: news = [], isLoadingNews, errorNews} = useSWR("news", getAll);
+  const { data: news = [], isLoadingNews, errorNews } = useSWR("news", getAll);
   console.log(news);
 
-  const { data: drivers = [], isLoadingDrivers, errorDrivers} = useSWR("drivers", getAll); //Hier gaat het waarschijnlijk ergens fout, maar zie niet direct waar.
+  const {
+    data: drivers = [],
+    isLoadingDrivers,
+    errorDrivers,
+  } = useSWR("drivers", getAll); // Hier gaat het waarschijnlijk ergens fout, maar zie niet direct waar.
   console.log(drivers);
 
-  
   const allDates = news.map((article) => article.date);
 
   console.log(allDates);
@@ -77,7 +80,8 @@ export const Home = () => {
       >
         <div
           className="absolute inset-x-0 
-            bottom-[-70px] sm:bottom-[-180px] md:bottom-[-350px] flex items-end justify-center pointer-events-none">
+            bottom-[-70px] sm:bottom-[-180px] md:bottom-[-350px] flex items-end justify-center pointer-events-none"
+        >
           <img
             src={F1_IMAGE}
             alt="F1 Front Wing"
@@ -125,9 +129,7 @@ export const Home = () => {
 
       <section className="py-16 md:py-10 bg-transparent text-white border-t border-gray-700">
         <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-5">
-            Used by...
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-5">Used by...</h2>
           <div className="flex flex-col sm:flex-row justify-around items-center gap-10">
             <div>
               <Users className="w-10 h-10 md:w-12 md:h-12 text-red-500 mx-auto mb-3" />
@@ -167,7 +169,9 @@ export const Home = () => {
       <section className="py-16 md:py-20 bg-transparent text-white border-t border-gray-700">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           <div className="flex flex-col sm:flex-row justify-center text-2xl sm:items-center text-center mb-8 gap-4">
-            <h2 className="text-2xl md:text-3xl font-bold">Trusted by F1 fans</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">
+              Trusted by F1 fans
+            </h2>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {reviews.map((review, index) => (
@@ -180,9 +184,7 @@ export const Home = () => {
                   <h3 className="mt-5 text-lg md:text-xl font-semibold mb-2">
                     {review.name}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-4">
-                    {review.content}
-                  </p>
+                  <p className="text-sm text-gray-500 mt-4">{review.content}</p>
                 </div>
               </div>
             ))}
@@ -202,11 +204,17 @@ export const Home = () => {
               <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-          {isLoadingDrivers && <p className="text-center text-gray-400">Laden van coureurs...</p>}
-          {errorDrivers && <p className="text-center text-red-500">Fout bij laden van coureurs: {errorDrivers.message}</p>}
-          {!isLoadingDrivers && !errorDrivers && drivers.length > 0 && (
-            <Carrousel data={drivers} />
+          {isLoadingDrivers && (
+            <p className="text-center text-gray-400">Laden van coureurs...</p>
           )}
+          {errorDrivers && (
+            <p className="text-center text-red-500">
+              Fout bij laden van coureurs: {errorDrivers.message}
+            </p>
+          )}
+          {/* {!isLoadingDrivers && !errorDrivers && drivers.length > 0 && (
+            // <Carrousel data={drivers} />
+          )} */}
           {!isLoadingDrivers && !errorDrivers && drivers.length === 0 && (
             <p className="text-center text-gray-400">Geen coureurs gevonden.</p>
           )}
@@ -226,22 +234,29 @@ export const Home = () => {
             </Link>
           </div>
 
-          {isLoadingNews && <p className="text-center text-gray-400">Loading latest news...</p>}
-          {errorNews && <p className="text-center text-red-500">Error loading news: {error.message}</p>}
+          {isLoadingNews && (
+            <p className="text-center text-gray-400">Loading latest news...</p>
+          )}
+          {errorNews && (
+            <p className="text-center text-red-500">
+              Error loading news: {errorNews.message}
+            </p>
+          )}
           {!isLoadingNews && !errorNews && latestPosts.length === 0 && (
             <p className="text-center text-gray-400">No news articles found.</p>
           )}
-          
+
           {!isLoadingNews && !errorNews && latestPosts.length > 0 && (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {latestPosts.map((post, index) => {
-                const formattedDate = 
-                  parseDate(post.date).
-                    toLocaleDateString("nl-NL", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    });
+                const formattedDate = parseDate(post.date).toLocaleDateString(
+                  "nl-NL",
+                  {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  },
+                );
                 return (
                   <div
                     key={index}

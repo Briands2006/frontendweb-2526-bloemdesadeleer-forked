@@ -7,7 +7,7 @@ export default function Layout() {
     <div
       className="
         flex flex-col min-h-screen 
-        bg-gradient-to-br from-black via-gray-800 to-black 
+        bg-linear-to-br from-black via-gray-800 to-black 
         text-white overflow-x-hidden">
       <Navbar />
       <main
