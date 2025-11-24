@@ -1,63 +1,40 @@
 import { Link, useParams } from "react-router-dom";
-//import { DRIVERS } from "../../api/mock-data";
 import useSWR from "swr";
-import { getBySlug } from "../../api";
+import { getById, getBySlug } from "../../api";
+import AsyncData from "../../components/AsyncData.jsx";
 
 const DriverDetails = () => {
-  // const [searchParams] = useSearchParams();
   const { driverName } = useParams();
 
-  // const driverIdString = searchParams.get("id");
-
-  const key = driverName ? ["/drivers", driverName] : null;
+  const driverKey = driverName ? ["/drivers", driverName] : null;
   const {
     data: driver,
-    isLoading,
-    error,
-  } = useSWR(key, () => getBySlug("drivers", driverName));
+    isDriverLoading,
+    driverError,
+  } = useSWR(driverKey, () => getBySlug("drivers", driverName));
 
-  console.log(driver); // Zou juist moeten zijn vomgens mij
+  const teamKey = driver ? ["/teams", driver.teamId] : null;
+  const {
+    data: teamResponse,
+    isLoading: isTeamLoading,
+    error: teamError,
+  } = useSWR(teamKey, () => getById("teams", driver.teamId));
 
-  // if(!driverIdString) {
-  //   return (
-  //     <main style={{padding: 24}}>
-  //       <h1>404 - Driver niet gevonden </h1>
-  //       <Link to="/drivers">Terug</Link>
-  //     </main>
-  //   );
-  // }
+  const team = Array.isArray(teamResponse?.teams)
+    ? teamResponse.teams.find((t) => t.id === driver.teamId)
+    : teamResponse;
 
-  // const foundDriver = drivers.find((d) => {
-  //   // Converteer de string ID naar een nummer voor de vergelijking
-  //   return d.id === +driverIdString;
-  // });
-
-  // if(!foundDriver) {
-  //   return (
-  //     <main style={{padding: 24}}>
-  //       <h1>404 - Driver niet gevonden </h1>
-  //       <Link to="/drivers">Terug</Link>
-  //     </main>
-  //   );
-  // }
-
-  if (isLoading || !driver) {
+  if (isDriverLoading || !driver || isTeamLoading || !team) {
     return (
-      <main className="driver-details-page" style={{ padding: 24 }}>
-        Laden...
-      </main>
+      <AsyncData
+        loading={isDriverLoading || isTeamLoading}
+        error={driverError || teamError}
+      />
     );
   }
 
-  if (error) {
-    // Log de fout voor debuggen
-    console.error("Fout bij het laden van de driver:", error);
-    return (
-      <main className="driver-details-page" style={{ padding: 24 }}>
-        Fout bij het laden van de driver. <Link to="/drivers">Terug</Link>
-      </main>
-    );
-  }
+  console.log(team);
+  console.log(team.name);
 
   return (
     <main className="driver-details-page" style={{ padding: 24 }}>
@@ -67,10 +44,7 @@ const DriverDetails = () => {
       >
         Terug
       </Link>
-      <div
-        // Centrum de kaart op de pagina en geef het een vaste grootte
-        className="max-w-4xl mx-auto"
-      >
+      <div className="max-w-4xl mx-auto">
         <div
           className={[
             "bg-gray-90oshadow-2xl",
@@ -95,7 +69,7 @@ const DriverDetails = () => {
             <p className="text-base font-semibold col-span-1 text-gray-400">
               Team
             </p>
-            <p className="text-xl text-right pr-3 col-span-1">{driver.team}</p>
+            <p className="text-xl text-right pr-3 col-span-1">{team.name}</p>
 
             <p className="text-base font-semibold col-span-1 text-gray-400">
               Car #
