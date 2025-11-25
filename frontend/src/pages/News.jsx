@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // import { NEWS_ARTICLES } from "../api/news-posts.js";
 import { NewsCard } from "../components/news/NewsCard.jsx";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { slug } from "../api/mock-data.js";
+import { slug } from "../utils/slugify.js";
 import { useNavigate } from "react-router-dom";
 import { getAll } from "../api/index.js";
 import AsyncData from "../components/AsyncData.jsx";

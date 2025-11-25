@@ -1,7 +1,6 @@
 //import { React, useState } from "react";
 import TrackCard from "../components/tracks/TrackCard.jsx";
-// Zorg ervoor dat je de 'slug' functie hier kunt importeren als die niet in deze file staat.
-import { F1_MOCK_TRACKS, slug } from "../api/mock-tracks.js"; 
+import { slug } from "../utils/slugify.js";
 import { useNavigate } from "react-router-dom";
 import "./Tracks.css";
 import AsyncData from "../components/AsyncData.jsx";

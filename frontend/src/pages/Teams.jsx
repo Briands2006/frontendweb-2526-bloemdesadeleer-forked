@@ -1,6 +1,5 @@
 import React from "react";
 import TeamCard from "../components/teams/TeamCard.jsx";
-import { TEAMS } from "../api/mock-data.js";
 import useSWR from "swr";
 import AsyncData from "../components/AsyncData.jsx";
 import { getAll } from "../api/index.js";

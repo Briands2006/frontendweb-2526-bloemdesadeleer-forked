@@ -4,8 +4,8 @@ import { ChevronLeft } from "lucide-react";
 import {
   getTeamBySlug,
   getDriversByTeamName,
-  slug,
 } from "../../api/mock-data.js";
+import { slug } from "../../utils/slugify.js";
 
 export const TeamDetail = () => {
   const { teamSlug } = useParams();
