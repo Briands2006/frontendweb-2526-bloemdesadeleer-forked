@@ -50,7 +50,7 @@ const Carousel = ({ data }) => {
             <img src={d.photo} alt={d.name} className="slide-img" />
             <div className="slide-info">
               <h2>{d.name}</h2>
-              <p>{d.team}</p>
+              <p>{d.team?.name || "-"}</p>
             </div>
           </div>
         );

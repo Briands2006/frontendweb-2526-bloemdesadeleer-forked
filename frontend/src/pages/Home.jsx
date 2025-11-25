@@ -30,18 +30,12 @@ export const Home = () => {
   }, []);
 
   const { data: news = [], isLoadingNews, errorNews } = useSWR("news", getAll);
-  console.log(news);
 
   const {
     data: drivers = [],
     isLoadingDrivers,
     errorDrivers,
   } = useSWR("drivers", getAll); // Hier gaat het waarschijnlijk ergens fout, maar zie niet direct waar.
-  console.log(drivers);
-
-  const allDates = news.map((article) => article.date);
-
-  console.log(allDates);
 
   const parseDate = (dateString) => {
     const date = new Date(dateString);
@@ -212,9 +206,9 @@ export const Home = () => {
               Fout bij laden van coureurs: {errorDrivers.message}
             </p>
           )}
-          {/* {!isLoadingDrivers && !errorDrivers && drivers.length > 0 && (
-            // <Carrousel data={drivers} />
-          )} */}
+          {!isLoadingDrivers && !errorDrivers && drivers.length > 0 && (
+            <Carrousel data={drivers} />
+          )}
           {!isLoadingDrivers && !errorDrivers && drivers.length === 0 && (
             <p className="text-center text-gray-400">Geen coureurs gevonden.</p>
           )}
