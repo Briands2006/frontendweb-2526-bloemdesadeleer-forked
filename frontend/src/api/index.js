@@ -9,6 +9,12 @@ export const axios = axiosRoot.create({
   baseURL: baseUrl,
 });
 
+function toMySQLDateTime(date) {
+  if (!date) return null;
+  const d = new Date(date);
+  return d.toISOString().slice(0, 19).replace("T", " ");
+}
+
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem(JWT_TOKEN_KEY);
 
@@ -23,18 +29,19 @@ axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      console.error("401 Unauthorized: Invalid token. Forcing removal of JWT token");
+      console.error(
+        "401 Unauthorized: Invalid token. Forcing removal of JWT token"
+      );
 
       localStorage.removeItem(JWT_TOKEN_KEY);
-      
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export async function getAll(url) {
   const { data } = await axios.get(url);
-  return data.items ||data.drivers || data.news ||data;
+  return data.items || data.drivers || data.news || data;
 }
 
 export async function getById(url) {
@@ -71,10 +78,23 @@ export async function save(url, { arg: { id, ...data } }) {
 
 export async function updateAdmin(userId, isAdmin) {
   try {
-    await save("users", { arg: { id: userId, isAdmin } });
+    const currentUser = await getById(`users/${userId}`);
+
+    await save("users", {
+      arg: {
+        id: userId,
+        name: currentUser.name,
+        email: currentUser.email,
+        passwordHash: currentUser.passwordHash,
+        birthdate: toMySQLDateTime(currentUser.birthdate),
+        dateJoined: toMySQLDateTime(currentUser.dateJoined),
+        isAdmin,
+      },
+    });
     mutate("users");
   } catch (e) {
     console.error("Failed to update user status: ", e);
+    console.error("Backend error: ", e.response?.data);
     alert("Error");
   }
 }

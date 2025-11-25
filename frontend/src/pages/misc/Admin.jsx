@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth.js";
 import { useNavigate } from "react-router";
 
 export const AdminDashboard = () => {
-  const { currentUser } = useAuth();
+  const { user: currentUser } = useAuth();
   const navigate = useNavigate();
 
   const handleClick = (name) => {
@@ -15,7 +15,7 @@ export const AdminDashboard = () => {
       <h1 className="text-4xl font-bold text-red-600 mb-6">
         ⚙️ Admin Dashboard
       </h1>
-      <p className="text-lg">Welkom, {currentUser?.username || "Beheerder"}!</p>
+      <p className="text-lg">Welkom, {currentUser?.name || "Beheerder"}!</p>
       <p className="text-sm text-gray-400">
         Deze pagina is alleen zichtbaar voor gebruikers met admin& rights.
       </p>
