@@ -1,5 +1,6 @@
 import axiosRoot from "axios";
 import { JWT_TOKEN_KEY } from "../context/auth";
+import { mutate } from "swr";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 console.log("API Base URL:", baseUrl);
@@ -66,4 +67,14 @@ export async function save(url, { arg: { id, ...data } }) {
     url: `${url}/${id ?? ""}`,
     data,
   });
+}
+
+export async function updateAdmin(userId, isAdmin) {
+  try {
+    await save("users", { arg: { id: userId, isAdmin } });
+    mutate("users");
+  } catch (e) {
+    console.error("Failed to update user status: ", e);
+    alert("Error");
+  }
 }
