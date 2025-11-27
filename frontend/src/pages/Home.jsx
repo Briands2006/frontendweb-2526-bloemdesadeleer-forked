@@ -35,7 +35,7 @@ export const Home = () => {
     data: drivers = [],
     isLoadingDrivers,
     errorDrivers,
-  } = useSWR("drivers", getAll); // Hier gaat het waarschijnlijk ergens fout, maar zie niet direct waar.
+  } = useSWR("drivers", getAll);
 
   const parseDate = (dateString) => {
     const date = new Date(dateString);
