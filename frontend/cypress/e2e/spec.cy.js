@@ -4,3 +4,4 @@ describe("General", () => {
     cy.get("h1").should("exist");
   });
 });
+

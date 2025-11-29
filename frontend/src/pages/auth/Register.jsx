@@ -145,6 +145,7 @@ export const Register = () => {
                 className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700
                  rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"
                 placeholder="Uw Naam"
+                data-cy='user_input'
               />
             </div>
           </div>
@@ -158,6 +159,7 @@ export const Register = () => {
               placeholder='dd/mm/jjjj'
               className="w-full pl-3 pr-4 py-2 bg-gray-800 border border-gray-700
               rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"
+              data-cy='data_input'
             />
             {date && !isNotFutureDate(date) && (<p className='text-xs text-red-400 mt-1'>
               Geboortedatum kan niet in de toekomst liggen.</p>)}
@@ -177,6 +179,7 @@ export const Register = () => {
                 className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700
                  rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"
                 placeholder="uw.email@domein.be"
+                data-cy='email_input'
               />
             </div>
           </div>
@@ -195,6 +198,7 @@ export const Register = () => {
                 className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700
                  rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"
                 placeholder="Min. 6 tekens, hoofdletter, cijfer, speciaal teken"
+                data-cy='password_input'
               />
             </div>
           </div>
