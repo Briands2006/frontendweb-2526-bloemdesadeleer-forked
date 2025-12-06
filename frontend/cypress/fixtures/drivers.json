@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Max Verstappen",
+    "team": { "name": "Red Bull" },
+    "number": 1,
+    "photo": "../../driverHeadshots/max-verstappen.jpg",
+    "country": "NL"
+  },
+  {
+    "id": 2,
+    "name": "Lewis Hamilton",
+    "team": { "name": "Mercedes" },
+    "number": 44,
+    "photo": "../../driverHeadshots/lewis-hamilton.png",
+    "country": "GB"
+  },
+  {
+    "id": 3,
+    "name": "Charles Leclerc",
+    "team": { "name": "Ferrari" },
+    "number": 16,
+    "photo": "../../driverHeadshots/charles-leclerc.png",
+    "country": "MC"
+  }
+]
