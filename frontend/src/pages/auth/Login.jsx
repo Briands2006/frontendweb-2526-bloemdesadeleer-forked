@@ -123,6 +123,7 @@ export const Login = () => {
                                          outline-none transition-colors`}
                   placeholder="uw.email@domein.be"
                   disabled={loading}
+                  data-cy="email_input"
                 />
               </div>
             </div>
@@ -146,6 +147,7 @@ export const Login = () => {
                                          outline-none transition-colors`}
                   placeholder="Wachtwoord"
                   disabled={loading}
+                  data-cy="password_input"
                 />
               </div>
             </div>
@@ -188,6 +190,7 @@ export const Login = () => {
               className="w-full inline-flex cursor-pointer items-center justify-center gap-2 bg-white
                                 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-300
                                  transition-colors disabled:opacity-50"
+              cy-data="submit_btn"
             >
               <GoogleIcon className="w-5 h-5" />
               {loading ? "Laden..." : "Inloggen met Google"}

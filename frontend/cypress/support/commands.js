@@ -10,7 +10,34 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+// cypress/support/commands.js
+// 👇 1
+Cypress.Commands.add("login", (email, password) => {
+  // 👇 5
+  Cypress.log({
+    displayName: "login",
+  });
+
+  cy.visit("http://localhost:5173/login"); // 👈 2
+
+  cy.get("[data-cy=email_input]").clear(); // 👈 3
+  cy.get("[data-cy=email_input]").type(email); // 👈 3
+
+  cy.get("[data-cy=password_input]").clear(); // 👈 3
+  cy.get("[data-cy=password_input]").type(password); // 👈 3
+
+  cy.get("[data-cy=submit_btn]").click(); // 👈 4
+});
+
+Cypress.Commands.add("logout", () => {
+  Cypress.log({
+    displayName: "logout",
+  });
+
+  cy.visit("http://localhost:5173");
+  cy.get("[data-cy=logout_btn]").click();
+});
+
 //
 //
 // -- This is a child command --

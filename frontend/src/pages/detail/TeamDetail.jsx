@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
-import {
-  getTeamBySlug,
-  getDriversByTeamName,
-} from "../../api/mock-data.js";
+// import {
+//   getDriversByTeamName,
+// } from "../../api/mock-data.js";
 import { slug } from "../../utils/slugify.js";
+import useSWR from "swr";
+import { getBySlug } from "../../api/index.js";
 
 export const TeamDetail = () => {
   const { teamSlug } = useParams();
@@ -15,10 +16,30 @@ export const TeamDetail = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
-  const team = getTeamBySlug(teamSlug); // get team data from "mock" api
+  const teamKey = teamSlug ? `teams/${teamSlug}` : null;
+  const {data: team, isLoading, error } = useSWR(teamKey, () => getBySlug(teamSlug));
 
-  const drivers = team ? getDriversByTeamName(team.name) : [];
-  // get alle drivers voor dat team en steek ze in een array
+  const driversKey = team ? `drivers?teamId=${team.id}` : null; 
+    data: driversResponse,
+    isLoading: isDriversLoading,
+    error: driversError,
+  } = useSWR(); //moet nog aangepast worden
+
+  const drivers = driversResponse?.drivers || (Array.isArray(driversResponse) ? driversResponse : []);
+
+  if (isLoading || isDriversLoading) {
+    return <div className="min-h-screen bg-transparent text-white py-20">
+      <div className="max-w-4xl mx-auto px-8 md:px-16">Laden...</div></div>;
+  }
+  
+  if (error || driversError) {
+    // Optioneel: toon een foutmelding
+    return <div className="min-h-screen bg-transparent text-white py-20">
+      <div className="max-w-4xl mx-auto px-8 md:px-16">Fout bij het laden van het artikel.</div></div>;
+  }
+
+  // const drivers = team ? getDriversByTeamName(team.name) : [];
+  // // get alle drivers voor dat team en steek ze in een array
 
   const handleDriverClick = (driverName) => {
     const driverSlug = slug(driverName);
@@ -51,7 +72,7 @@ export const TeamDetail = () => {
         <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" /> Terug naar Teams
         Overzicht
       </button>
-
+      
       <header
         className="mb-10 p-6 rounded-xl relative overflow-hidden border-2 border-solid"
         style={{

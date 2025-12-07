@@ -67,3 +67,4 @@ export async function save(url, { arg: { id, ...data } }) {
     data,
   });
 }
+

@@ -5,3 +5,7 @@ describe("General", () => {
   });
 });
 
+it("should login", () => {
+  cy.login("Regular Fan", "fan@f1site.com"); // 👈 2
+});
+
