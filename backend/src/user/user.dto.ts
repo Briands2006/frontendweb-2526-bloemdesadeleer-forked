@@ -11,6 +11,7 @@ import {
   Min,
   MinLength,
   IsDateString,
+  IsOptional,
 } from 'class-validator';
 
 export class PublicUserResponseDto {
@@ -50,14 +51,24 @@ export class UserListResponseDto {
 }
 
 export class UpdateUserRequestDto {
+  @IsOptional()
   @IsString()
   @MinLength(2)
   @MaxLength(255)
   name: string;
 
+  @IsOptional()
   @IsString()
   @IsEmail()
   email: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isAdmin: boolean;
+
+  @IsOptional()
+  @IsDateString()
+  birthdate: string;
 }
 
 export class RegisterUserRequestDto {

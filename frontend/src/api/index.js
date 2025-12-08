@@ -9,7 +9,7 @@ export const axios = axiosRoot.create({
   baseURL: baseUrl,
 });
 
-function toMySQLDateTime(date) {
+export function toMySQLDateTime(date) {
   if (!date) return null;
   const d = new Date(date);
   return d.toISOString().slice(0, 19).replace("T", " ");
@@ -30,13 +30,13 @@ axios.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       console.error(
-        "401 Unauthorized: Invalid token. Forcing removal of JWT token"
+        "401 Unauthorized: Invalid token. Forcing removal of JWT token",
       );
 
       localStorage.removeItem(JWT_TOKEN_KEY);
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export async function getAll(url) {
@@ -68,10 +68,11 @@ export const post = async (url, { arg }) => {
   }
 };
 
-export async function save(url, { arg: { id, ...data } }) {
+export async function save(url, { arg: { ...data } }) {
+  const isUpdate = /\/\d+$/.test(url);
   await axios({
-    method: id ? "PUT" : "POST",
-    url: `${url}/${id ?? ""}`,
+    method: isUpdate ? "PATCH" : "POST",
+    url,
     data,
   });
 }
