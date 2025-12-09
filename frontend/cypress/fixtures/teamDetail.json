@@ -1,6 +1,8 @@
 [
     {
-        "teamId": 1,
-        "name": "Red Bull Racing"
+        "id": 1,
+        "name": "Red Bull Racing",
+        "country": "Austria",
+        "championships": 7
     }
 ]

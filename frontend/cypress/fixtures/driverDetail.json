@@ -1,10 +1,10 @@
-[
+
     {
         "id": 1,
         "name": "Max Verstappen",
-        "team": { "name": "Red Bull" },
-        "number": 1,
+        "number": 33,
+        "country": "NL",
         "photo": "../../driverHeadshots/max-verstappen.jpg",
-        "country": "NL"
+        "slug": "max-verstappen",
+        "teamId": 1
     }
-]

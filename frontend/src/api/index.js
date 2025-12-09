@@ -68,3 +68,8 @@ export async function save(url, { arg: { id, ...data } }) {
   });
 }
 
+// export async function getByQuery(url) {
+
+//   const { data } = await axios.get(url);
+//   return data.drivers || data;
+// }

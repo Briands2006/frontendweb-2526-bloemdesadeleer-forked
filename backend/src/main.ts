@@ -9,7 +9,9 @@ import { HttpExceptionFilter } from './lib/http-exception.filter';
 import helmet from 'helmet';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: process.env.LOG_DISABLED === 'true' ? false : undefined,
+  });
   const config = app.get(ConfigService<ServerConfig>);
   const log = config.get<LogConfig>('log')!;
 
@@ -17,11 +19,13 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  app.useLogger(
-    new CustomLogger({
-      logLevels: log.levels,
-    }),
-  );
+  if (!log.disabled) {
+    app.useLogger(
+      new CustomLogger({
+        logLevels: log.levels,
+      }),
+    );
+  }
 
   app.useGlobalPipes(
     new ValidationPipe({
