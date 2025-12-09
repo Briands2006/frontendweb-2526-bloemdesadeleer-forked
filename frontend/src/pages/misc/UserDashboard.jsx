@@ -56,8 +56,8 @@ export default function UsersDashboard() {
           { key: "email", label: "Email" },
           {
             key: "isAdmin",
-            label: "Admin",
-            render: (u) => (u.isAdmin ? "Yes" : "No"),
+            label: "Role",
+            render: (u) => (u.isAdmin ? "Admin" : "User"),
           },
         ]}
         actions={(user) => [

@@ -102,7 +102,12 @@ export const Register = () => {
     }
 
     try {
-      await register(email, password, name, date);
+      await register({
+        email,
+        password,
+        name,
+        birthdate: date,
+      });
       navigate("/profile");
     } catch (e) {
       setError(e.message || "Registratie mislukt. Probeer het opnieuw.");
