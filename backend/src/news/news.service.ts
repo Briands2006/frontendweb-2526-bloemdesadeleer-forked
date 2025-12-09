@@ -3,7 +3,12 @@ import {
   type DatabaseProvider,
   InjectDrizzle,
 } from '../drizzle/drizzle.provider';
-import { NewsListResponseDto, NewsResponseDto } from './news.dto';
+import {
+  CreateNewsDto,
+  NewsListResponseDto,
+  NewsResponseDto,
+  UpdateNewsDto,
+} from './news.dto';
 import { eq } from 'drizzle-orm';
 import { news } from '../drizzle/schema';
 
@@ -37,5 +42,22 @@ export class NewsService {
       throw new NotFoundException('No news with this slug exists');
     }
     return article;
+  }
+
+  async createNews(dto: CreateNewsDto) {
+    const [insert] = await this.db.insert(news).values(dto).execute();
+    return this.getById(insert.insertId);
+  }
+
+  async updateNews(id: number, dto: UpdateNewsDto) {
+    await this.db.update(news).set(dto).where(eq(news.id, id)).execute();
+    return this.getById(id);
+  }
+
+  async delete(id: number): Promise<void> {
+    const [result] = await this.db.delete(news).where(eq(news.id, id));
+    if (result.affectedRows === 0) {
+      throw new NotFoundException('No article found');
+    }
   }
 }

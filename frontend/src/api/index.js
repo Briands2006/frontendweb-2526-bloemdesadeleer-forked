@@ -75,7 +75,21 @@ export async function save(url, { arg: { ...data } }) {
     url,
     data,
   });
-}
+};
+
+export const updateById = async (url, { arg: { id, ...data } }) => {
+  if (!id) {
+    throw new Error("updateById: Missing ID in arg");
+  }
+
+  try {
+    const response = await axios.patch(`${url}/${id}`, data);
+    return response.data;
+  } catch (err) {
+    console.error("🟥 updateById Error:", err.response?.data || err);
+    throw err;
+  }
+};
 
 export async function updateAdmin(userId, isAdmin) {
   try {

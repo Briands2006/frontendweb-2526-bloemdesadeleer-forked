@@ -24,6 +24,9 @@ export const AdminDashboard = () => {
         <div
           className="p-4 bg-gray-800 rounded-xl border border-gray-600 shadow hover:scale-[1.02]
          transition-transform duration-300 cursor-pointer"
+          onClick={() => {
+            handleClick("news");
+          }}
         >
           <h2 className="text-xl font-semibold mb-2">Nieuwsbeheer (CRUD)</h2>
           <p>
