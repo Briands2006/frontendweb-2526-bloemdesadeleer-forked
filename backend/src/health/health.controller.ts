@@ -10,8 +10,8 @@ export class HealthController {
   constructor(private readonly databaseCheck: DatabaseCheck) {}
 
   @Get('ping')
-  ping(): string {
-    return 'pong';
+  ping(): { pong: boolean } {
+    return { pong: true };
   }
 
   @Get('liveness')

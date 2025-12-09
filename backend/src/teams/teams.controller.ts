@@ -22,6 +22,7 @@ export class TeamsController {
   }
 
   @Get('n/:slug')
+  @Public()
   async getTeamBySlug(@Param('slug') slug: string): Promise<TeamResponseDto> {
     return this.teamService.getBySlug(slug);
   }

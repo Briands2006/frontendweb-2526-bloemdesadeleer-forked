@@ -3,10 +3,10 @@ import { JWT_TOKEN_KEY } from "../../src/context/auth";
 describe("Driver Detailpagina", () => {
   it("zou details van driver moeten weergeven na inloggen", () => {
 
-    cy.window().then((win) => {
-      // Gebruik een willekeurige, niet-lege string.
-      win.localStorage.setItem(JWT_TOKEN_KEY, "test-jwt-token-voor-cypress");
-    });
+    // cy.window().then((win) => {
+    //   // Gebruik een willekeurige, niet-lege string.
+    //   win.localStorage.setItem(JWT_TOKEN_KEY, "test-jwt-token-voor-cypress");
+    // });
 
     cy.intercept(
       "GET",

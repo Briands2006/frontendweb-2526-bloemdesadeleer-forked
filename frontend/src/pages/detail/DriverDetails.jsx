@@ -24,7 +24,16 @@ const DriverDetails = () => {
     ? teamResponse.teams.find((t) => t.id === driver.teamId)
     : teamResponse;
 
-  if (isDriverLoading || !driver || isTeamLoading || !team) {
+  if (isDriverLoading || !driver) {
+    return (
+      <AsyncData
+        loading={isDriverLoading || isTeamLoading}
+        error={driverError || teamError}
+      />
+    );
+  }
+
+  if (isTeamLoading || !team) {
     return (
       <AsyncData
         loading={isDriverLoading || isTeamLoading}

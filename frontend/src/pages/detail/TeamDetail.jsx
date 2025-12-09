@@ -16,30 +16,37 @@ export const TeamDetail = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
-  const teamKey = teamSlug ? `teams/${teamSlug}` : null;
-  const {data: team, isLoading, error } = useSWR(teamKey, () => getBySlug(teamSlug));
+  const teamKey = teamSlug ? ["/teams", teamSlug] : null;
+  const {
+    data: team,
+    isLoading: isTeamLoading,
+    error: teamError,
+  } = useSWR(teamKey, () => getBySlug("teams", teamSlug));
 
-  const driversKey = team ? `drivers?teamId=${team.id}` : null; 
+  const driversKey = team ? `drivers?teamId=${team.id}` : null;
+  const {
     data: driversResponse,
-    isLoading: isDriversLoading,
-    error: driversError,
-  } = useSWR(); //moet nog aangepast worden
+    isLoading: isDriverLoading,
+    error: driverError,
+  } = useSWR(driversKey, () => getBySlug(driversKey));
 
-  const drivers = driversResponse?.drivers || (Array.isArray(driversResponse) ? driversResponse : []);
+  const allDrivers = driversResponse?.drivers || (Array.isArray(driversResponse) ? driversResponse : []);
 
-  if (isLoading || isDriversLoading) {
+  const drivers = allDrivers.filter((driver) => driver.teamId === team.id);
+
+  if (isTeamLoading || isDriverLoading) {
     return <div className="min-h-screen bg-transparent text-white py-20">
       <div className="max-w-4xl mx-auto px-8 md:px-16">Laden...</div></div>;
   }
   
-  if (error || driversError) {
+  if (teamError || driverError) {
     // Optioneel: toon een foutmelding
     return <div className="min-h-screen bg-transparent text-white py-20">
-      <div className="max-w-4xl mx-auto px-8 md:px-16">Fout bij het laden van het artikel.</div></div>;
+      <div className="max-w-4xl mx-auto px-8 md:px-16">Fout bij het laden van het team.</div></div>;
   }
 
-  // const drivers = team ? getDriversByTeamName(team.name) : [];
-  // // get alle drivers voor dat team en steek ze in een array
+  //const drivers = team ? getDriversByTeamName(team.name) : [];
+  // get alle drivers voor dat team en steek ze in een array
 
   const handleDriverClick = (driverName) => {
     const driverSlug = slug(driverName);
