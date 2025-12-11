@@ -6,11 +6,12 @@ import "./Drivers.css";
 import useSWR from "swr";
 import AsyncData from "../components/AsyncData.jsx";
 import { getAll } from "../api/index.js";
+import { useFavorites } from "../hooks/useFavorites.js";
 
 const Drivers = () => {
-  //const [selectedDriver, setSelectedDriver] = useState(null);
-  // initialiseer state voor geselecteerde driver, deze is dus null bij start
-  //const deselectDriver = () => //setSelectedDriver(null); // functie om geselecteerde driver te deselecteren
+
+  const {isDriverFavorite, toggleFavoriteDriver } = useFavorites();
+
   const navigate = useNavigate();
 
   const handleDriverClick = (driver) => {
@@ -34,6 +35,8 @@ const Drivers = () => {
               number={d.number}
               photo={d.photo}
               country={d.country}
+              isFavorite={isDriverFavorite(d.id)}
+              onToggleFavorite={() => toggleFavoriteDriver(d.id)}
               onClick={() => {
                 handleDriverClick(d);
               }}

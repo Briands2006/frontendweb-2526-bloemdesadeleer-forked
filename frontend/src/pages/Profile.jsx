@@ -18,6 +18,10 @@ import { FaStar } from "react-icons/fa6";
 
 export const Profile = () => {
   const { isAdmin, isAuthed, user, logout, loading, error } = useAuth();
+
+  if (user && user.favoriteDrivers) {
+    console.log("DEBUG: favoriteDrivers data:", user.favoriteDrivers);
+  }
   const navigate = useNavigate();
 
   if (!isAuthed && !loading) {
@@ -35,6 +39,10 @@ export const Profile = () => {
         <Loader2 className="w-10 h-10 animate-spin text-red-600" />
       </div>
     );
+  }
+
+  if (user && user.favoriteDrivers) {
+    console.log("DEBUG: favoriteDrivers data:", user.favoriteDrivers);
   }
 
   const handleLogout = async () => {
@@ -69,15 +77,17 @@ export const Profile = () => {
     });
   };
 
-  const getNames = (items) => {
+  const getNames = (items, key) => {
     if (!items || items.length === 0) {
       return ["Nog niet ingesteld"];
     }
-    return items.map((item) => item.name || item);
+    return items
+      .filter((item) => item[key] && item[key].name)
+      .map((item) => item[key].name);  
   };
 
-  const favoriteDrivers = getNames(user.favoriteDrivers);
-  const favoriteTracks = getNames(user.favoriteTracks);
+  const favoriteDrivers = getNames(user.favoriteDrivers, "driver");
+  const favoriteTracks = getNames(user.favoriteTracks, "track");
 
   return (
     <AsyncData isLoading={loading} error={error}>
@@ -176,11 +186,11 @@ export const Profile = () => {
               </div>
             </div>
             <div className="w-full lg:order-2 order-1">
-                <div className="h-38 md:h-40 lg:h-38 hidden sm:block">
-            </div>
-                <h2 className="text-3xl font-bold text-red-600 flex">
+              <div className="h-38 md:h-40 lg:h-38 hidden sm:block">
+              </div>
+              <h2 className="text-3xl font-bold text-red-600 flex">
                 <FaStar className='text-yellow-400 text-3xl mr-3 '/> Favorieten
-                </h2>
+              </h2>
               <div className="mb-8">
                 <div className="flex items-center mb-4">
                   <GiFullMotorcycleHelmet className='text-3xl text-red-500 mr-2' />

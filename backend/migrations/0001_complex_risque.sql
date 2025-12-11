@@ -1,0 +1,1 @@
+ALTER TABLE `favoriteDriver` ADD PRIMARY KEY(`userId`,`driverId`);
