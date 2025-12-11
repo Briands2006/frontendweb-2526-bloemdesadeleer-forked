@@ -13,6 +13,50 @@ import {
   IsDateString,
 } from 'class-validator';
 
+// Voeg deze klassen toe in uw bestand (bijvoorbeeld boven PublicUserResponseDto)
+
+// 1. DTO voor de Coureur (Driver) Details
+class DriverDetailsDto {
+  @Expose()
+  id: number;
+
+  // DEZE IS CRUCIAAL: De front-end gebruikt 'item.driver.name'
+  @Expose()
+  name: string;
+}
+
+// 2. DTO voor de Track (Circuit) Details
+class TrackDetailsDto {
+  @Expose()
+  id: number;
+
+  // DEZE IS CRUCIAAL: De front-end gebruikt 'item.track.name'
+  @Expose()
+  name: string;
+}
+
+// 3. DTO voor de PIVOT TABEL (FavoriteDriver)
+// Dit is het object dat in de 'favoriteDrivers' array zit
+class FavoriteDriverDto {
+  @Expose()
+  id: number; // Optioneel, als u de ID van de pivot-rij nodig heeft
+
+  @Expose()
+  @Type(() => DriverDetailsDto) // Vertelt class-transformer dat dit een genest object is
+  driver: DriverDetailsDto;
+}
+
+// 4. DTO voor de PIVOT TABEL (FavoriteTrack)
+// Dit is het object dat in de 'favoriteTracks' array zit
+class FavoriteTrackDto {
+  @Expose()
+  id: number; // Optioneel
+
+  @Expose()
+  @Type(() => TrackDetailsDto)
+  track: TrackDetailsDto;
+}
+
 export class PublicUserResponseDto {
   @Expose()
   @IsInt()
@@ -43,6 +87,20 @@ export class PublicUserResponseDto {
   @Expose()
   @IsBoolean()
   isAdmin: boolean;
+
+  // -------------------------------------------------------------------
+  // NIEUW: Favoriete Coureurs
+  // -------------------------------------------------------------------
+  @Expose()
+  @Type(() => FavoriteDriverDto) // Vertelt class-transformer dat het een array van FavoriteDriverDto's is
+  favoriteDrivers: FavoriteDriverDto[];
+
+  // -------------------------------------------------------------------
+  // NIEUW: Favoriete Circuits
+  // -------------------------------------------------------------------
+  @Expose()
+  @Type(() => FavoriteTrackDto) // Vertelt class-transformer dat het een array van FavoriteTrackDto's is
+  favoriteTracks: FavoriteTrackDto[];
 }
 
 export class UserListResponseDto {

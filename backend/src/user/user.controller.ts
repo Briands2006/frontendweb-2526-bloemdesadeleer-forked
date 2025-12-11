@@ -9,6 +9,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import {
@@ -27,12 +28,50 @@ import { AdminGuard } from '../auth/guards/admin.guard';
 import { AuthDelayInterceptor } from '../auth/interceptors/authDelay.interceptor';
 import { LoginResponseDto } from '../session/session.dto';
 import { Public } from '../auth/decorators/public.decorator';
+import { AuthGuard } from '../auth/guards/auth.guard';
+import { IsInt, IsNotEmpty, IsNumber } from 'class-validator';
+
+class ToggleFavoriteDto {
+  @IsNotEmpty()
+  @IsNumber()
+  @IsInt()
+  itemId: number;
+}
+
 @Controller('users')
 export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
   ) {}
+
+  @Patch('me/favorites/driver')
+  @UseGuards(AuthGuard)
+  async toggleFavoriteDriver(
+    @CurrentUser() user: { id: number },
+    @Body() { itemId }: ToggleFavoriteDto,
+  ): Promise<PublicUserResponseDto> {
+    const userId = user.id;
+    const newStatus = await this.userService.toggleFavoriteDriver(
+      userId,
+      itemId,
+    );
+    return newStatus;
+  }
+
+  @Patch('me/favorites/track')
+  @UseGuards(AuthGuard)
+  async toggleFavoriteTrack(
+    @CurrentUser() user: { id: number }, // Haal de ingelogde user ID op
+    @Body() { itemId }: ToggleFavoriteDto,
+  ): Promise<PublicUserResponseDto> {
+    const userId = user.id;
+    const newStatus = await this.userService.toggleFavoriteTrack(
+      userId,
+      itemId,
+    );
+    return newStatus;
+  }
 
   @Get()
   @UseGuards(AdminGuard)

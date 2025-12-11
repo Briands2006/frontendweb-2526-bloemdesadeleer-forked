@@ -124,14 +124,18 @@ export const news = mysqlTable('news', {
 });
 
 // ---------- FavoriteDriver ----------
-export const FavoriteDriver = mysqlTable('favoriteDriver', {
-  userId: int('userId', { unsigned: true })
-    .references(() => users.id, { onDelete: 'cascade' })
-    .notNull(),
-  driverId: int('driverId', { unsigned: true })
-    .references(() => drivers.id, { onDelete: 'cascade' })
-    .notNull(),
-});
+export const FavoriteDriver = mysqlTable(
+  'favoriteDriver',
+  {
+    userId: int('userId', { unsigned: true })
+      .references(() => users.id, { onDelete: 'cascade' })
+      .notNull(),
+    driverId: int('driverId', { unsigned: true })
+      .references(() => drivers.id, { onDelete: 'cascade' })
+      .notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.driverId] })],
+);
 
 export const FavoriteTrack = mysqlTable(
   'favoriteTrack',
@@ -154,10 +158,13 @@ export const teamsRelations = relations(teams, ({ many }) => ({
 export const driversRelations = relations(drivers, ({ one, many }) => ({
   team: one(teams, { fields: [drivers.teamId], references: [teams.id] }),
   raceResults: many(raceResults),
+  usersFavorite: many(FavoriteDriver),
 }));
 
 export const usersRelations = relations(users, ({ many }) => ({
   newsArticles: many(news),
+  favoriteDrivers: many(FavoriteDriver),
+  favoriteTracks: many(FavoriteTrack),
 }));
 
 export const newsRelations = relations(news, ({ one }) => ({
@@ -168,6 +175,7 @@ export const newsRelations = relations(news, ({ one }) => ({
 export const tracksRelations = relations(tracks, ({ many }) => ({
   newsArticles: many(news),
   races: many(races),
+  usersFavorite: many(FavoriteTrack),
 }));
 
 export const racesRelations = relations(races, ({ one, many }) => ({
@@ -192,14 +200,22 @@ export const calendarRelations = relations(calendar, ({ many }) => ({
 }));
 
 export const FavoriteDriverRelations = relations(FavoriteDriver, ({ one }) => ({
-  drivers: one(drivers, {
+  user: one(users, {
+    fields: [FavoriteDriver.userId],
+    references: [users.id],
+  }),
+  driver: one(drivers, {
     fields: [FavoriteDriver.driverId],
     references: [drivers.id],
   }),
 }));
 
 export const FavoriteTracksRelations = relations(FavoriteTrack, ({ one }) => ({
-  tracks: one(tracks, {
+  user: one(users, {
+    fields: [FavoriteTrack.userId],
+    references: [users.id],
+  }),
+  track: one(tracks, {
     fields: [FavoriteTrack.trackId],
     references: [tracks.id],
   }),

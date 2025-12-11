@@ -55,6 +55,15 @@ async function seedUsers() {
       isAdmin: false,
       dateJoined: new Date(2025, 0, 15),
     },
+    {
+      id: 3,
+      name: 'Regular Fan 2.0',
+      email: 'fan2@f1site.com',
+      passwordHash: await hashPassword('testPassword3'),
+      birthdate: new Date(1994, 7, 232),
+      isAdmin: false,
+      dateJoined: new Date(2025, 0, 15),
+    },
   ]);
   console.log('✅ Gebruikers succesvol gezaaid\n');
 }
@@ -731,6 +740,48 @@ async function seedNews() {
   console.log('✅ Nieuws succesvol gezaaid\n');
 }
 
+async function seedUserFavoriteDrivers() {
+  console.log('💰 Seeding UserFavoriteDrivers...');
+
+  await db.insert(schema.FavoriteDriver).values([
+    {
+      userId: 1,
+      driverId: 1,
+    },
+    {
+      userId: 2,
+      driverId: 2,
+    },
+    {
+      userId: 3,
+      driverId: 3,
+    },
+  ]);
+
+  console.log('✅ UserFavoritePlaces seeded successfully\n');
+}
+
+async function seedUserFavoriteTracks() {
+  console.log('💰 Seeding UserFavoriteTracks...');
+
+  await db.insert(schema.FavoriteTrack).values([
+    {
+      userId: 1,
+      trackId: 1,
+    },
+    {
+      userId: 2,
+      trackId: 2,
+    },
+    {
+      userId: 3,
+      trackId: 3,
+    },
+  ]);
+
+  console.log('✅ UserFavoriteTracks seeded successfully\n');
+}
+
 async function main() {
   console.log('🌱 Database seeding starten...\n');
 
@@ -742,6 +793,8 @@ async function main() {
   await seedCalendar();
   await seedRaces();
   await seedNews();
+  await seedUserFavoriteDrivers();
+  await seedUserFavoriteTracks();
 
   console.log('🎉 Database seeding succesvol voltooid!');
 }

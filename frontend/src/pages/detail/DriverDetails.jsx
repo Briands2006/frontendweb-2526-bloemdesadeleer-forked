@@ -2,9 +2,13 @@ import { Link, useParams } from "react-router-dom";
 import useSWR from "swr";
 import { getById, getBySlug } from "../../api";
 import AsyncData from "../../components/AsyncData.jsx";
+import { useAuth } from "../../context/auth.js";
+import { FaStar } from "react-icons/fa6";
+import { toggleFavoriteDriver } from "../../api";
 
 const DriverDetails = () => {
   const { driverName } = useParams();
+  const { user, isAuthed, loading, refetchUser } = useAuth();
 
   const driverKey = driverName ? ["/drivers", driverName] : null;
   const {
@@ -42,6 +46,29 @@ const DriverDetails = () => {
     );
   }
 
+  const isFavorite = user?.favoriteDrivers?.some(
+    (fav) => fav.driver?.id === driver.id, 
+    // ^ LET OP: Als de API de hele Driver relatie stuurt, gebruikt u misschien fav.driver.id.
+    // Maar aangezien de toggle API 'driverId' vereist, is fav.driverId vaak correct.
+  );
+
+  const handleToggleFavorite = async () => {
+  
+    if (!isAuthed || loading) return; // Preventie
+
+    try {
+      // Roep de back-end aan om de favoriet te togglen
+      await toggleFavoriteDriver(driver.id); 
+
+      // DIT IS CRUCIAAL: Haal de nieuwe gebruikersgegevens op
+      // Dit zorgt ervoor dat de 'isFavorite' variabele updatet en de ster van kleur verandert
+      await refetchUser();  
+      
+    } catch (e) {
+      console.error("Fout bij het togglen van favoriet:", e);
+    }
+  };
+
   console.log(team);
   console.log(team.name);
 
@@ -71,9 +98,20 @@ const DriverDetails = () => {
           />
 
           <div className="grid grid-cols-2 gap-y-2 text-white p-8 self-center">
-            <p className="text-5xl font-bold col-span-2 leading-tight mb-2">
-              {driver.name}
-            </p>
+            <div className="flex justify-between items-center col-span-2 mb-2">
+              <p className="text-5xl font-bold col-span-2 leading-tight mb-2">
+                {driver.name}
+              </p>
+              {isAuthed && (
+                <button onClick={handleToggleFavorite} disabled={loading}>
+                  <FaStar 
+                    className={`w-8 h-8 transition-colors ${
+                      isFavorite ? "text-yellow-400" : "text-gray-500 hover:text-yellow-200"
+                    }`}
+                  />
+                </button>
+              )}
+            </div>
 
             <p className="text-base font-semibold col-span-1 text-gray-400">
               Team
