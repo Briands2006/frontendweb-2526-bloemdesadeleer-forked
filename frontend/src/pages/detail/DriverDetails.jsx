@@ -4,11 +4,13 @@ import { getById, getBySlug } from "../../api";
 import AsyncData from "../../components/AsyncData.jsx";
 import { useAuth } from "../../context/auth.js";
 import { FaStar } from "react-icons/fa6";
-import { toggleFavoriteDriver } from "../../api";
+import { useFavorites } from "../../hooks/useFavorites.js";
+import { faker } from "@faker-js/faker";
 
 const DriverDetails = () => {
   const { driverName } = useParams();
-  const { user, isAuthed, loading, refetchUser } = useAuth();
+  const {  isAuthed, loading } = useAuth();
+  const { isDriverFavorite, toggleFavoriteDriver } = useFavorites();
 
   const driverKey = driverName ? ["/drivers", driverName] : null;
   const {
@@ -46,23 +48,14 @@ const DriverDetails = () => {
     );
   }
 
-  const isFavorite = user?.favoriteDrivers?.some(
-    (fav) => fav.driver?.id === driver.id, 
-    // ^ LET OP: Als de API de hele Driver relatie stuurt, gebruikt u misschien fav.driver.id.
-    // Maar aangezien de toggle API 'driverId' vereist, is fav.driverId vaak correct.
-  );
+  const isFavorite = isDriverFavorite(driver.id);
 
   const handleToggleFavorite = async () => {
   
     if (!isAuthed || loading) return; // Preventie
 
     try {
-      // Roep de back-end aan om de favoriet te togglen
       await toggleFavoriteDriver(driver.id); 
-
-      // DIT IS CRUCIAAL: Haal de nieuwe gebruikersgegevens op
-      // Dit zorgt ervoor dat de 'isFavorite' variabele updatet en de ster van kleur verandert
-      await refetchUser();  
       
     } catch (e) {
       console.error("Fout bij het togglen van favoriet:", e);
@@ -135,11 +128,10 @@ const DriverDetails = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-800">Extra Details</h2>
-        <p className="mt-2 text-gray-600">
-          Voeg hier statistieken, biografie of carrièrehoogtepunten toe die niet
-          op de kaart stonden.
+      <div className="max-w-4xl mx-auto mt-8 p-6">
+        <h2 className="text-2xl font-bold text-gray-400">Bibliografie</h2>
+        <p className="mt-2 text-white">
+          {faker.lorem.lines(10)}
         </p>
       </div>
     </main>

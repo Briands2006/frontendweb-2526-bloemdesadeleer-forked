@@ -1,0 +1,12 @@
+
+{
+    "id": 1,
+    "name": "Bahrain International Circuit",
+    "location": "Sakhir, Bahrain",
+    "lengthKm": "5.412",
+    "laps": 57,
+    "fastestLapTime": "1:31.447",
+    "fastestLapDriver": "Pedro de la Rosa",
+    "fastestLapYear": 2005,
+    "slug": "bahrain-international-circuit"
+}

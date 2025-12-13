@@ -1,17 +1,5 @@
-// export default function Tracks() {
-//   return (
+import { FaStar } from "react-icons/fa6";
 
-//     <div className='bg-gray-800 rounded-2xl h-100 grid auto-rows-auto'>
-//       <img className='h-50' src="../../public/Monaco_Large_Flag.png" alt="bla" />
-//       <h1 className='text-white text-5xl grid-r bg-transparent'>Circuit Name</h1>
-//       <div className='grid grid-rows-2 grid-cols-5'>
-//         <p className='text-white text-2xl'>Circuit lengte: </p>
-//         <p>7 km</p>
-//       </div>
-//     </div>
-//   );
-    
-// }
 export default function TrackCard({
   name,
   photo,
@@ -22,7 +10,15 @@ export default function TrackCard({
   fastestLapDriver,
   fastestLapYear,
   onClick,
+  isFavorite,
+  onToggleFavorite,
 }) {
+
+  const handleStarClick = (event) => {
+    event.stopPropagation(); // BELANGRIJK: Voorkomt dat de klik op de ster de kaart klik activeert
+    onToggleFavorite();
+  };
+
   return (
     <div   
       onClick={onClick}
@@ -37,8 +33,24 @@ export default function TrackCard({
         "transition-transform",
         "duration-300",
         "overflow-hidden",
-      ].join(" ")}>
+        "relative",
+      ].join(" ")}
+    >
+      {onToggleFavorite && (
+        <div
+          className="absolute top-3 right-3 z-10 p-2 rounded-full bg-gray-900/70 hover:bg-gray-800/90 transition-colors"
+          onClick={handleStarClick} // Gebruik de handler die stopPropagation doet
+          title={isFavorite ? "Verwijder van favorieten" : "Voeg toe aan favorieten"}
+        >
+          <FaStar
+            className={`w-6 h-6 transition-colors ${
+              isFavorite ? "text-yellow-400" : "text-gray-400 hover:text-yellow-300"
+            }`}
+          />
+        </div>
+      )}  
       <div className='bg-gray-800 rounded-2xl h-auto flex flex-col p-4' onClick={onClick}> 
+
         <img className='h-auto w-auto rounded-l-2xl' src={photo} alt={name} />
       
         <h1 className='text-white text-3xl mt-4 mb-2 font-bold'>{name}</h1>

@@ -2,9 +2,12 @@ import { useParams, Link } from "react-router-dom";
 import useSWR from "swr";
 import { getBySlug } from "../../api/index.js";
 import AsyncData from "../../components/AsyncData.jsx";
+import { useAuth } from "../../context/auth.js";
+import { FaStar } from "react-icons/fa6";
+import { useFavorites } from "../../hooks/useFavorites.js";
 
 const BASE_URL_TRACKS = "https://cdn.racingnews365.com/Circuits";
-const CONSTANT_IMAGE_PART = "/_503xAUTO_crop_center-center_none/f1_2024";
+const CONSTANT_IMAGE_PART = "/_639xAUTO_crop_center-center_none/f1_2024";
 const VERSION_PARAM = "?v=1708703502";
 
 const TRACK_URL_MAPPING = {
@@ -20,7 +23,7 @@ const TRACK_URL_MAPPING = {
   "circuit-gilles-villeneuve": { folder: "Canada", code: "can" },
   "red-bull-ring": { folder: "Austria", code: "aut" },
   "silverstone-circuit": { folder: "Great-Britain", code: "gbr" },
-  hungaroring: { folder: "Hungary", code: "hun" },
+  "hungaroring": { folder: "Hungary", code: "hun" },
   "circuit-de-spa-francorchamps": { folder: "Belgium", code: "bel" },
   "circuit-zandvoort": { folder: "The-Netherlands", code: "nld" },
   "autodromo-nazionale-monza": { folder: "Italy", code: "ita" },
@@ -36,6 +39,9 @@ const TRACK_URL_MAPPING = {
 
 export const TrackDetail = () => {
   const { trackName } = useParams();
+  const { isTrackFavorite, toggleFavoriteTrack } = useFavorites();
+
+  const { isAuthed, loading } = useAuth();
 
   const key = trackName ? ["/tracks", trackName] : null;
 
@@ -54,6 +60,21 @@ export const TrackDetail = () => {
   const imageUrl = details
     ? `${BASE_URL_TRACKS}/${details.folder}${CONSTANT_IMAGE_PART}_${details.code}_outline.png${VERSION_PARAM}`
     : "fallback-image-url.png";
+
+  const isFavorite = isTrackFavorite(track.id);
+
+  const handleToggleFavorite = async () => {
+  
+    if (!isAuthed || loading) return; // Preventie
+
+    try {
+      // Roep de back-end aan om de favoriet te togglen
+      await toggleFavoriteTrack(track.id); 
+      
+    } catch (e) {
+      console.error("Fout bij het togglen van favoriet:", e);
+    }
+  };
 
   return (
     <main className="track-detail-page" style={{ padding: 24 }}>
@@ -83,10 +104,20 @@ export const TrackDetail = () => {
           />
 
           <div className="grid grid-cols-2 gap-y-2 text-white p-8 self-center">
-            <p className="text-5xl font-bold col-span-2 leading-tight mb-2">
-              {track.name}
-            </p>
-
+            <div className="flex justify-between items-center col-span-2 mb-2">
+              <p className="text-5xl font-bold col-span-2 leading-tight mb-2">
+                {track.name}
+              </p>
+              {isAuthed && (
+                <button onClick={handleToggleFavorite} disabled={loading}>
+                  <FaStar 
+                    className={`w-8 h-8 transition-colors ${
+                      isFavorite ? "text-yellow-400" : "text-gray-500 hover:text-yellow-200"
+                    }`}
+                  />
+                </button>
+              )}
+            </div>
             <p className="text-base font-semibold text-gray-400">Location</p>
             <p className="text-xl text-right pr-3">{track.location}</p>
 

@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react"; // <-- useEffect toevoegen
 import { useAuth } from "./useAuth"; // Of waar uw useAuth hook zich bevindt
 import axios from "axios"; // Of uw favoriete fetch client
+import { mutate } from "swr";
 
 const API_BASE_URL = "http://localhost:3000/api"; // Pas dit aan
 
@@ -47,14 +48,28 @@ export const useFavorites = () => {
     const currentIsFavorite = (type === "driver" ? favDriverIds : favTrackIds).has(itemIdValue);
     const newIsFavorite = !currentIsFavorite; 
 
+    let expectedNewUser = user; // Start met de huidige user data
+
     // 1. OPTIMISTISCHE UI UPDATE: Pas de lokale state direct aan
     setFunction((prevIds) => {
       const newIds = new Set(prevIds);
+
+      let newFavoritesArray = [...(user[type === "driver" ? "favoriteDrivers" : "favoriteTracks"] || [])];
+
+      const itemKey = type === "driver" ? "driver" : "track";
+
       if (newIsFavorite) {
         newIds.add(itemIdValue); // Voeg toe aan de Set
+        newFavoritesArray.push({ [itemKey]: { id: itemIdValue, name: "Placeholder" } });
       } else {
         newIds.delete(itemIdValue); // Verwijder uit de Set
+        newFavoritesArray = newFavoritesArray.filter((f) => f[itemKey]?.id !== itemIdValue);
       }
+
+      expectedNewUser = {
+        ...user,
+        [type === "driver" ? "favoriteDrivers" : "favoriteTracks"]: newFavoritesArray,
+      };
       return newIds;
     });
 
@@ -65,16 +80,13 @@ export const useFavorites = () => {
         { headers: { Authorization: `Bearer ${token}` } },
       );
 
-      // 2. GLOBALE STATE SYNCHRONISATIE
-      // Na een succesvolle API-actie, ververs de globale gebruikersdata. 
-      // Dit zorgt ervoor dat de profielpagina en andere delen van de app updaten.
-      if (typeof refetchUser === "function") {
-        // Gebruik await om te wachten tot de nieuwe data binnen is, indien mogelijk
-        await refetchUser(); 
-      }
+      mutate("users/me", expectedNewUser, { revalidate: false });
+ 
+      await refetchUser(); 
 
     } catch (error) {
       console.error(`Fout bij togglen favoriete ${type}:`, error);
+      mutate("users/me", user, { revalidate: false });
         
       // 3. ROLLBACK (Als de API faalt): Draai de lokale state terug
       setFunction((prevIds) => {
@@ -88,7 +100,7 @@ export const useFavorites = () => {
       });
 
     }
-  }, [token, favDriverIds, favTrackIds, refetchUser]); // Dependency array bijwerken
+  }, [token, user, refetchUser]); // Dependency array bijwerken
 
   return {
     isDriverFavorite,

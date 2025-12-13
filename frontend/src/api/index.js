@@ -68,13 +68,3 @@ export async function save(url, { arg: { id, ...data } }) {
   });
 }
 
-export const toggleFavoriteDriver = async (driverId) => {
-  // Deze roept de POST-route op je NestJS back-end aan (e.g., /users/favorite-driver/5)
-  try {
-    const response = await axios.post(`/users/favorite-driver/${driverId}`);
-    return response.data;
-  } catch (err) {
-    console.error("🟥 Toggle Favorite Driver Error:", err.response?.data);
-    throw err; // Belangrijk: gooi de fout door
-  }
-};

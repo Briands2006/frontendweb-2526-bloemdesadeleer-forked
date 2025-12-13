@@ -11,22 +11,22 @@
 //
 // -- This is a parent command --
 // cypress/support/commands.js
-// 👇 1
 Cypress.Commands.add("login", (email, password) => {
-  // 👇 5
   Cypress.log({
     displayName: "login",
   });
 
-  cy.visit("http://localhost:5173/login"); // 👈 2
+  cy.intercept("/api/session").as("login");
+  cy.visit("http://localhost:5173/login");
 
-  cy.get("[data-cy=email_input]").clear(); // 👈 3
-  cy.get("[data-cy=email_input]").type(email); // 👈 3
+  cy.get("[data-cy=email_input]").clear();
+  cy.get("[data-cy=email_input]").type(email);
 
-  cy.get("[data-cy=password_input]").clear(); // 👈 3
-  cy.get("[data-cy=password_input]").type(password); // 👈 3
+  cy.get("[data-cy=password_input]").clear();
+  cy.get("[data-cy=password_input]").type(password);
 
-  cy.get("[data-cy=submit_btn]").click(); // 👈 4
+  cy.get("[data-cy=submit_btn]").click();
+  cy.wait("@login");
 });
 
 Cypress.Commands.add("logout", () => {

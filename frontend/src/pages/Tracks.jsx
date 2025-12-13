@@ -7,6 +7,7 @@ import AsyncData from "../components/AsyncData.jsx";
 import useSWR from "swr";
 import { getAll } from "../api/index.js";
 import { getTrackImageUrl } from "./utils/getTrackImage.js";
+import { useFavorites } from "../hooks/useFavorites.js";
 
 const Tracks = () => {
   const navigate = useNavigate();
@@ -16,7 +17,9 @@ const Tracks = () => {
   };
 
   const { data: response = [], isLoading, error } = useSWR("tracks", getAll);
-  const tracks = response?.tracks ?? [];
+  const tracks = response?.tracks ?? []; // DIT IS DE LIJN
+
+  const {isTrackFavorite, toggleFavoriteTrack} = useFavorites();
 
   return (
     <main className="track-page" style={{ padding: 24 }}>
@@ -41,6 +44,9 @@ const Tracks = () => {
                 onClick={() => {
                   handleTrackClick(t);
                 }}
+                isFavorite={isTrackFavorite(t.id)}
+                onToggleFavorite={() => toggleFavoriteTrack(t.id)}
+                
               />
             );
           })}
