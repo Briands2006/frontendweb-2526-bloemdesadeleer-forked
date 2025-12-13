@@ -15,13 +15,12 @@ import AsyncData from "../components/AsyncData.jsx";
 import { GiFullMotorcycleHelmet } from "react-icons/gi";
 
 import { FaStar } from "react-icons/fa6";
+import { slug } from "../utils/slugify.js";
+import { Link } from "react-router-dom";
 
 export const Profile = () => {
   const { isAdmin, isAuthed, user, logout, loading, error } = useAuth();
 
-  if (user && user.favoriteDrivers) {
-    console.log("DEBUG: favoriteDrivers data:", user.favoriteDrivers);
-  }
   const navigate = useNavigate();
 
   if (!isAuthed && !loading) {
@@ -77,17 +76,17 @@ export const Profile = () => {
     });
   };
 
-  const getNames = (items, key) => {
-    if (!items || items.length === 0) {
-      return ["Nog niet ingesteld"];
-    }
-    return items
-      .filter((item) => item[key] && item[key].name)
-      .map((item) => item[key].name);  
-  };
+  // const getNames = (items, key) => {
+  //   if (!items || items.length === 0) {
+  //     return ["Nog niet ingesteld"];
+  //   }
+  //   return items
+  //     .filter((item) => item[key] && item[key].name)
+  //     .map((item) => item[key].name);  
+  // };
 
-  const favoriteDrivers = getNames(user.favoriteDrivers, "driver");
-  const favoriteTracks = getNames(user.favoriteTracks, "track");
+  // const favoriteDrivers = getNames(user.favoriteDrivers, "driver");
+  // const favoriteTracks = getNames(user.favoriteTracks, "track");
 
   return (
     <AsyncData isLoading={loading} error={error}>
@@ -199,14 +198,34 @@ export const Profile = () => {
                   </h3>
                 </div>
                 <ul className="space-y-3">
-                  {favoriteDrivers.map((driver, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center p-3 bg-gray-800 rounded-md  shadow-sm"
-                    >
-                      <span className="text-lg font-medium">{driver}</span>
+                  {user.favoriteDrivers && user.favoriteDrivers.length > 0 ? (
+                    user.favoriteDrivers
+                      .filter((fav) => fav.driver) // Filter items die de driver relatie missen
+                      .map((favItem, index) => (
+                        <li
+                          key={favItem.driver.id || index} // Gebruik de driver ID als key
+                          className="flex items-center p-3 bg-gray-800 rounded-md 
+                          shadow-sm hover:bg-gray-700 transition-colors cursor-pointer"
+                        >
+                          <img
+                            src={favItem.driver.photo} 
+                            alt={`Foto van ${favItem.driver.name}`}
+                            className="w-10 h-10 object-cover rounded-full mr-4 border border-red-600"
+                          />
+                          <Link
+                            to={`/drivers/${slug(favItem.driver.name)}`}
+                            className="text-lg font-medium w-full"
+                          >
+                            {favItem.driver.name}
+                          </Link>
+                        </li>
+                      ))
+                  ) : (
+                  // Toon de fallback als er geen favorieten zijn
+                    <li className="flex items-center p-3 bg-gray-800 rounded-md shadow-sm">
+                      <span className="text-lg font-medium text-gray-400">Nog niet ingesteld</span>
                     </li>
-                  ))}
+                  )}
                 </ul>
               </div>
               <div>
@@ -217,15 +236,36 @@ export const Profile = () => {
                   </h3>
                 </div>
                 <ul className="space-y-3">
-                  {favoriteTracks.map((track, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center p-3 bg-gray-800 rounded-md shadow-sm"
-                    >
-                      <span className="text-lg font-medium">{track}</span>
+                  {user.favoriteTracks && user.favoriteTracks.length > 0 ? (
+                    user.favoriteTracks
+                      .filter((fav) => fav.track) 
+                      .map((favItem, index) => (
+                        <li
+                          key={favItem.track.id || index} // Gebruik de driver ID als key
+                          className="flex items-center p-3 bg-gray-800 rounded-md 
+                          shadow-sm hover:bg-gray-700 transition-colors cursor-pointer"
+                        >
+                          <img
+                            src={favItem.track.photo} 
+                            alt={`Foto van ${favItem.track.name}`}
+                            className="w-10 h-10 object-cover rounded-full mr-4 border border-red-600"
+                          />
+                          <Link
+                            to={`/tracks/${slug(favItem.track.name)}`} 
+                            className="text-lg font-medium w-full"
+                          >
+                            {favItem.track.name}
+                          </Link>
+                        </li>
+                      ))
+                  ) : (
+                  // Toon de fallback als er geen favorieten zijn
+                    <li className="flex items-center p-3 bg-gray-800 rounded-md shadow-sm">
+                      <span className="text-lg font-medium text-gray-400">Nog niet ingesteld</span>
                     </li>
-                  ))}
+                  )}
                 </ul>
+
               </div>
             </div>
           </div>

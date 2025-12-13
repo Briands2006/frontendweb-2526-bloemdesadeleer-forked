@@ -6,6 +6,6 @@ describe("General", () => {
 });
 
 it("should login", () => {
-  cy.login("Regular Fan", "fan@f1site.com"); // 👈 2
+  cy.login("fan@f1site.com", "testPassword2"); // 👈 2
 });
 

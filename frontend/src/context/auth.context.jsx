@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     error: userError,
   } = useSWR(token ? "users/me" : null, api.getById);
 
-  const refetchUSer = useCallback(() => {
+  const refetchUser = useCallback(() => {
     //Roept SWR aan om de data voor de key "users/me" opnieuw op te halen
     mutate("users/me");
   }, []);
@@ -100,7 +100,7 @@ export const AuthProvider = ({ children }) => {
       login,
       logout,
       register,
-      refetchUSer,
+      refetchUser,
     }),
     [
       token,
@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }) => {
       login,
       logout,
       register,
-      refetchUSer,
+      refetchUser,
     ],
   );
 

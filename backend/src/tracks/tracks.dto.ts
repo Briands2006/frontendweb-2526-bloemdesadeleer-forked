@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsInt,
   IsNotEmpty,
@@ -51,5 +52,6 @@ export class TrackResponseDto {
 }
 
 export class TrackListResponseDto {
+  @ApiProperty({ type: () => [TrackResponseDto] })
   tracks: TrackResponseDto[];
 }

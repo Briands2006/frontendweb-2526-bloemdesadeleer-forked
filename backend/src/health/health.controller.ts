@@ -2,6 +2,7 @@ import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import { type HealthType } from '../types/health';
 import CustomLogger from '../core/customLogger';
 import { DatabaseCheck } from './database.check';
+import { Public } from '../auth/decorators/public.decorator';
 
 const customLogger = new CustomLogger();
 
@@ -9,6 +10,7 @@ const customLogger = new CustomLogger();
 export class HealthController {
   constructor(private readonly databaseCheck: DatabaseCheck) {}
 
+  @Public()
   @Get('ping')
   ping(): { pong: boolean } {
     return { pong: true };
