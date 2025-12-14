@@ -32,20 +32,25 @@ describe("News Pagina", () => {
       fixture: "news.json",
     }).as("getNews"); 
 
-    cy.intercept("GET", "http://localhost:3000/api/news/n/", {
+    cy.intercept("GET", "http://localhost:3000/api/news/n/verstappen-wint-de-grand-prix-van-belgie", {
       fixture: "newsDetail.json",
-    }).as("getNewsDetails");
+    }).as("getNewsDetail");
 
     cy.visit("http://localhost:5173/news");
     cy.wait("@getNews");
 
     cy.get(".grid").contains("Verstappen wint de Grand Prix van België").click();
 
-    cy.wait("@getNewsDetails");
+    cy.wait("@getNewsDetail");
 
-    cy.get("div p").first().should("contain", "Max Verstappen");
+    cy.url().should("include", "/news/n/verstappen-wint-de-grand-prix-van-belgie");
 
-    cy.url().should("include", "/drivers/max-verstappen");
+    cy.get("h1").should("contain", "Verstappen wint de Grand Prix van België");
+
+    cy.get("p").should("contain", "30 juli 2024");
+    cy.get("p").
+      should("contain", "Max Verstappen behaalt een dominante overwinning op Spa-Francorchamps na een spannende start.");
+    cy.get("p").should("contain", "Het volledige verslag van de race, met analyses van de bandenstrategie en inhaalmanoeuvres...");
 
   });
   

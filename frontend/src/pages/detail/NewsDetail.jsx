@@ -20,8 +20,8 @@ export const NewsDetail = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []); // scroll naar boven bij laden van de pagina
 
-  const newsKey = newsSlug ? ["/news", newsSlug] : null;
-  const { data: news = [], isLoading, error} = useSWR(newsKey, () => getBySlug("news", newsSlug));
+  const newsKey = newsSlug ? `/news/n/${newsSlug}` : null;
+  const { data: news, isLoading, error} = useSWR(newsKey, () => getBySlug("news", newsSlug));
 
   if (isLoading) {
     return <div className="min-h-screen bg-transparent text-white py-20">
