@@ -38,7 +38,7 @@ export const News = () => {
 
   const handleNewsPostClick = (post) => {
     const newsSlug = slug(post.title);
-    navigate(`/news/${newsSlug}`);
+    navigate(`/news/n/${newsSlug}`);
   };
 
   const goToPrevPage = () => {

@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         Component: News,
       },
       {
-        path: "news/:id",
+        path: "news/n/:newsSlug",
         Component: NewsDetail,
       },
       {

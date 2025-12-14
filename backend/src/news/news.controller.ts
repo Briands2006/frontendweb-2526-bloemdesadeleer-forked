@@ -21,6 +21,7 @@ export class NewsController {
   }
 
   @Get('n/:slug')
+  @Public()
   async getNewsBySlug(@Param('slug') slug: string): Promise<NewsResponseDto> {
     return this.newsService.getBySlug(slug);
   }

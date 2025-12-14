@@ -735,7 +735,6 @@ async function seedNews() {
       trackId: 2, // Monza
       slug: 'mercedes-kondigt-upgrades-aan-voor-monza',
     },
-    // Voeg hier meer nieuwsitems toe...
   ]);
   console.log('✅ Nieuws succesvol gezaaid\n');
 }
