@@ -17,7 +17,7 @@ const Tracks = () => {
   };
 
   const { data: response = [], isLoading, error } = useSWR("tracks", getAll);
-  const tracks = response?.tracks ?? []; // DIT IS DE LIJN
+  const tracks = response?.tracks ?? [];
 
   const {isTrackFavorite, toggleFavoriteTrack} = useFavorites();
 
