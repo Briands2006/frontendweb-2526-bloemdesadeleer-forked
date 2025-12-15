@@ -10,7 +10,6 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
-  Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import {

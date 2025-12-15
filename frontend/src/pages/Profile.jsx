@@ -8,7 +8,6 @@ import {
   Loader2,
   Lock,
   Flag,
-  
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import AsyncData from "../components/AsyncData.jsx";
@@ -17,6 +16,7 @@ import { GiFullMotorcycleHelmet } from "react-icons/gi";
 import { FaStar } from "react-icons/fa6";
 import { slug } from "../utils/slugify.js";
 import { Link } from "react-router-dom";
+import Flags from "country-flag-icons/react/3x2";
 
 export const Profile = () => {
   const { isAdmin, isAuthed, user, logout, loading, error } = useAuth();
@@ -42,7 +42,39 @@ export const Profile = () => {
 
   if (user && user.favoriteDrivers) {
     console.log("DEBUG: favoriteDrivers data:", user.favoriteDrivers);
+    console.log("DEBUG: favoriteDrivers data:", user.favoriteTracks);
   }
+
+  const COUNTRY_CODE_MAP = {
+    Bahrain: "BH",
+    "Saudi Arabia": "SA",
+    Japan: "JP",
+    China: "CN",
+    Azerbaijan: "AZ",
+    Singapore: "SG",
+    Qatar: "QA",
+    UAE: "AE",
+    Italy: "IT",
+    Monaco: "MC",
+    Spain: "ES",
+    Austria: "AT",
+    "United Kingdom": "GB",
+    Hungary: "HU",
+    Belgium: "BE",
+    Netherlands: "NL",
+    "United States": "US",
+    Canada: "CA",
+    Mexico: "MX",
+    Brazil: "BR",
+    Australia: "AU",
+  };
+
+  const getCountryCode = (locationString) => {
+    if (!locationString) return null;
+    const parts = locationString.split(",").map((s) => s.trim());
+    const countryName = parts[parts.length - 1];
+    return COUNTRY_CODE_MAP[countryName] || null;
+  };
 
   const handleLogout = async () => {
     try {
@@ -82,7 +114,7 @@ export const Profile = () => {
   //   }
   //   return items
   //     .filter((item) => item[key] && item[key].name)
-  //     .map((item) => item[key].name);  
+  //     .map((item) => item[key].name);
   // };
 
   // const favoriteDrivers = getNames(user.favoriteDrivers, "driver");
@@ -92,9 +124,7 @@ export const Profile = () => {
     <AsyncData isLoading={loading} error={error}>
       <div className="min-h-screen pt-20 pb-10 bg-transparent text-white grid place-items-start px-4">
         <div className="w-full max-w-4xl mx-auto p-8 bg-gray-900 rounded-xl border border-gray-800 shadow-xl">
-          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
             <div className="w-full lg:order-1 order-2">
               <div className="text-center mb-8">
                 <div
@@ -185,14 +215,13 @@ export const Profile = () => {
               </div>
             </div>
             <div className="w-full lg:order-2 order-1">
-              <div className="h-38 md:h-40 lg:h-38 hidden sm:block">
-              </div>
+              <div className="h-38 md:h-40 lg:h-38 hidden sm:block"></div>
               <h2 className="text-3xl font-bold text-red-600 flex">
-                <FaStar className='text-yellow-400 text-3xl mr-3 '/> Favorieten
+                <FaStar className="text-yellow-400 text-3xl mr-3 " /> Favorieten
               </h2>
               <div className="mb-8">
                 <div className="flex items-center mb-4">
-                  <GiFullMotorcycleHelmet className='text-3xl text-red-500 mr-2' />
+                  <GiFullMotorcycleHelmet className="text-3xl text-red-500 mr-2" />
                   <h3 className="text-xl font-semibold text-white">
                     Favoriete Coureurs
                   </h3>
@@ -208,7 +237,7 @@ export const Profile = () => {
                           shadow-sm hover:bg-gray-700 transition-colors cursor-pointer"
                         >
                           <img
-                            src={favItem.driver.photo} 
+                            src={favItem.driver.photo}
                             alt={`Foto van ${favItem.driver.name}`}
                             className="w-10 h-10 object-cover rounded-full mr-4 border border-red-600"
                           />
@@ -221,9 +250,11 @@ export const Profile = () => {
                         </li>
                       ))
                   ) : (
-                  // Toon de fallback als er geen favorieten zijn
+                    // Toon de fallback als er geen favorieten zijn
                     <li className="flex items-center p-3 bg-gray-800 rounded-md shadow-sm">
-                      <span className="text-lg font-medium text-gray-400">Nog niet ingesteld</span>
+                      <span className="text-lg font-medium text-gray-400">
+                        Nog niet ingesteld
+                      </span>
                     </li>
                   )}
                 </ul>
@@ -238,34 +269,50 @@ export const Profile = () => {
                 <ul className="space-y-3">
                   {user.favoriteTracks && user.favoriteTracks.length > 0 ? (
                     user.favoriteTracks
-                      .filter((fav) => fav.track) 
-                      .map((favItem, index) => (
-                        <li
-                          key={favItem.track.id || index} // Gebruik de driver ID als key
-                          className="flex items-center p-3 bg-gray-800 rounded-md 
-                          shadow-sm hover:bg-gray-700 transition-colors cursor-pointer"
-                        >
-                          <img
-                            src={favItem.track.photo} 
-                            alt={`Foto van ${favItem.track.name}`}
-                            className="w-10 h-10 object-cover rounded-full mr-4 border border-red-600"
-                          />
-                          <Link
-                            to={`/tracks/${slug(favItem.track.name)}`} 
-                            className="text-lg font-medium w-full"
+                      .filter((fav) => fav.track)
+                      .map((favItem, index) => {
+                        const location = favItem.track.location;
+                        const countryCode = getCountryCode(location);
+                        const FlagComponent = countryCode
+                          ? Flags[countryCode]
+                          : null;
+
+                        return (
+                          <li
+                            key={favItem.track.id || index}
+                            className="flex items-center p-3 bg-gray-800 rounded-md 
+                       shadow-sm hover:bg-gray-700 transition-colors cursor-pointer"
                           >
-                            {favItem.track.name}
-                          </Link>
-                        </li>
-                      ))
+                            <div
+                              className="w-10 h-10 rounded-full overflow-hidden relative 
+                                 shrink-0 mr-4 border border-red-600"
+                            >
+                              {FlagComponent ? (
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                  <FlagComponent className="min-w-full min-h-full scale-[1.8] object-cover" />
+                                </div>
+                              ) : (
+                                <Flag className="w-full h-full object-none" />
+                              )}
+                            </div>
+
+                            <Link
+                              to={`/tracks/${slug(favItem.track.name)}`}
+                              className="text-lg font-medium w-full"
+                            >
+                              {favItem.track.name}
+                            </Link>
+                          </li>
+                        );
+                      })
                   ) : (
-                  // Toon de fallback als er geen favorieten zijn
                     <li className="flex items-center p-3 bg-gray-800 rounded-md shadow-sm">
-                      <span className="text-lg font-medium text-gray-400">Nog niet ingesteld</span>
+                      <span className="text-lg font-medium text-gray-400">
+                        Nog niet ingesteld
+                      </span>
                     </li>
                   )}
                 </ul>
-
               </div>
             </div>
           </div>

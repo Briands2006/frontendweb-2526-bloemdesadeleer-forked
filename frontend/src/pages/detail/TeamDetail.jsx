@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
-// import {
-//   getDriversByTeamName,
-// } from "../../api/mock-data.js";
+import { ChevronLeft, Loader } from "lucide-react";
 import { slug } from "../../utils/slugify.js";
 import useSWR from "swr";
 import { getBySlug } from "../../api/index.js";
+import AsyncData from "../../components/AsyncData.jsx";
 
 export const TeamDetail = () => {
   const { teamSlug } = useParams();
@@ -35,8 +33,7 @@ export const TeamDetail = () => {
   const drivers = allDrivers.filter((driver) => driver.teamId === team.id);
 
   if (isTeamLoading || isDriverLoading) {
-    return <div className="min-h-screen bg-transparent text-white py-20">
-      <div className="max-w-4xl mx-auto px-8 md:px-16">Laden...</div></div>;
+    return <AsyncData loading={isDriverLoading} error={driverError} />;
   }
   
   if (teamError || driverError) {

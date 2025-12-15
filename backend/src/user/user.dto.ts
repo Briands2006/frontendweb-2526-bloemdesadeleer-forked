@@ -24,6 +24,9 @@ class DriverDetailsDto {
   // DEZE IS CRUCIAAL: De front-end gebruikt 'item.driver.name'
   @Expose()
   name: string;
+
+  @Expose()
+  photo: string;
 }
 
 // 2. DTO voor de Track (Circuit) Details
@@ -34,6 +37,9 @@ class TrackDetailsDto {
   // DEZE IS CRUCIAAL: De front-end gebruikt 'item.track.name'
   @Expose()
   name: string;
+
+  @Expose()
+  location: string;
 }
 
 // 3. DTO voor de PIVOT TABEL (FavoriteDriver)
