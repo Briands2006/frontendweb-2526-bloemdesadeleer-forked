@@ -5,6 +5,7 @@ import { slug } from "../../utils/slugify.js";
 import useSWR from "swr";
 import { getBySlug } from "../../api/index.js";
 import AsyncData from "../../components/AsyncData.jsx";
+import { getAssetUrl } from "../utils/getImage.js";
 
 export const TeamDetail = () => {
   const { teamSlug } = useParams();
@@ -92,7 +93,7 @@ export const TeamDetail = () => {
             {team.name}
           </h1>
           <img
-            src={team.logo}
+            src={getAssetUrl("teamLogos", team.logo)}
             alt={`${team.name} Logo`}
             className="w-20 h-20 object-contain"
           />
@@ -127,7 +128,7 @@ export const TeamDetail = () => {
               Huidige Chassis
             </h2>
             <img
-              src={team.car}
+              src={getAssetUrl("teamCars", team.car)}
               alt={`${team.name} F1 Car`}
               className="w-full h-auto object-cover rounded-lg shadow-xl"
             />
@@ -149,7 +150,7 @@ export const TeamDetail = () => {
               >
                 <div className="flex items-center">
                   <img
-                    src={driver.photo}
+                    src={getAssetUrl("driverHeadshots", driver.photo)}
                     alt={driver.name}
                     className="w-10 h-10 rounded-full object-cover mr-3"
                   />

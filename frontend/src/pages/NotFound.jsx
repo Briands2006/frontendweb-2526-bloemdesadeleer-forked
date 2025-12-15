@@ -43,7 +43,7 @@ export const NotFoundPage = () => {
           <button
             onClick={handleGoBack}
             className="
-                          w-full sm:w-auto flex-grow sm:flex-grow-0  
+                          w-full sm:w-auto grow sm:grow-0  
                           inline-flex items-center justify-center 
                           px-8 py-3 
                           border-2 border-red-600 
@@ -62,7 +62,7 @@ export const NotFoundPage = () => {
           <button
             onClick={handleGoHome}
             className="
-                          w-full sm:w-auto flex-grow sm:flex-grow-0 
+                          w-full sm:w-auto grow sm:grow-0 
                           inline-flex items-center justify-center 
                           px-8 py-3 
                           border-2 border-yellow-400 

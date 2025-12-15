@@ -7,10 +7,10 @@ import useSWR from "swr";
 import AsyncData from "../components/AsyncData.jsx";
 import { getAll } from "../api/index.js";
 import { useFavorites } from "../hooks/useFavorites.js";
+import { getAssetUrl } from "./utils/getImage.js";
 
 const Drivers = () => {
-
-  const {isDriverFavorite, toggleFavoriteDriver } = useFavorites();
+  const { isDriverFavorite, toggleFavoriteDriver } = useFavorites();
 
   const navigate = useNavigate();
 
@@ -26,21 +26,23 @@ const Drivers = () => {
       <h1 className="text-5xl font-extrabold pb-4">F1 Drivers 2025</h1>
       <div className="drivers-grid">
         <AsyncData loading={isLoading} error={error}>
-          {Array.isArray(drivers) && drivers.map((d) => (
-            <DriverCard
-              key={d.id}
-              name={d.name}
-              team={d.team.name}
-              number={d.number}
-              photo={d.photo}
-              country={d.country}
-              isFavorite={isDriverFavorite(d.id)}
-              onToggleFavorite={() => toggleFavoriteDriver(d.id)}
-              onClick={() => {
-                handleDriverClick(d);
-              }}
-            />
-          ))}
+          {Array.isArray(drivers) &&
+            drivers.map((d) => (
+              console.log(getAssetUrl("driverHeadshots", d.photo)),
+              <DriverCard
+                key={d.id}
+                name={d.name}
+                team={d.team.name}
+                number={d.number}
+                photo={getAssetUrl("driverHeadshots", d.photo)}
+                country={d.country}
+                isFavorite={isDriverFavorite(d.id)}
+                onToggleFavorite={() => toggleFavoriteDriver(d.id)}
+                onClick={() => {
+                  handleDriverClick(d);
+                }}
+              />
+            ))}
         </AsyncData>
       </div>
     </main>

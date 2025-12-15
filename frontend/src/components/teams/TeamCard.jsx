@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { getAssetUrl } from "../../pages/utils/getImage.js";
 
 const TeamCard = ({ team }) => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const TeamCard = ({ team }) => {
                   flex items-center space-x-6 text-white`}
     >
       <img
-        src={team.logo}
+        src={getAssetUrl("teamLogos", team.logo)}
         alt={`${team.name} Logo`}
         className="w-16 h-16 object-contain"
       />

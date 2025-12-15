@@ -6,6 +6,7 @@ import { useAuth } from "../../context/auth.js";
 import { FaStar } from "react-icons/fa6";
 import { useFavorites } from "../../hooks/useFavorites.js";
 import { faker } from "@faker-js/faker";
+import { getAssetUrl } from "../utils/getImage.js";
 
 const DriverDetails = () => {
   const { driverName } = useParams();
@@ -86,7 +87,7 @@ const DriverDetails = () => {
         >
           <img
             className="h-full w-full object-cover rounded-2xl mt-3"
-            src={driver.photo}
+            src={getAssetUrl("driverHeadshots", driver.photo)}
             alt={driver.name}
           />
 

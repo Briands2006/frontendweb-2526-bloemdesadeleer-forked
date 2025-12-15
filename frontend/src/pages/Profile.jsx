@@ -17,6 +17,7 @@ import { FaStar } from "react-icons/fa6";
 import { slug } from "../utils/slugify.js";
 import { Link } from "react-router-dom";
 import Flags from "country-flag-icons/react/3x2";
+import { getAssetUrl } from "./utils/getImage.js";
 
 export const Profile = () => {
   const { isAdmin, isAuthed, user, logout, loading, error } = useAuth();
@@ -237,7 +238,7 @@ export const Profile = () => {
                           shadow-sm hover:bg-gray-700 transition-colors cursor-pointer"
                         >
                           <img
-                            src={favItem.driver.photo}
+                            src={getAssetUrl("driverHeadshots", favItem.driver.photo)}
                             alt={`Foto van ${favItem.driver.name}`}
                             className="w-10 h-10 object-cover rounded-full mr-4 border border-red-600"
                           />
