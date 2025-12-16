@@ -39,6 +39,7 @@ export const Calendar = () => {
     <main className="p-8 text-white">
       <AsyncData loading={isLoading} error={error}>
         <FullCalendar
+          className= "calendar"
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
           events={calendarEvent}
