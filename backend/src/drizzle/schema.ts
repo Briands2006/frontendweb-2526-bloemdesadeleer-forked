@@ -52,6 +52,7 @@ export const drivers = mysqlTable('drivers', {
   teamId: int('team_id', { unsigned: true })
     .notNull()
     .references(() => teams.id, { onDelete: 'cascade' }),
+  bibliography: text('bibliography').notNull(),
 });
 
 // ---------- TRACKS ----------

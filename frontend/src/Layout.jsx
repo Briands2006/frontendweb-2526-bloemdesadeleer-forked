@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/ui/Navbar.jsx";
 import Footer from "./components/ui/Footer.jsx";
+import { Toaster } from "react-hot-toast";
 
 export default function Layout() {
   return (
@@ -8,10 +9,21 @@ export default function Layout() {
       className="
         flex flex-col min-h-screen 
         bg-linear-to-br from-black via-gray-800 to-black 
-        text-white overflow-x-hidden">
+        text-white overflow-x-hidden"
+    >
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: "#111",
+            color: "#fff",
+          },
+        }}
+      />
+
       <Navbar />
-      <main
-        className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <Outlet />
       </main>
       <Footer />

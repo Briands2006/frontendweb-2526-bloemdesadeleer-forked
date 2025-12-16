@@ -5,11 +5,11 @@ import {
   Param,
   UseInterceptors,
   Post,
+  Patch,
   Put,
   Delete,
   HttpCode,
   HttpStatus,
-  Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import {
@@ -113,6 +113,17 @@ export class UserController {
     @CurrentUser() user: Session,
     @Body() dto: UpdateUserRequestDto,
   ): Promise<PublicUserResponseDto> {
+    return await this.userService.updateById(id === 'me' ? user.id : id, dto);
+  }
+
+  @Patch(':id')
+  @UseGuards(CheckUserAccessGuard)
+  async patchUserById(
+    @Param('id', ParseUserIdPipe) id: 'me' | number,
+    @CurrentUser() user: Session,
+    @Body() dto: UpdateUserRequestDto,
+  ): Promise<PublicUserResponseDto> {
+    console.log('PATCH route hit with id:', id, 'user:', user, 'dto:', dto);
     return await this.userService.updateById(id === 'me' ? user.id : id, dto);
   }
 

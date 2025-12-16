@@ -11,6 +11,7 @@ import {
   Min,
   MinLength,
   IsDateString,
+  IsOptional,
 } from 'class-validator';
 
 // Voeg deze klassen toe in uw bestand (bijvoorbeeld boven PublicUserResponseDto)
@@ -23,6 +24,9 @@ class DriverDetailsDto {
   // DEZE IS CRUCIAAL: De front-end gebruikt 'item.driver.name'
   @Expose()
   name: string;
+
+  @Expose()
+  photo: string;
 }
 
 // 2. DTO voor de Track (Circuit) Details
@@ -33,6 +37,9 @@ class TrackDetailsDto {
   // DEZE IS CRUCIAAL: De front-end gebruikt 'item.track.name'
   @Expose()
   name: string;
+
+  @Expose()
+  location: string;
 }
 
 // 3. DTO voor de PIVOT TABEL (FavoriteDriver)
@@ -108,14 +115,24 @@ export class UserListResponseDto {
 }
 
 export class UpdateUserRequestDto {
+  @IsOptional()
   @IsString()
   @MinLength(2)
   @MaxLength(255)
   name: string;
 
+  @IsOptional()
   @IsString()
   @IsEmail()
   email: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isAdmin: boolean;
+
+  @IsOptional()
+  @IsDateString()
+  birthdate: string;
 }
 
 export class RegisterUserRequestDto {

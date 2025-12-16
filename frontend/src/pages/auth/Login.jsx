@@ -2,9 +2,8 @@ import React, { useCallback, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { LogIn, UserPlus, Mail, Lock, AlertTriangle } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth.js";
-import { Divider } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
 import { FormProvider, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const validationRules = {
   email: {
@@ -17,12 +16,11 @@ const validationRules = {
 
 export const Login = () => {
   const [authError, setAuthError] = useState("");
-  const [googleLoading, setGoogleLoading] = useState(false);
 
   const navigate = useNavigate();
   const { search } = useLocation();
 
-  const { login, loginWithGoogle } = useAuth();
+  const { login } = useAuth();
 
   const methods = useForm({
     mode: "onSubmit",
@@ -47,6 +45,7 @@ export const Login = () => {
             pathname: params.get("redirect") || "/",
             replace: true,
           });
+          toast.success("Succesvol ingelogd!");
         } else {
           setAuthError("Inloggen mislukt. Onbekende fout.");
         }
@@ -60,24 +59,7 @@ export const Login = () => {
     [login, navigate, search],
   );
 
-  const handleGoogleSubmit = async (e) => {
-    e.preventDefault();
-    setAuthError("");
-    setGoogleLoading(true);
-
-    try {
-      await loginWithGoogle();
-      navigate("/");
-    } catch (e) {
-      setAuthError(
-        e.message || "Login met Google mislukt. Probeer het opnieuw.",
-      );
-      console.error("Google Login Error:", e);
-    }
-    setGoogleLoading(false);
-  };
-
-  const loading = isSubmitting || googleLoading;
+  const loading = isSubmitting;
 
   const displayError =
     authError || errors.email?.message || errors.password?.message;
@@ -164,36 +146,6 @@ export const Login = () => {
             >
               <LogIn className="w-5 h-5" />
               {loading ? "Laden..." : "Inloggen"}
-            </button>
-
-            <br />
-            <Divider
-              className="text-white"
-              sx={{
-                "&::before, &::after": {
-                  borderColor: "white",
-                  opacity: 0.2,
-                },
-                "& .MuiDivider-wrapper": {
-                  backgroundColor: "rgb(17 24 39)",
-                },
-              }}
-            >
-              of
-            </Divider>
-            <br />
-
-            <button
-              type="button"
-              onClick={handleGoogleSubmit}
-              disabled={loading}
-              className="w-full inline-flex cursor-pointer items-center justify-center gap-2 bg-white
-                                text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-300
-                                 transition-colors disabled:opacity-50"
-              cy-data="submit_btn"
-            >
-              <GoogleIcon className="w-5 h-5" />
-              {loading ? "Laden..." : "Inloggen met Google"}
             </button>
           </form>
 

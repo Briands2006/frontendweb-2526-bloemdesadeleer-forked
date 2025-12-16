@@ -31,8 +31,11 @@ export const TRACK_URL_MAPPING = {
 
 export const getTrackImageUrl = (trackSlug) => {
   const details = TRACK_URL_MAPPING[trackSlug];
-
-  if (details) {
+  
+  if(trackSlug == "lusail-international-circuit") {
+    return "https://cdn.racingnews365.com/_639xAUTO_crop_center-center_none/f1_2021_qat_outline.png?v=1643809786"; 
+    // url is verwijderd :(
+  } else  if (details){
     const imagePath = `${details.folder}${CONSTANT_IMAGE_PART}_${details.code}_outline.png`;
     return `${BASE_URL_TRACKS}/${imagePath}${VERSION_PARAM}`;
   }

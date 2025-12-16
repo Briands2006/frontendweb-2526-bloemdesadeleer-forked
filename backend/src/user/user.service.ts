@@ -11,6 +11,9 @@ import {
 import { eq, and } from 'drizzle-orm';
 import { users, FavoriteDriver, FavoriteTrack } from '../drizzle/schema';
 import { plainToInstance } from 'class-transformer';
+import type { InferInsertModel } from 'drizzle-orm';
+
+type UserUpdateData = Partial<InferInsertModel<typeof users>>;
 
 @Injectable()
 export class UserService {
@@ -65,13 +68,64 @@ export class UserService {
     id: number,
     changes: UpdateUserRequestDto,
   ): Promise<PublicUserResponseDto> {
+    const existingUser = await this.db.query.users.findFirst({
+      where: eq(users.id, id),
+    });
+
+    if (!existingUser) {
+      throw new NotFoundException('No user with this id exists');
+    }
+
+    console.log(
+      'Existing user found. Checking passwordHash status (should be present):',
+      !!existingUser.passwordHash,
+    );
+
+    const mergedData = {
+      ...existingUser,
+      ...changes,
+    } as any;
+
+    const sanitizedData: UserUpdateData = {
+      ...mergedData,
+    };
+
+    if (typeof sanitizedData.birthdate === 'string') {
+      let birthStr: string = sanitizedData.birthdate as string;
+
+      if (typeof birthStr === 'string' && birthStr.includes('T') === false) {
+        birthStr = birthStr.replace(' ', 'T') + 'Z';
+      }
+
+      const parsedDate = new Date(birthStr);
+
+      if (isNaN(parsedDate.getTime())) {
+        console.error('CRITICAL: Failed to parse birthdate string:', birthStr);
+      } else {
+        sanitizedData.birthdate = parsedDate;
+        console.log(
+          'Birthdate converted to Date object:',
+          sanitizedData.birthdate.toISOString(),
+        );
+      }
+    }
+
+    delete sanitizedData.id;
+    delete sanitizedData.dateJoined;
+
+    console.log(
+      'Final Drizzle payload (excluding ID, dateJoined):',
+      sanitizedData,
+    );
+
     const [result] = await this.db
       .update(users)
-      .set(changes)
-      .where(eq(users.id, id));
+      .set(sanitizedData)
+      .where(eq(users.id, id))
+      .execute();
 
     if (result.affectedRows === 0) {
-      throw new NotFoundException('No user with this id exists');
+      throw new NotFoundException('User update failed or ID not found.');
     }
 
     return this.getById(id);

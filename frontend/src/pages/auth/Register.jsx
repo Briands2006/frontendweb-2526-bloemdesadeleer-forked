@@ -10,6 +10,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth.js";
+import toast from "react-hot-toast";
 
 const calculatePassStrength = (pass) => {
   const checks = [
@@ -102,8 +103,14 @@ export const Register = () => {
     }
 
     try {
-      await register(email, password, name, date);
+      await register({
+        email,
+        password,
+        name,
+        birthdate: date,
+      });
       navigate("/profile");
+      toast.success("Registratie succesvol! Welkom bij F1 Tracker.");
     } catch (e) {
       setError(e.message || "Registratie mislukt. Probeer het opnieuw.");
       console.error(e);

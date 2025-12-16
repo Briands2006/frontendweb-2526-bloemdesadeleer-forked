@@ -1,106 +1,125 @@
-// /src/hooks/useFavorites.js
-
-import { useState, useCallback, useEffect } from "react"; // <-- useEffect toevoegen
-import { useAuth } from "./useAuth"; // Of waar uw useAuth hook zich bevindt
-import axios from "axios"; // Of uw favoriete fetch client
+import { useState, useCallback, useEffect } from "react";
+import { useAuth } from "./useAuth";
+import axios from "axios";
 import { mutate } from "swr";
+import toast from "react-hot-toast";
 
-const API_BASE_URL = "http://localhost:3000/api"; // Pas dit aan
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export const useFavorites = () => {
-  // Haal de momenteel ingelogde gebruiker op.
-  const { user, token, refetchUser } = useAuth(); 
+  const { user, token, refetchUser } = useAuth();
 
-  // 1. Initialiseer de state met een lege Set
+  const isLoggedIn = Boolean(user && token);
+
   const [favDriverIds, setFavDriverIds] = useState(new Set());
   const [favTrackIds, setFavTrackIds] = useState(new Set());
 
-  // 2. Gebruik useEffect om de state te synchroniseren ZODRA de 'user' data beschikbaar is
   useEffect(() => {
-    if (user) {
-      // CORRECT: Haal de ID uit het geneste 'driver' object
-      const initialDriverFavorites = user.favoriteDrivers?.map((f) => f.driver?.id) || [];
-      setFavDriverIds(new Set(initialDriverFavorites));
+    if (!user) return;
 
-      // CORRECT: Haal de ID uit het geneste 'track' object
-      const initialTrackFavorites = user.favoriteTracks?.map((f) => f.track?.id) || [];
-      setFavTrackIds(new Set(initialTrackFavorites));
-    }
+    setFavDriverIds(
+      new Set(user.favoriteDrivers?.map((f) => f.driver?.id) || []),
+    );
+
+    setFavTrackIds(new Set(user.favoriteTracks?.map((f) => f.track?.id) || []));
   }, [user]);
 
-  /**
-* Controleert of een driverID favoriet is
-*/
-  const isDriverFavorite = useCallback((id) => favDriverIds.has(id), [favDriverIds]);
+  const isDriverFavorite = useCallback(
+    (id) => favDriverIds.has(id),
+    [favDriverIds],
+  );
 
-  const isTrackFavorite = useCallback((id) => favTrackIds.has(id), [favTrackIds]);
+  const isTrackFavorite = useCallback(
+    (id) => favTrackIds.has(id),
+    [favTrackIds],
+  );
 
-  // /src/hooks/useFavorites.js
+  const toggleFavorite = useCallback(
+    async (id, type) => {
+      if (!user || !token) return;
 
-  // Importeer 'mutate' of 'refetchUser' op de juiste manier (afhankelijk van je useAuth implementatie)
+      const endpoint = type === "driver" ? "driver" : "track";
+      const setFunction = type === "driver" ? setFavDriverIds : setFavTrackIds;
+      const itemIdValue = Number(id);
 
-  const toggleFavorite = useCallback(async (id, type) => {
-    const endpoint = type === "driver" ? "driver" : "track";
-    const setFunction = type === "driver" ? setFavDriverIds : setFavTrackIds;
-    const itemIdValue = Number(id); // Zorg ervoor dat dit een nummer is
-    
-    // Bepaal de verwachte NIEUWE status VOORDAT de API wordt aangeroepen
-    const currentIsFavorite = (type === "driver" ? favDriverIds : favTrackIds).has(itemIdValue);
-    const newIsFavorite = !currentIsFavorite; 
+      const currentIsFavorite = (
+        type === "driver" ? favDriverIds : favTrackIds
+      ).has(itemIdValue);
 
-    let expectedNewUser = user; // Start met de huidige user data
+      const newIsFavorite = !currentIsFavorite;
 
-    // 1. OPTIMISTISCHE UI UPDATE: Pas de lokale state direct aan
-    setFunction((prevIds) => {
-      const newIds = new Set(prevIds);
+      let expectedNewUser = user;
 
-      let newFavoritesArray = [...(user[type === "driver" ? "favoriteDrivers" : "favoriteTracks"] || [])];
-
-      const itemKey = type === "driver" ? "driver" : "track";
-
-      if (newIsFavorite) {
-        newIds.add(itemIdValue); // Voeg toe aan de Set
-        newFavoritesArray.push({ [itemKey]: { id: itemIdValue, name: "Placeholder" } });
-      } else {
-        newIds.delete(itemIdValue); // Verwijder uit de Set
-        newFavoritesArray = newFavoritesArray.filter((f) => f[itemKey]?.id !== itemIdValue);
-      }
-
-      expectedNewUser = {
-        ...user,
-        [type === "driver" ? "favoriteDrivers" : "favoriteTracks"]: newFavoritesArray,
-      };
-      return newIds;
-    });
-
-    try {
-      // API call naar de NestJS backend (gebruik je axios/API call hier)
-      await axios.patch(`${API_BASE_URL}/users/me/favorites/${endpoint}`, 
-        { itemId: itemIdValue },
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-
-      mutate("users/me", expectedNewUser, { revalidate: false });
- 
-      await refetchUser(); 
-
-    } catch (error) {
-      console.error(`Fout bij togglen favoriete ${type}:`, error);
-      mutate("users/me", user, { revalidate: false });
-        
-      // 3. ROLLBACK (Als de API faalt): Draai de lokale state terug
       setFunction((prevIds) => {
         const newIds = new Set(prevIds);
-        if (currentIsFavorite) { // Terug naar de oude status
+
+        const key = type === "driver" ? "favoriteDrivers" : "favoriteTracks";
+        const itemKey = type === "driver" ? "driver" : "track";
+
+        let newFavoritesArray = [...(user[key] || [])];
+
+        if (newIsFavorite) {
           newIds.add(itemIdValue);
+          newFavoritesArray.push({ [itemKey]: { id: itemIdValue } });
         } else {
           newIds.delete(itemIdValue);
+          newFavoritesArray = newFavoritesArray.filter(
+            (f) => f[itemKey]?.id !== itemIdValue,
+          );
         }
+
+        expectedNewUser = {
+          ...user,
+          [key]: newFavoritesArray,
+        };
+
         return newIds;
       });
 
-    }
-  }, [token, user, refetchUser]); // Dependency array bijwerken
+      try {
+        await axios.patch(
+          `${API_BASE_URL}/users/me/favorites/${endpoint}`,
+          { itemId: itemIdValue },
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+
+        mutate("users/me", expectedNewUser, { revalidate: false });
+        await refetchUser();
+
+        toast.success(
+          newIsFavorite
+            ? `${
+              type === "driver" ? "Driver" : "Track"
+            } toegevoegd aan favorieten`
+            : `${
+              type === "driver" ? "Driver" : "Track"
+            } verwijderd uit favorieten`,
+        );
+      } catch (error) {
+        console.error(error);
+
+        setFunction((prevIds) => {
+          const rollback = new Set(prevIds);
+          currentIsFavorite
+            ? rollback.add(itemIdValue)
+            : rollback.delete(itemIdValue);
+          return rollback;
+        });
+      }
+    },
+    [user, token, refetchUser, favDriverIds, favTrackIds],
+  );
+
+  if (!isLoggedIn) {
+    return {
+      isDriverFavorite: () => false,
+      isTrackFavorite: () => false,
+      toggleFavoriteDriver: async () =>
+        toast.error("Je moet ingelogd zijn om favorieten te beheren."),
+      toggleFavoriteTrack: async () =>
+        toast.error("Je moet ingelogd zijn om favorieten te beheren."),
+    };
+  }
 
   return {
     isDriverFavorite,

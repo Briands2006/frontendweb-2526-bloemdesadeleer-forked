@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "d9ed44b0-caf8-4168-a0cd-6e99b219f337",
-  "prevId": "0deb1274-96c7-4f60-b3e1-e04c8fae46a9",
+  "id": "be3d232b-154e-4864-8ad9-bccb5b35834d",
+  "prevId": "6fc4acbc-3026-474b-8034-498f0eea33ed",
   "tables": {
     "favoriteDriver": {
       "name": "favoriteDriver",
@@ -201,6 +201,13 @@
         "team_id": {
           "name": "team_id",
           "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "bibliography": {
+          "name": "bibliography",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

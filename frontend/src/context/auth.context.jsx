@@ -4,6 +4,7 @@ import * as api from "../api";
 import useSWR from "swr";
 import { JWT_TOKEN_KEY, AuthContext } from "./auth";
 import { mutate } from "swr";
+import toast from "react-hot-toast";
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem(JWT_TOKEN_KEY));
@@ -84,7 +85,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = useCallback(() => {
     setToken(null);
-
+    toast.success("Successvol uitgelogd.");
     localStorage.removeItem(JWT_TOKEN_KEY);
   }, []);
 

@@ -27,6 +27,8 @@ import { AdminDashboard } from "./pages/misc/Admin.jsx";
 import { TrackDetail } from "./pages/detail/TrackDetail.jsx";
 import { RaceDetail } from "./pages/detail/RaceDetail.jsx";
 import DriverDetails from "./pages/detail/DriverDetails.jsx";
+import UsersDashboard from "./pages/misc/UserDashboard.jsx";
+import NewsDashboard from "./pages/misc/NewsDashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +107,22 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AdminDashboard />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin-dashboard/users",
+        element: (
+          <AdminRoute>
+            <UsersDashboard />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin-dashboard/news",
+        element: (
+          <AdminRoute>
+            <NewsDashboard />
           </AdminRoute>
         ),
       },

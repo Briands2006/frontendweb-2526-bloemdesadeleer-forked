@@ -36,7 +36,11 @@ async function bootstrap() {
     }),
   );
 
-  app.use(helmet());
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: false,
+    }),
+  );
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('f1-tracker')
