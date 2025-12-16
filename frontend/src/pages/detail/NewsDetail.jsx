@@ -16,20 +16,15 @@ const formatDate = (dateString) => {
 };
 
 export const NewsDetail = () => {
-  const { slug } = useParams();
-  const navigate = useNavigate();
+  const { newsSlug } = useParams(); // haal de id parameter uit de URL dus /news/:id
+  const navigate = useNavigate(); // hook om te navigeren
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
-  const {
-    data: news,
-    isLoading,
-    error,
-  } = useSWR(slug ? ["news", slug] : null, ([url, slug]) => {
-    return getBySlug(url, slug);
-  });
+  const newsKey = newsSlug ? `/news/n/${newsSlug}` : null;
+  const { data: news, isLoading, error} = useSWR(newsKey, () => getBySlug("news", newsSlug));
 
   if (isLoading) {
     return <AsyncData loading />;
@@ -79,12 +74,13 @@ export const NewsDetail = () => {
           className="w-full h-96 object-cover rounded-xl mb-10 shadow-2xl shadow-red-600/20"
         />
 
-        {tags && (
-          <p className="text-red-500 text-sm font-semibold uppercase tracking-wider mb-2">
-            {tags}
-          </p>
-        )}
-
+        <p className="text-red-500 text-sm font-semibold uppercase tracking-wider mb-2">
+          {/* Controleren of news.tags bestaat en een string is, dan splitsen en joinen */}
+          {news.tags && typeof news.tags === "string"
+            ? news.tags.split(",").map((tag) => tag.trim()).join(" - ") 
+            : news.tags || "Geen tags"}
+        </p>
+        {/* split de tags op en zet er ' - ' tussen */}
         <h1 className="text-5xl font-bold mb-4">{news.title}</h1>
 
         <p className="text-gray-500 text-lg mb-10 border-b border-gray-700 pb-4">

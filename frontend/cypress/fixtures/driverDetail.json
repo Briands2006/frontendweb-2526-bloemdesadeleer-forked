@@ -1,10 +1,9 @@
-
-    {
-        "id": 1,
-        "name": "Max Verstappen",
-        "number": 33,
-        "country": "NL",
-        "photo": "../../driverHeadshots/max-verstappen.jpg",
-        "slug": "max-verstappen",
-        "teamId": 1
-    }
+{
+    "id": 1,
+    "name": "Max Verstappen",
+    "number": 33,
+    "country": "NL",
+    "photo": "../../driverHeadshots/max-verstappen.jpg",
+    "slug": "max-verstappen",
+    "teamId": 1
+}

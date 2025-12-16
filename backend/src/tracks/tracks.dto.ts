@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  Min,
 } from 'class-validator';
 
 export class FastestLapDto {
@@ -22,9 +23,18 @@ export class FastestLapDto {
 }
 
 export class TrackResponseDto {
+  @IsInt()
+  @Min(1)
+  @ApiProperty({ example: 1, description: 'ID of the track' })
+  id: number;
+
   @IsString()
   @IsNotEmpty()
   @MaxLength(255)
+  @ApiProperty({
+    example: 'Bahrain International Circuit',
+    description: 'Name of the track',
+  })
   name: string;
 
   @IsString()

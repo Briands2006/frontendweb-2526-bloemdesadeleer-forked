@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Verstappen wint de Grand Prix van België",
+    "summary":
+        "Max Verstappen behaalt een dominante overwinning op Spa-Francorchamps na een spannende start.",
+    "fullContent":
+        "Het volledige verslag van de race, met analyses van de bandenstrategie en inhaalmanoeuvres...",
+    "imageUrl": "/nieuws/spa_winst.jpg",
+    "date": "30 juli 2024", 
+    "tags": "Verstappen, Red Bull, Spa-Francorchamps",
+    "authorId": 1, 
+    "trackId": 1, 
+    "slug": "verstappen-wint-de-grand-prix-van-belgië"
+  },
+  {
+    "id": 2,
+    "title": "Mercedes kondigt upgrades aan voor Monza",
+    "summary":
+        "Het Mercedes-team hoopt met nieuwe onderdelen de achterstand op Red Bull te dichten tijdens de Grand Prix van Italië.",
+    "fullContent":
+        "Details over de nieuwe voorvleugel en vloer die het team in Monza zal introduceren...",
+    "imageUrl": "/nieuws/mercedes_monza.jpg",
+    "date": "25 augustus 2024",
+    "tags": "Mercedes, Monza, Upgrades",
+    "authorId": 1,
+    "trackId": 2, 
+    "slug": "mercedes-kondigt-upgrades-aan-voor-monza"
+  }
+]

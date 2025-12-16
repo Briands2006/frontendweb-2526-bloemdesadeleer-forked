@@ -7,7 +7,7 @@ import { createTestApp } from './helpers/create-app';
 import { DRIVERS_SEED, seedDrivers, clearDrivers } from './seeds/drivers';
 import { seedTeams, clearTeams } from './seeds/teams';
 import request from 'supertest';
-import { login, loginAdmin } from './helpers/login';
+import { login } from './helpers/login';
 import { clearUsers, seedUsers } from './seeds/users';
 import testAuthHeader from './helpers/testAuthHeader';
 
@@ -15,7 +15,7 @@ describe('Drivers', () => {
   let app: INestApplication;
   let drizzle: DatabaseProvider;
   let userAuthToken: string;
-  let adminToken: string;
+  // let adminToken: string;
 
   const url = '/api/drivers';
 
@@ -28,7 +28,7 @@ describe('Drivers', () => {
     await seedUsers(app, drizzle);
 
     userAuthToken = await login(app);
-    adminToken = await loginAdmin(app);
+    // adminToken = await loginAdmin(app);
   });
 
   describe('Drivers', () => {
@@ -48,18 +48,20 @@ describe('Drivers', () => {
 
         expect(receivedDrivers).toEqual(expect.arrayContaining(DRIVERS_SEED));
       });
-    });
-    describe('GET /api/drivers', () => {
-      it('should 200 and return all drivers', () => {
-        return request(app.getHttpServer())
-          .get(url)
-          .auth(userAuthToken, { type: 'bearer' })
-          .expect(200)
-          .expect({ items: DRIVERS_SEED });
-      });
 
       testAuthHeader(() => request(app.getHttpServer()).get(url));
     });
+    // describe('GET /api/drivers', () => {
+    //   it('should 200 and return all drivers', () => {
+    //     return request(app.getHttpServer())
+    //       .get(url)
+    //       .auth(userAuthToken, { type: 'bearer' })
+    //       .expect(200)
+    //       .expect({ items: DRIVERS_SEED });
+    //   });
+
+    //   testAuthHeader(() => request(app.getHttpServer()).get(url));
+    // });
   });
 
   afterAll(async () => {

@@ -14,8 +14,8 @@
 - **E-mailadres:** elias.bloem@student.hogent.be, brian.desadeleer@student.hogent.be
 - **GitHub repository:** git@github.com:HOGENT-frontendweb/frontendweb-2526-bloemdesadeleer.git
 - **Online versies:**
-  - **Back-end:** <LINK_NAAR_ONLINE_BACKEND>
-  - **Front-end:** <LINK_NAAR_ONLINE_FRONTEND>
+  - **Back-end:** <> 
+  - **Front-end:** <"http://localhost:5173>
 - **Demo:** <LINK_NAAR_DEMO_VIDEO>
 
 ## 🔐 Logingegevens
@@ -28,27 +28,33 @@
 
 ### Lokale omgeving
 
-- **E-mailadres**: <test@example.com>
+- **E-mailadres**: <admin@f1site.com>
 - **Wachtwoord**: testpassword
-- **Rol**: admin/user
+- **Rol**: admin
 
 ### Online omgeving
 
-- **E-mailadres**: <test@example.com>
-- **Wachtwoord**: testpassword
-- **Rol**: admin/user
+- **E-mailadres**: <fan@f1site.com>
+- **Wachtwoord**: testpassword2
+- **Rol**: user
 
 ## 📖 Projectbeschrijving
 
 > **Instructie:** Beschrijf hier duidelijk en beknopt waarover jouw project gaat. Wat is het doel? Wie is de doelgroep? Welke functionaliteiten biedt het?
 
-[Beschrijf hier je project...]
+Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier kennis kunnen maken met Formule 1. De belangrijkste aspecten zoals de coureurs, de teams, de banen, de races zijn hier allemaal te bekijken met wat extra informatie. Je kan ook nog een tal van extra's doen zoals je favoriete coureur of baan aanduiden. Je kan op een simpele manier moeiteloos overal naartoe navigeren en op jouw profiel pagina krijg je dan jouw informatie te zien en ook wie jouw favoriete courours en/of banen zijn. 
 
 > **Instructie:** Voeg hier een afbeelding van jouw ERD toe en licht de belangrijkste entiteiten en relaties kort toe.
 
-![ERD](pad/naar/erd-afbeelding.png)
+![ERD](./backend/erd/ERD.svg)
 
-[Korte toelichting bij het ERD...]
+- Driver geeft ons alle aspecten dat een driver definieert id, die is het belangrijkste omdat we die gebruiken voor de relaties met andere entiteiten, waarbij de twee belangrijkste FavoriteDriver (voor je favo driver te kunnen aanduiden) en Teams (om te weten in welk team deze driver zit). Al de andere zijn meer algemene attributen, zoals name, birthdate, country, etc... . 
+- TeamId legt nog de link tussen de driver en zijn team, die dus gebruikt wordt voor de relatie tussen driver en team. Dan weer wat algemene zoals, name, base, teamChief, ChampionShips.
+- Track is bijna hetzelfde als de driver met opnieuw een trackId die we gebruiken in de relaties met FavoriteTrack (voor je favoriete track te kunnen aanduiden) en als ook met news (Waar de gebeurtenis zich heeft voor gedaan) en als laatste nog met races (voor te weten op welke track de race gereden zal worden)
+- Race definieert dan wat die inhoud, daar heb je raceId die de relaties legt met ... . Weer wat algemen attributen die je heel wat extra informatie geven over de race zoals date, weather, trackRecord
+- News geeft ons weer wat een artikel allemaal inhoud, uiteraard weer een id die we gebruiken in de relaties met Track en User. Met user is er een relatie omdat een user een artikel kan schrijven. Vandaar komt de AuthorId. Opnieuw heel wat algemene attributen zoals, summary, fullcontent, title, etc... .
+- Calender geeft ons year en nrOfRaces en deze geven weer hoeveel races elk jaar plaatsvinden. Deze heeft dan een relatie met Race, omdat we die gebruiken om te weten wanneer een bepaalde race plaatsvind. Year is hier de primary key, omdat deze de races uniek maakt.
+
 
 ## ✅ Ontvankelijkheidscriteria
 
@@ -58,6 +64,9 @@
 ## 🚀 Extra technologieën
 
 > **Instructie:** Beschrijf welke extra technologieën je hebt gebruikt. Vermeld waarom je deze hebt gekozen.
+- We hebben in onze homepage een carrousel toegevoegd voor de coureurs te bekijken. Dit geeft een heel cool effect, omdat het lijkt alsof ze in een rondje bewegen als je er in doorbladert. 
+- Ook hebben we een formule 1 auto toegevoegd die mee beweegt naar boven als de gebruiker naar boven scrolt.
+- 
 
 ### Front-end Web Development
 

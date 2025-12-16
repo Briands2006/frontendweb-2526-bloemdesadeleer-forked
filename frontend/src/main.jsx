@@ -75,7 +75,7 @@ const router = createBrowserRouter([
         Component: News,
       },
       {
-        path: "news/:slug",
+        path: "news/n/:newsSlug",
         Component: NewsDetail,
       },
       {

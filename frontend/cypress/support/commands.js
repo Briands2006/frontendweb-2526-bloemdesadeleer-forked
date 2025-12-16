@@ -38,6 +38,19 @@ Cypress.Commands.add("logout", () => {
   cy.get("[data-cy=logout_btn]").click();
 });
 
+// cypress/support/commands.js
+
+Cypress.Commands.add("slugToTitle", (slug) => {
+  if (!slug) return "Onbekende Race";
+  return slug
+    .split("-")
+    .map((word) => {
+      if (word.toLowerCase() === "gp") return "GP";
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+});
+
 //
 //
 // -- This is a child command --

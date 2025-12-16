@@ -7,8 +7,8 @@ import { createTestApp } from './helpers/create-app';
 import { seedTeams, clearTeams, TEAMS_SEED } from './seeds/teams';
 import request from 'supertest';
 import { clearUsers, seedUsers } from './seeds/users';
-import { loadEnvFile } from 'process';
 import { login, loginAdmin } from './helpers/login';
+import testAuthHeader from './helpers/testAuthHeader';
 
 describe('Teams', () => {
   let app: INestApplication;
@@ -41,6 +41,8 @@ describe('Teams', () => {
         expect(response.body.teams).toEqual(expect.arrayContaining(TEAMS_SEED));
       });
     });
+
+    testAuthHeader(() => request(app.getHttpServer()).get(url));
   });
 
   afterAll(async () => {

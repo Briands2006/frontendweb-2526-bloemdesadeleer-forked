@@ -1,0 +1,31 @@
+{
+  "races": [
+    {
+      "id": 1,
+      "date": "2025-03-14T14:00:00.000Z",
+      "weather": "Sunny",
+      "trackRecord": "1:31.447",
+      "trackId": 14,
+      "calendarYear": 2025,
+      "slug": "belgian-gp-2025"
+    },
+    {
+      "id": 2,
+      "date": "2025-09-07T13:00:00.000Z",
+      "weather": "Clear",
+      "trackRecord": "1:21.046",
+      "trackId": 7,
+      "calendarYear": 2025,
+      "slug": "italian-gp-2025"
+    },
+    {
+      "id": 3,
+      "date": "2024-07-30T13:00:00.000Z",
+      "weather": "Rainy",
+      "trackRecord": "1:46.286",
+      "trackId": 14,
+      "calendarYear": 2024,
+      "slug": "belgian-gp-2024"
+    }
+  ]
+}
