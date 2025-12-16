@@ -2,6 +2,7 @@ import { drizzle } from 'drizzle-orm/mysql2';
 import * as mysql from 'mysql2/promise';
 import * as schema from './schema';
 import * as argon2 from 'argon2';
+import { faker } from '@faker-js/faker';
 
 const connection = mysql.createPool({
   uri: process.env.DATABASE_URL,
@@ -257,6 +258,7 @@ async function seedDrivers() {
       photo: 'max-verstappen.jpg',
       slug: 'max-verstappen',
       teamId: 1, // Red Bull Racing
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 2,
@@ -266,6 +268,7 @@ async function seedDrivers() {
       photo: 'yuki-tsunoda.webp',
       slug: 'yuki-tsunoda',
       teamId: 1, // Red Bull Racing
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 3,
@@ -275,6 +278,7 @@ async function seedDrivers() {
       photo: 'lewis-hamilton.png',
       slug: 'lewis-hamilton',
       teamId: 2, // Scuderia Ferrari
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 4,
@@ -284,6 +288,7 @@ async function seedDrivers() {
       photo: 'charles-leclerc.png',
       slug: 'charles-leclerc',
       teamId: 2, // Scuderia Ferrari
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 5,
@@ -293,6 +298,7 @@ async function seedDrivers() {
       photo: 'lando-norris.png',
       slug: 'lando-norris',
       teamId: 3, // McLaren F1 Team
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 6,
@@ -302,6 +308,7 @@ async function seedDrivers() {
       photo: 'oscar-piastri.png',
       slug: 'oscar-piastri',
       teamId: 3, // McLaren F1 Team
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 7,
@@ -311,6 +318,7 @@ async function seedDrivers() {
       photo: 'george-russel.png',
       slug: 'george-russell',
       teamId: 4, // Mercedes-AMG Petronas
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 8,
@@ -320,6 +328,7 @@ async function seedDrivers() {
       photo: 'kimi-antonelli.png',
       slug: 'kimi-antonelli',
       teamId: 4, // Mercedes-AMG Petronas
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 9,
@@ -329,6 +338,7 @@ async function seedDrivers() {
       photo: 'fernando-alonso.png',
       slug: 'fernando-alonso',
       teamId: 5, // Aston Martin Aramco F1
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 10,
@@ -338,6 +348,7 @@ async function seedDrivers() {
       photo: 'lance-stroll.png',
       slug: 'lance-stroll',
       teamId: 5, // Aston Martin Aramco F1
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 11,
@@ -347,6 +358,7 @@ async function seedDrivers() {
       photo: 'pierre-gasly.png',
       slug: 'pierre-gasly',
       teamId: 6, // BWT Alpine F1 Team
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 12,
@@ -356,6 +368,7 @@ async function seedDrivers() {
       photo: 'franco-calopinto.webp',
       slug: 'franco-colapinto',
       teamId: 6, // BWT Alpine F1 Team
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 13,
@@ -365,6 +378,7 @@ async function seedDrivers() {
       photo: 'alexander-albon.png',
       slug: 'alex-albon',
       teamId: 7, // Williams Racing
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 14,
@@ -374,6 +388,7 @@ async function seedDrivers() {
       photo: 'carlos-sainz.jpeg',
       slug: 'carlos-sainz',
       teamId: 7, // Williams Racing
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 15,
@@ -383,6 +398,7 @@ async function seedDrivers() {
       photo: 'nico-hulkenberg.png',
       slug: 'nico-hulkenberg',
       teamId: 8, // Kick Sauber F1 Team
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 16,
@@ -392,6 +408,7 @@ async function seedDrivers() {
       photo: 'gabriel-bortoleto.png',
       slug: 'gabriel-bortoleto',
       teamId: 8, // Kick Sauber F1 Team
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 17,
@@ -401,6 +418,7 @@ async function seedDrivers() {
       photo: 'oliver-bearman.png',
       slug: 'oliver-bearman',
       teamId: 9, // Haas F1 Team
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 18,
@@ -410,6 +428,7 @@ async function seedDrivers() {
       photo: 'esteban-ocon.png',
       slug: 'esteban-ocon',
       teamId: 9, // Haas F1 Team
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 19,
@@ -419,6 +438,7 @@ async function seedDrivers() {
       photo: 'liam-lawson.png',
       slug: 'liam-lawson',
       teamId: 10, // Visa Cash App Racing Bulls
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
     {
       id: 20,
@@ -428,6 +448,7 @@ async function seedDrivers() {
       photo: 'isack-hadjar.png',
       slug: 'isack-hadjar',
       teamId: 10, // Visa Cash App Racing Bulls
+      bibliography: faker.lorem.paragraphs(10, '\n\n'),
     },
   ]);
   console.log('✅ Coureurs succesvol gezaaid\n');

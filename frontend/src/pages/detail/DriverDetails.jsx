@@ -5,7 +5,6 @@ import AsyncData from "../../components/AsyncData.jsx";
 import { useAuth } from "../../context/auth.js";
 import { FaStar } from "react-icons/fa6";
 import { useFavorites } from "../../hooks/useFavorites.js";
-import { faker } from "@faker-js/faker";
 import { getAssetUrl } from "../utils/getImage.js";
 
 const DriverDetails = () => {
@@ -132,7 +131,7 @@ const DriverDetails = () => {
       <div className="max-w-4xl mx-auto mt-8 p-6">
         <h2 className="text-2xl font-bold text-gray-400">Bibliografie</h2>
         <p className="mt-2 text-white">
-          {faker.lorem.lines(10)}
+          {driver.bibliography}
         </p>
       </div>
     </main>
