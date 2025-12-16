@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { save, getById } from "../../api/index.js";
 import { mutate } from "swr";
+import toast from "react-hot-toast";
 
 export default function UserEditModal({
   isOpen,
@@ -65,6 +66,7 @@ export default function UserEditModal({
       setError(
         "Failed to save user. " + (err.response?.data?.message || err.message),
       );
+      toast.error("Fout bij opslaan van gebruiker: " + formData.name);
     } finally {
       setLoading(false);
     }

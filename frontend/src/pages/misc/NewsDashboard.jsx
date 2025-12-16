@@ -7,6 +7,7 @@ import { getAll, deleteById } from "../../api/index.js";
 import Loader from "../../components/Loader.jsx";
 import NewsEditModal from "../../components/admin/NewsEditModal.jsx";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function NewsDashboard() {
   const { ready } = useAuth();
@@ -41,6 +42,7 @@ export default function NewsDashboard() {
         })
         .catch((e) => {
           console.error("Delete failed:", e);
+          toast.error("Fout bij verwijderen van nieuwsartikel " + article.title);
           alert("Failed to delete news article.");
         });
     }

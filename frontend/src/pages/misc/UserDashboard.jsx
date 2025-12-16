@@ -7,6 +7,7 @@ import { getAll, deleteById } from "../../api/index.js";
 import Loader from "../../components/Loader.jsx";
 import UserEditModal from "../../components/admin/UserEditModal.jsx";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function UsersDashboard() {
   const { user: currentUser, ready } = useAuth();
@@ -41,6 +42,7 @@ export default function UsersDashboard() {
         })
         .catch((e) => {
           console.error("Delete failed:", e);
+          toast.error("Fout bij verwijderen van gebruiker " + user.name);
           alert("Failed to delete user.");
         });
     }

@@ -1,7 +1,9 @@
 import { isAxiosError } from "axios";
+import toast from "react-hot-toast";
 
 export default function Error({ error }) {
   if (isAxiosError(error)) {
+    toast.error("Er is een fout opgetreden!" + (error?.response?.data?.message || ""));
     return (
       <div
         className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4"
@@ -24,6 +26,7 @@ export default function Error({ error }) {
     );
   }
   if (error) {
+    toast.error("Er is een fout opgetreden!" + (error.message || ""));
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
         <h4 className="text-red-800 font-semibold text-lg mb-2">

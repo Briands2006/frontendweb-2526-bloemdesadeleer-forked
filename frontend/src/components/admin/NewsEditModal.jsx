@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateById } from "../../api/index.js";
 import { FaTimes } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function NewsEditModal({ isOpen, onClose, article, NEWS_API_URL }) {
   const [formData, setFormData] = useState({
@@ -57,7 +58,7 @@ export default function NewsEditModal({ isOpen, onClose, article, NEWS_API_URL }
       onClose();
     } catch (err) {
       console.error("Failed to update news article:", err);
-      alert("Update failed.");
+      toast.error("Fout bij opslaan van nieuwsartikel: " + formData.title);
     }
   };
 
