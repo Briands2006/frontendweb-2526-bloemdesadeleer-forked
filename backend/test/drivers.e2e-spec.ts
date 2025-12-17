@@ -15,7 +15,6 @@ describe('Drivers', () => {
   let app: INestApplication;
   let drizzle: DatabaseProvider;
   let userAuthToken: string;
-  // let adminToken: string;
 
   const url = '/api/drivers';
 
@@ -28,40 +27,48 @@ describe('Drivers', () => {
     await seedUsers(app, drizzle);
 
     userAuthToken = await login(app);
-    // adminToken = await loginAdmin(app);
   });
 
-  describe('Drivers', () => {
-    describe('GET /api/drivers', () => {
-      it('should 200 and return all drivers', async () => {
-        const response = await request(app.getHttpServer())
-          .get(url)
-          .auth(userAuthToken, { type: 'bearer' });
+  describe('GET /api/drivers', () => {
+    it('should 200 and return all drivers', async () => {
+      const response = await request(app.getHttpServer())
+        .get(url)
+        .auth(userAuthToken, { type: 'bearer' });
 
-        expect(response.statusCode).toBe(200);
+      expect(response.statusCode).toBe(200);
 
-        const receivedDrivers = response.body.drivers.map((driver: any) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { team, ...restOfDriver } = driver;
-          return restOfDriver;
-        });
-
-        expect(receivedDrivers).toEqual(expect.arrayContaining(DRIVERS_SEED));
+      const receivedDrivers = response.body.drivers.map((driver: any) => {
+        const { team, ...restOfDriver } = driver;
+        return restOfDriver;
       });
 
-      testAuthHeader(() => request(app.getHttpServer()).get(url));
+      expect(receivedDrivers).toEqual(expect.arrayContaining(DRIVERS_SEED));
     });
-    // describe('GET /api/drivers', () => {
-    //   it('should 200 and return all drivers', () => {
-    //     return request(app.getHttpServer())
-    //       .get(url)
-    //       .auth(userAuthToken, { type: 'bearer' })
-    //       .expect(200)
-    //       .expect({ items: DRIVERS_SEED });
-    //   });
 
-    //   testAuthHeader(() => request(app.getHttpServer()).get(url));
-    // });
+    testAuthHeader(() => request(app.getHttpServer()).get(url));
+  });
+
+  describe('GET /api/drivers/n/:slug', () => {
+    it('should 200 and return the specific driver by slug', async () => {
+      const targetDriver = DRIVERS_SEED[0]; // Max Verstappen
+      const response = await request(app.getHttpServer())
+        .get(`${url}/n/${targetDriver.slug}`)
+        .auth(userAuthToken, { type: 'bearer' });
+
+      expect(response.statusCode).toBe(200);
+    });
+
+    it('should 404 if the driver slug does not exist', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`${url}/n/non-existing-slug`)
+        .auth(userAuthToken, { type: 'bearer' });
+
+      expect(response.statusCode).toBe(404);
+    });
+
+    testAuthHeader(() =>
+      request(app.getHttpServer()).get(`${url}/n/max-verstappen`),
+    );
   });
 
   afterAll(async () => {

@@ -40,11 +40,9 @@
 
 ## 📖 Projectbeschrijving
 
-> **Instructie:** Beschrijf hier duidelijk en beknopt waarover jouw project gaat. Wat is het doel? Wie is de doelgroep? Welke functionaliteiten biedt het?
 
-Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier kennis kunnen maken met Formule 1. De belangrijkste aspecten zoals de coureurs, de teams, de banen, de races zijn hier allemaal te bekijken met wat extra informatie. Je kan ook nog een tal van extra's doen zoals je favoriete coureur of baan aanduiden. Je kan op een simpele manier moeiteloos overal naartoe navigeren en op jouw profiel pagina krijg je dan jouw informatie te zien en ook wie jouw favoriete courours en/of banen zijn. 
+Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier kennis willen maken met Formule 1. De belangrijkste aspecten zoals de coureurs, de teams, de banen, de races zijn hier allemaal te bekijken met wat extra informatie. Je kan ook nog een tal van extra's doen zoals je favoriete coureur of baan aanduiden. Je kan op een simpele manier moeiteloos overal naartoe navigeren en op jouw profiel pagina krijg je dan jouw informatie te zien en ook wie jouw favoriete courours en/of banen zijn. 
 
-> **Instructie:** Voeg hier een afbeelding van jouw ERD toe en licht de belangrijkste entiteiten en relaties kort toe.
 
 ![ERD](./backend/erd/ERD.svg)
 
@@ -136,26 +134,29 @@ Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier k
 
 - **[Naam student 1]:**
 
-  - [Bijvoorbeeld: Gebruikersregistratie en login systeem]
-  - [Bijvoorbeeld: Dashboard met overzicht functionaliteit]
-  - [Bijvoorbeeld: Integratietesten voor product endpoints]
+  - 
+  - 
+  - 
 
-- **[Naam student 2]:**
-  - [Bijvoorbeeld: Productcatalogus met zoek- en filterfunctionaliteit]
-  - [Bijvoorbeeld: Winkelwagen en checkout proces]
-  - [Bijvoorbeeld: Integratietesten voor winkelwagen endpoints]
+- **[Brian De Sadeleer]:**
+  - ERD
+  - Deel schema (entiteiten en relaties toegevoegd)
+  - Backend van entiteiten track, news, races, user
+  - Validatie aan backend toegevoegd
 
 **Welke functionaliteiten heeft elk groepslid toegevoegd voor Front-end Web Development?**
 
 > **Instructie:** Geef per persoon een duidelijk overzicht van wat die heeft geïmplementeerd voor het project voor het olod Front-end Web Development.
 
-- **[Naam student 1]:**
+- **[Elias Bloem]:**
+  - 
+  - 
+  - 
+- **[Brian De Sadeleer]:**
+  - Favorieten Aanduiden
+  - Pagina van Tracks, News, deel van Profile page
+  - pagina van TrackDetails, driverDetails, alsook navigatie er naartoe
+  - Testen frontend (drivers, races, news, tracks)
+  - Carrousel van drivers (Homepage)
+  - info halen uit backend naar frontend
 
-  - [Bijvoorbeeld: Gebruikersregistratie en login systeem]
-  - [Bijvoorbeeld: Dashboard met overzicht functionaliteit]
-  - [Bijvoorbeeld: Integratietesten voor product endpoints]
-
-- **[Naam student 2]:**
-  - [Bijvoorbeeld: Productcatalogus met zoek- en filterfunctionaliteit]
-  - [Bijvoorbeeld: Winkelwagen en checkout proces]
-  - [Bijvoorbeeld: Integratietesten voor winkelwagen endpoints]

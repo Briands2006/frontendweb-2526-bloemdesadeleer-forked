@@ -55,5 +55,22 @@ describe("Drivers Pagina", () => {
 
     cy.get("h2").contains("Bibliografie");
   });
+
+  it("zou een foutmelding moeten tonen bij een API-fout", () => {
+    // Mock een 500 status code response
+    cy.intercept("GET", "http://localhost:3000/api/drivers", {
+      statusCode: 500,
+      body: { error: "Fout bij het ophalen van coureurs" },
+    }).as("getDriversError");
+
+    cy.visit("http://localhost:5173/drivers");
+    cy.wait("@getDriversError");
+
+    // Aanname: De foutmelding is zichtbaar in een element met de selector '.error-message'
+    cy.get(".error-message").should("be.visible").and("contain", "Fout bij het ophalen van coureurs");
+        
+    // Controleer dat er geen coureur-kaarten zijn gerenderd
+    cy.get(".drivers-grid").children().should("not.exist");
+  });
   
 });

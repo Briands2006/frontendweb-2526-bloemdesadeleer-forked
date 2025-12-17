@@ -147,7 +147,7 @@ export const RaceDetail = () => {
         className="text-red-500 hover:text-red-400 flex items-center
           mb-8 transition-colors cursor-pointer font-semibold"
       >
-        <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" /> Terug naar
+        <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" data-cy='bt_calender' /> Terug naar
         Kalender Overzicht
       </button>
 
@@ -162,11 +162,11 @@ export const RaceDetail = () => {
           <h1 className="text-5xl font-extrabold text-red-500">
             {slugToTitle(race.slug || raceName)}
           </h1>
-          <div className="w-20 h-auto rounded-md shadow-lg overflow-hidden flex justify-center items-center -mb-8">
+          <div className="w-20 h-auto rounded-md shadow-lg overflow-hidden">
             <Flag className="w-20 ml-auto rounded" />
           </div>
         </div>
-        <p className="text-lg text-gray-300 mt-2">Brian is niet beschikbaar</p>
+
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
