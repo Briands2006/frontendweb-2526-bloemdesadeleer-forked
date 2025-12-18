@@ -15,7 +15,7 @@ export default function TrackCard({
 }) {
 
   const handleStarClick = (event) => {
-    event.stopPropagation(); // BELANGRIJK: Voorkomt dat de klik op de ster de kaart klik activeert
+    event.stopPropagation(); // Voorkomt dat de klik op de ster de kaart klik activeert
     onToggleFavorite();
   };
 

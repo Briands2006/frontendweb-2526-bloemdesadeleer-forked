@@ -109,7 +109,7 @@ export const TrackDetail = () => {
                 {track.name}
               </p>
               {isAuthed && (
-                <button onClick={handleToggleFavorite} disabled={loading}>
+                <button data-cy="favorite-button" onClick={handleToggleFavorite} disabled={loading}>
                   <FaStar 
                     className={`w-8 h-8 transition-colors ${
                       isFavorite ? "text-yellow-400" : "text-gray-500 hover:text-yellow-200"

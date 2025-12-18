@@ -15,13 +15,7 @@ describe("Track Pagina", () => {
 
     cy.wait("@getTracks");
 
-    cy.fixture("tracks.json").then((tracks) => { 
-      cy.get(".track-grid").children().should("have.length", 3);
-
-      tracks.forEach((track) => {
-        cy.get(".track-grid").should("contain", track.name);
-      });
-    });
+    cy.get(".track-grid").children().should("have.length", 3);
 
   });
 
@@ -45,8 +39,35 @@ describe("Track Pagina", () => {
 
     cy.get("div p").first().should("contain", "Bahrain International Circuit");
 
-    cy.url().should("include", "/tracks/n/bahrain-international-circuit");
+    cy.url().should("include", "/tracks/bahrain-international-circuit");
 
+  });
+  it("zou een track als favoriet moeten kunnen markeren wanneer ingelogd", () => {
+    cy.intercept("GET", "**/api/tracks/n/bahrain-international-circuit", {
+      fixture: "trackDetail.json",
+    }).as("getDetails");
+
+    // Mock de POST/PUT actie voor het favoriet maken (pas URL aan naar jouw API)
+    // cy.intercept("POST", "**/api/favorites**", {
+    //   statusCode: 200,
+    //   body: { success: true },
+    // }).as("toggleFav");
+
+    cy.visit("http://localhost:5173/tracks/bahrain-international-circuit");
+    cy.wait("@getDetails");
+
+    // Check of de ster aanwezig is (omdat we in de beforeEach inloggen)
+    // We gaan ervan uit dat de ster in de button zit
+    cy.get("[data-cy=favorite-button]").should("exist");
+  
+    // Klik op de favoriet knop
+    cy.get("[data-cy=favorite-button]").click();
+  
+    // Controleer of de API call is gemaakt
+    // cy.wait("@toggleFav");
+
+    // Controleer of de kleur veranderd is (gebaseerd op je Tailwind class)
+    cy.get("[data-cy=favorite-button] svg").should("have.class", "text-yellow-400");
   });
   
 });

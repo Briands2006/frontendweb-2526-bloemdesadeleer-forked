@@ -84,27 +84,27 @@ Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier k
 
 **Wat heb je geleerd?**
 
-[Beschrijf je belangrijkste leermoment...]
+Brian: Ik zelf enorm veel en vond dit ook echt interessant en hoop dit eigenlijk later te kunnen doen voor klanten. Ik heb er zelf toch wel wat moeite mee gehad omdat dit allemaal nieuw was voor mij en ook alles een stuk trager ging, maar de motivatie was er zeker wel. De lessen bevatten een zeer goeie basis, maar ik vind wel dat je er echt al iets van moet weten voor je het begrijpt en dat was bij mij toch wel een probleem, maar dat is persoonlijk en lag zeker niet aan de lessen. Maar uiteindelijk was dit wel wat ik had verwacht voor deze richting. En heb ik echt veel leuke/interessante kennis opgedaan die ik hoop later te kunnen gebruiken.
+Elias:
 
 **Wat vond je goed aan dit project?**
-
-[Positieve aspecten...]
+Brian: Het ging over iets wat je zelf koos, dus dat maakt het altijd leuker dan je strikt aan een bepaald thema te moeten houden. Voor een eerste website ben ik er echt wel trots op en alles wat we wouden dat aanwezig moet zijn zit er ook in. Het was niet altijd gemakkelijk om dit te combineren met school zelf, maar uiteindelijk is het toch tot een goed einde gekomen.
+Elias: 
 
 **Wat zou je anders doen?**
 
-[Verbeterpunten voor jezelf...]
 
 **Wat waren de grootste uitdagingen?**
+De testen waren heel moeilijk, omdat er altijd wel iets niet klopte en daar zijn we dus heel wat tijd aan verloren en ook wat te laat mee kunnen beginnen omdat we hard gefocust waren op andere dingen.
 
-[Moeilijkheden die je bent tegengekomen...]
 
 **Wat zou je behouden aan de cursus?**
 
-[Wat werkt goed...]
+Alles werkte echt wel goed en was een perfecte basis om het ook begrijpbaar te maken voor mensen die wat minder goed/ minder inzicht hebben in al die verschillende aspecten.
 
 **Wat zou je toevoegen/aanpassen?**
 
-[Suggesties voor verbetering...]
+Misschien eens kijken om wat meer randgevallen erin te steken of algemeen gewoon een voorbeeld erin te steken dat misschien helpt in sommige situaties, zodat mensen niet te lang moeten vastzitten bij een bepaald deel. Natuurlijk is dit niet evident, maar wie weet kan het toch helpen. Ook wat meer focus leggen op testen, want die gingen erg moeizaam.
 
 ### Reflectie groepswerk
 

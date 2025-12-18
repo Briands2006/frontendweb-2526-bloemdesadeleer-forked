@@ -1,35 +1,37 @@
-[
-    {
-        "id": 1,
-        "name": "Bahrain International Circuit",
-        "location": "Sakhir, Bahrain",
-        "lengthKm": "5.412",
-        "laps": 57,
-        "fastestLapTime": "1:31.447",
-        "fastestLapDriver": "Pedro de la Rosa",
-        "fastestLapYear": 2005,
-        "slug": "bahrain-international-circuit"
-    },
-    {
-        "id": 2,
-        "name": "Jeddah Corniche Circuit",
-        "location": "Jeddah, Saudi Arabia",
-        "lengthKm": "6.174",
-        "laps": 50,
-        "fastestLapTime": "1:30.734",
-        "fastestLapDriver": "Lewis Hamilton",
-        "fastestLapYear": 2021,
-        "slug": "jeddah-corniche-circuit"
-    },
-    {
-        "id": 3,
-        "name": "Albert Park Circuit",
-        "location": "Melbourne, Australia",
-        "lengthKm": "5.278",
-        "laps": 58,
-        "fastestLapTime": "1:19.813",
-        "fastestLapDriver": "Charles Leclerc",
-        "fastestLapYear": 2024,
-        "slug": "albert-park-circuit"
-    }
-]
+{
+    "tracks": [
+        {
+            "id": 1,
+            "name": "Bahrain International Circuit",
+            "location": "Sakhir, Bahrain",
+            "lengthKm": "5.412",
+            "laps": 57,
+            "fastestLapTime": "1:31.447",
+            "fastestLapDriver": "Pedro de la Rosa",
+            "fastestLapYear": 2005,
+            "slug": "bahrain-international-circuit"
+        },
+        {
+            "id": 2,
+            "name": "Jeddah Corniche Circuit",
+            "location": "Jeddah, Saudi Arabia",
+            "lengthKm": "6.174",
+            "laps": 50,
+            "fastestLapTime": "1:30.734",
+            "fastestLapDriver": "Lewis Hamilton",
+            "fastestLapYear": 2021,
+            "slug": "jeddah-corniche-circuit"
+        },
+        {
+            "id": 3,
+            "name": "Albert Park Circuit",
+            "location": "Melbourne, Australia",
+            "lengthKm": "5.278",
+            "laps": 58,
+            "fastestLapTime": "1:19.813",
+            "fastestLapDriver": "Charles Leclerc",
+            "fastestLapYear": 2024,
+            "slug": "albert-park-circuit"
+        }
+    ]
+}
