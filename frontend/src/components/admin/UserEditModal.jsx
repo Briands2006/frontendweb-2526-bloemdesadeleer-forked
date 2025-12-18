@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { save, getById } from "../../api/index.js";
 import { mutate } from "swr";
 import toast from "react-hot-toast";
+import { toMySQLDateTime } from "../../api/index.js";
 
 export default function UserEditModal({
   isOpen,
@@ -13,7 +14,7 @@ export default function UserEditModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useState(() => {
+  useEffect(() => {
     if (user && isOpen) {
       console.log("🟡 Modal: Opening for user ID:", user.id);
       setLoading(true);
@@ -46,7 +47,14 @@ export default function UserEditModal({
     setLoading(true);
     setError(null);
 
-    const dataToSave = { ...formData };
+    const dataToSave = {
+      name: formData.name,
+      email: formData.email,
+      isAdmin: formData.isAdmin,
+      birthdate: formData.birthdate
+        ? toMySQLDateTime(formData.birthdate)
+        : null,
+    };
 
     if (dataToSave.birthdate) {
       dataToSave.birthdate = new Date(dataToSave.birthdate).toISOString();
@@ -61,6 +69,7 @@ export default function UserEditModal({
       await save(`${USERS_API_URL}/${user.id}`, { arg: dataToSave });
       mutate("users");
       onClose();
+      toast.success("Gebruiker succesvol opgeslagen: " + formData.name);
     } catch (err) {
       console.error("Failed to save user:", err);
       setError(

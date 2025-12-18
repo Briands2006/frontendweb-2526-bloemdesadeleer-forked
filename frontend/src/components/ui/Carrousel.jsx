@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import { getAssetUrl } from "../../pages/utils/getImage.js";
 import "./Carrousel.css";
 
 const Carousel = ({ data }) => {
   const [slide, setSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false); // Nieuw state voor animatie status,
+  const [isAnimating, setIsAnimating] = useState(false);
   // om dus de button disabled te zetten
 
   const nextSlide = () => {
@@ -47,7 +48,7 @@ const Carousel = ({ data }) => {
         return (
           <div key={idx} className={`slide ${slideClass}`}>
             {/* geef meer slide info mee */}
-            <img src={d.photo} alt={d.name} className="slide-img" />
+            <img src={getAssetUrl("driverHeadshots", d.photo)} alt={d.name} className="slide-img" />
             <div className="slide-info">
               <h2>{d.name}</h2>
               <p>{d.team?.name || "-"}</p>

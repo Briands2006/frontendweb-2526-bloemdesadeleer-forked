@@ -28,7 +28,6 @@ const Drivers = () => {
         <AsyncData loading={isLoading} error={error}>
           {Array.isArray(drivers) &&
             drivers.map((d) => (
-              console.log(getAssetUrl("driverHeadshots", d.photo)),
               <DriverCard
                 key={d.id}
                 name={d.name}
