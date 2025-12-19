@@ -61,8 +61,8 @@ async function bootstrap() {
     maxAge: cors.maxAge,
   });
 
-  await app.listen(port, () => {
-    new Logger().log(`🚀 Server listening on http://localhost:${port}`);
+  await app.listen(port, '0.0.0.0', () => {
+    new Logger().log(`🚀 Server listening on port ${port}`);
   });
 }
 
