@@ -1,9 +1,9 @@
 import { useParams, Navigate, useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 import useSWR from "swr";
 import { getBySlug } from "../../api/index.js";
 import AsyncData from "../../components/AsyncData.jsx";
+import { ChevronLeft } from "lucide-react";
 
 const formatDate = (dateString) => {
   if (!dateString) return "Onbekend";
@@ -24,7 +24,7 @@ export const NewsDetail = () => {
   }, []);
 
   const newsKey = newsSlug ? `/news/n/${newsSlug}` : null;
-  const { data: news, isLoading, error} = useSWR(newsKey, () => getBySlug("news", newsSlug));
+  const { data: news, isLoading, error } = useSWR(newsKey, () => getBySlug("news", newsSlug));
 
   if (isLoading) {
     return <AsyncData loading />;
@@ -46,26 +46,17 @@ export const NewsDetail = () => {
 
   const formattedDate = formatDate(news.date);
   const fullContent = news.fullContent || "Volledige inhoud niet beschikbaar.";
-  const tags = Array.isArray(news.tags) ? news.tags.join(" - ") : "";
-
-  const goBack = () => {
-    if (window.history.length > 1) {
-      navigate(-1);
-    } else {
-      navigate("/news");
-    }
-  };
 
   return (
     <div className="min-h-screen bg-transparent text-white py-20">
       <div className="max-w-4xl mx-auto px-8 md:px-16">
         <button
-          onClick={goBack}
-          className="inline-flex items-center gap-2 mb-6 text-red-500 cursor-pointer"
-          aria-label="Ga terug"
+          onClick={() => navigate("/news")}
+          className="text-red-500 hover:text-red-400 flex items-center
+                mb-8 transition-colors cursor-pointer font-semibold"
         >
-          <ArrowLeft className="w-5 h-5" />
-          Terug
+          <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" data-cy='bt_news' /> Terug naar
+          News Overzicht
         </button>
 
         <img
@@ -77,7 +68,7 @@ export const NewsDetail = () => {
         <p className="text-red-500 text-sm font-semibold uppercase tracking-wider mb-2">
           {/* Controleren of news.tags bestaat en een string is, dan splitsen en joinen */}
           {news.tags && typeof news.tags === "string"
-            ? news.tags.split(",").map((tag) => tag.trim()).join(" - ") 
+            ? news.tags.split(",").map((tag) => tag.trim()).join(" - ")
             : news.tags || "Geen tags"}
         </p>
         {/* split de tags op en zet er ' - ' tussen */}

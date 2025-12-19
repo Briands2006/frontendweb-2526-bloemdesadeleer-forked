@@ -23,7 +23,9 @@ const Drivers = () => {
 
   return (
     <main className="drivers-page" style={{ padding: 24 }}>
-      <h1 className="text-5xl font-extrabold pb-4">F1 Drivers 2025</h1>
+      <h1 className="text-5xl font-black uppercase tracking-tighter">
+        F1 <span className="text-red-600">Drivers</span>
+      </h1>
       <div className="drivers-grid">
         <AsyncData loading={isLoading} error={error}>
           {Array.isArray(drivers) &&

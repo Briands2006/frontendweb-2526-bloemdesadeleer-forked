@@ -11,7 +11,9 @@ export const Teams = () => {
 
   return (
     <main className="min-h-screen bg-transparent text-white py-12 px-8 md:px-16">
-      <h1 className="text-5xl font-extrabold pb-4">F1 Teams 2025</h1>
+      <h1 className="text-5xl font-black uppercase tracking-tighter">
+        F1 <span className="text-red-600">Teams</span>
+      </h1>
       <p className="mb-8">The F1 teams for the 2025 season</p>
       <AsyncData loading={isLoading} error={error}>
         <div

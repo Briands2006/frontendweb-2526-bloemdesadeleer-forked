@@ -5,6 +5,8 @@ import AsyncData from "../../components/AsyncData.jsx";
 import { useAuth } from "../../context/auth.js";
 import { FaStar } from "react-icons/fa6";
 import { useFavorites } from "../../hooks/useFavorites.js";
+import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL_TRACKS = "https://cdn.racingnews365.com/Circuits";
 const CONSTANT_IMAGE_PART = "/_639xAUTO_crop_center-center_none/f1_2024";
@@ -40,6 +42,7 @@ const TRACK_URL_MAPPING = {
 export const TrackDetail = () => {
   const { trackName } = useParams();
   const { isTrackFavorite, toggleFavoriteTrack } = useFavorites();
+  const navigate = useNavigate();
 
   const { isAuthed, loading } = useAuth();
 
@@ -64,13 +67,13 @@ export const TrackDetail = () => {
   const isFavorite = isTrackFavorite(track.id);
 
   const handleToggleFavorite = async () => {
-  
+
     if (!isAuthed || loading) return; // Preventie
 
     try {
       // Roep de back-end aan om de favoriet te togglen
-      await toggleFavoriteTrack(track.id); 
-      
+      await toggleFavoriteTrack(track.id);
+
     } catch (e) {
       console.error("Fout bij het togglen van favoriet:", e);
     }
@@ -78,12 +81,14 @@ export const TrackDetail = () => {
 
   return (
     <main className="track-detail-page" style={{ padding: 24 }}>
-      <Link
-        to="/tracks"
-        className="py-2 px-2.5 rounded-md text-red-600 mb-20 left-0"
+      <button
+        onClick={() => navigate("/tracks")}
+        className="text-red-500 hover:text-red-400 flex items-center
+                mb-8 transition-colors cursor-pointer font-semibold"
       >
-        Terug
-      </Link>
+        <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" data-cy='bt_tracks' /> Terug naar
+        Tracks Overzicht
+      </button>
 
       <div className="max-w-4xl mx-auto">
         <div
@@ -110,10 +115,10 @@ export const TrackDetail = () => {
               </p>
               {isAuthed && (
                 <button data-cy="favorite-button" onClick={handleToggleFavorite} disabled={loading}>
-                  <FaStar 
-                    className={`w-8 h-8 transition-colors ${
-                      isFavorite ? "text-yellow-400" : "text-gray-500 hover:text-yellow-200"
-                    }`}
+                  <FaStar
+                    className={`w-8 h-8 transition-colors
+                       ${isFavorite ? "text-yellow-400" : "text-gray-500 hover:text-yellow-200"
+                }`}
                   />
                 </button>
               )}

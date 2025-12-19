@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ChevronLeft, Loader } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { slug } from "../../utils/slugify.js";
 import useSWR from "swr";
 import { getBySlug } from "../../api/index.js";
@@ -72,10 +72,11 @@ export const TeamDetail = () => {
     <div className="min-h-screen bg-transparent text-white py-12 px-8 md:px-16">
       <button
         onClick={() => navigate("/teams")}
-        className="text-red-500 hover:text-red-400 flex items-center mb-8 transition-colors cursor-pointer"
+        className="text-red-500 hover:text-red-400 flex items-center
+                mb-8 transition-colors cursor-pointer font-semibold"
       >
-        <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" /> Terug naar Teams
-        Overzicht
+        <ChevronLeft className="w-5 h-5 mr-2 cursor-pointer" data-cy='bt_teams' /> Terug naar
+        Team Overzicht
       </button>
       
       <header

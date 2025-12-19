@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UserPlus,
@@ -56,8 +56,14 @@ export const Register = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const { register, user } = useAuth();
   const strength = useMemo(() => calculatePassStrength(password), [password]); // 2e is om bij elke wijziging te checken
+
+  useEffect(() => {
+    if (user) {
+      navigate("/profile");
+    } 
+  }, [user, navigate]);
 
   const handleStrengthColor = (score) => {
     if (score < 40) return "bg-red-500";
@@ -141,13 +147,14 @@ export const Register = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1 text-gray-300">
-              Naam (optioneel)
+              Naam
             </label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="text"
                 value={name}
+                required
                 onChange={(e) => setName(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700
                  rounded-lg focus:ring-red-600 focus:border-red-600 outline-none transition-colors"

@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { save, getById } from "../../api/index.js";
+import { save, getById, toMySQLDateTime } from "../../api/index.js";
 import { mutate } from "swr";
 import toast from "react-hot-toast";
-import { toMySQLDateTime } from "../../api/index.js";
+import { FaTimes } from "react-icons/fa";
 
-export default function UserEditModal({
-  isOpen,
-  onClose,
-  user,
-  USERS_API_URL,
-}) {
+export default function UserEditModal({ isOpen, onClose, user, USERS_API_URL }) {
   const [formData, setFormData] = useState(user);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (user && isOpen) {
-      console.log("🟡 Modal: Opening for user ID:", user.id);
       setLoading(true);
       getById(`${USERS_API_URL}/${user.id}`)
         .then((fullUser) => {
-          console.log("🟢 Modal: Full user data fetched:", fullUser);
           setFormData(fullUser);
           setLoading(false);
         })
         .catch((err) => {
-          console.error("Failed to fetch full user data:", err);
-          setError("Failed to load user data.");
+          setError("Laden van gegevens mislukt.");
+          toast.error("Fout bij laden van gebruiker: " + err.message);
           setLoading(false);
         });
     }
@@ -36,8 +29,8 @@ export default function UserEditModal({
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
@@ -51,97 +44,102 @@ export default function UserEditModal({
       name: formData.name,
       email: formData.email,
       isAdmin: formData.isAdmin,
-      birthdate: formData.birthdate
-        ? toMySQLDateTime(formData.birthdate)
-        : null,
+      birthdate: formData.birthdate ? toMySQLDateTime(formData.birthdate) : null,
     };
-
-    if (dataToSave.birthdate) {
-      dataToSave.birthdate = new Date(dataToSave.birthdate).toISOString();
-    }
-
-    delete dataToSave.id;
-    delete dataToSave.dateJoined;
-
-    console.log("🟢 Final data sent to API:", dataToSave);
 
     try {
       await save(`${USERS_API_URL}/${user.id}`, { arg: dataToSave });
       mutate("users");
+      toast.success(`${formData.name} succesvol bijgewerkt`);
       onClose();
-      toast.success("Gebruiker succesvol opgeslagen: " + formData.name);
     } catch (err) {
-      console.error("Failed to save user:", err);
-      setError(
-        "Failed to save user. " + (err.response?.data?.message || err.message),
-      );
-      toast.error("Fout bij opslaan van gebruiker: " + formData.name);
+      setError(err.response?.data?.message || err.message);
+      toast.error("Fout bij opslaan");
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading && !formData)
-    return <div className="modal-backdrop">Loading user data...</div>;
-
   return (
-    <div className="modal-backdrop fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4 text-white">
-          Edit User: {formData?.name}
-        </h2>
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-100 p-4 backdrop-blur-sm">
+      <div className="bg-gray-900 text-white rounded-xl w-full
+       max-w-md max-h-[90vh] flex flex-col shadow-2xl border border-gray-800">
+        
+        <div className="flex items-center justify-between p-5 border-b border-gray-800">
+          <h2 className="text-xl font-bold text-red-600 uppercase tracking-tighter">
+            Edit User
+          </h2>
+          <button onClick={onClose} className="p-2 hover:bg-gray-800 rounded-full text-gray-400 transition-colors">
+            <FaTimes size={20} />
+          </button>
+        </div>
 
-        {error && <p className="text-red-400 mb-4">{error}</p>}
+        {/* Body */}
+        <form onSubmit={handleSubmit} className="overflow-y-auto p-6 space-y-5">
+          {error && <div className="p-3 bg-red-600/20 border border-red-600 text-red-500 rounded text-sm">{error}</div>}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="block">
-            <span className="text-gray-300">Name:</span>
+          <div>
+            <label className="block text-xs font-bold text-gray-400 uppercase mb-1.5">Naam</label>
             <input
               type="text"
               name="name"
               value={formData?.name || ""}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white p-2"
+              className="w-full bg-gray-800 border border-gray-700
+               rounded-lg p-3 focus:ring-2 focus:ring-red-600 outline-none transition-all"
               required
             />
-          </label>
-          <label className="block">
-            <span className="text-gray-300">Email:</span>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-gray-400 uppercase mb-1.5">Email Adres</label>
             <input
               type="email"
               name="email"
               value={formData?.email || ""}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md bg-gray-700 border-gray-600 text-white p-2"
+              className="w-full bg-gray-800 border border-gray-700
+               rounded-lg p-3 focus:ring-2 focus:ring-red-600 outline-none transition-all"
               required
             />
-          </label>
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              name="isAdmin"
-              checked={!!formData?.isAdmin}
-              onChange={handleChange}
-              className="rounded text-indigo-500 bg-gray-700 border-gray-600"
-            />
-            <span className="text-gray-300">Is Admin</span>
-          </label>
+          </div>
 
-          <div className="flex justify-end space-x-3 mt-6">
+          <div className="p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+            <label className="flex items-center cursor-pointer group">
+              <input
+                type="checkbox"
+                name="isAdmin"
+                checked={!!formData?.isAdmin}
+                onChange={handleChange}
+                className="w-5 h-5 rounded border-gray-700 text-red-600 focus:ring-red-600 bg-gray-900"
+              />
+              <span className="ml-3 text-sm font-bold text-gray-200 group-hover:text-white transition-colors">
+                Administrator Rechten
+              </span>
+            </label>
+            <p className="mt-2 text-[10px] text-gray-500 uppercase italic">
+              Admins kunnen Users, Nieuws en statistieken beheren.
+            </p>
+          </div>
+
+          {/* Footer Buttons */}
+          <div className="flex flex-col gap-3 pt-4">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-red-600 hover:bg-red-700 disabled:opacity-50
+               text-white font-bold rounded-lg transition-all
+                shadow-lg shadow-red-900/20 uppercase tracking-widest text-sm"
+            >
+              {loading ? "Verwerken..." : "Opslaan"}
+            </button>
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500"
-              disabled={loading}
+              className="w-full py-3 bg-transparent hover:bg-gray-800 text-gray-400
+               font-bold rounded-lg transition-all text-sm uppercase"
             >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? "Saving..." : "Save Changes"}
+              Annuleren
             </button>
           </div>
         </form>

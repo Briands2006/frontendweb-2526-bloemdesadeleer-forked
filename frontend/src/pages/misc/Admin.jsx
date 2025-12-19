@@ -12,12 +12,12 @@ export const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen p-10 bg-gray-900 rounded-xl border border-gray-800 text-white">
-      <h1 className="text-4xl font-bold text-red-600 mb-6">
-        ⚙️ Admin Dashboard
+      <h1 className="text-3xl font-black uppercase tracking-tighter">
+        Admin <span className="text-red-600">Dashboard</span>
       </h1>
-      <p className="text-lg">Welkom, {currentUser?.name || "Beheerder"}!</p>
+      <p className="text-lg text-gray-400">Welkom, {currentUser?.name || "Beheerder"}!</p>
       <p className="text-sm text-gray-400">
-        Deze pagina is alleen zichtbaar voor gebruikers met admin& rights.
+        Deze pagina is alleen zichtbaar voor gebruikers met admin rights.
       </p>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -30,8 +30,7 @@ export const AdminDashboard = () => {
         >
           <h2 className="text-xl font-semibold mb-2">Nieuwsbeheer (CRUD)</h2>
           <p>
-            Voer hier CRUD operaties op het nieuws uit, wees frank de bosere
-            ofzo.
+            Voer hier CRUD operaties op het nieuws uit.
           </p>
         </div>
         <div
@@ -47,9 +46,12 @@ export const AdminDashboard = () => {
         <div
           className="p-4 bg-gray-800 rounded-xl border border-gray-600 shadow hover:scale-[1.02]
          transition-transform duration-300 cursor-pointer"
+          onClick={() => {
+            handleClick("stats");
+          }}
         >
           <h2 className="text-xl font-semibold mb-2">Statistieken</h2>
-          <p>Toon stats enzo</p>
+          <p>Toon statistieken van de servers en dergelijke.</p>
         </div>
       </div>
     </div>

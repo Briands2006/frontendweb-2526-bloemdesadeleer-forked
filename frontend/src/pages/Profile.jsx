@@ -124,17 +124,16 @@ export const Profile = () => {
   return (
     <AsyncData isLoading={loading} error={error}>
       <div className="min-h-screen pt-20 pb-10 bg-transparent text-white grid place-items-start px-4">
-        <div className="w-full max-w-4xl mx-auto p-8 bg-gray-900 rounded-xl border border-gray-800 shadow-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="w-full lg:order-1 order-2">
+        <div className="w-full max-w-4xl mx-auto p-6 md:p-8 bg-gray-900 rounded-xl border border-gray-800 shadow-xl">   
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8">
+
+            <div className="w-full">
               <div className="text-center mb-8">
-                <div
-                  className="mx-auto w-24 h-24 bg-red-600 rounded-full flex items-center
-             justify-center mb-4 border-4 border-red-800"
-                >
+                <div className="mx-auto w-24 h-24 bg-red-600 rounded-full 
+                flex items-center justify-center mb-4 border-4 border-red-800 shadow-lg">
                   <User className="w-12 h-12 text-white" />
                 </div>
-                <h1 className="text-4xl font-bold mb-1">
+                <h1 className="text-3xl md:text-4xl font-bold mb-1">
                   Welkom,{" "}
                   <span className="text-red-600">
                     {user.name || user.email.split("@")[0]}
@@ -145,175 +144,151 @@ export const Profile = () => {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center p-4 bg-gray-800 rounded-lg border border-gray-700">
-                  <Mail className="w-5 h-5 text-red-500 mr-4" />
-                  <div>
-                    <p className="text-sm font-semibold text-gray-400">
-                      E-mail
-                    </p>
-                    <p className="text-lg">{user.email}</p>
+                <div className="flex items-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                  <Mail className="w-5 h-5 text-red-500 mr-4 shrink-0" />
+                  <div className="overflow-hidden">
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">E-mail</p>
+                    <p className="text-base md:text-lg truncate">{user.email}</p>
                   </div>
                 </div>
 
                 {user.name && (
-                  <div className="flex items-center p-4 bg-gray-800 rounded-lg border border-gray-700">
-                    <User className="w-5 h-5 text-red-500 mr-4" />
+                  <div className="flex items-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                    <User className="w-5 h-5 text-red-500 mr-4 shrink-0" />
                     <div>
-                      <p className="text-sm font-semibold text-gray-400">
-                        Gebruikersnaam
-                      </p>
-                      <p className="text-lg">{user.name}</p>
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Gebruikersnaam</p>
+                      <p className="text-base md:text-lg">{user.name}</p>
                     </div>
                   </div>
                 )}
 
-                <div className="flex items-center p-4 bg-gray-800 rounded-lg border border-gray-700">
-                  <Calendar className="w-5 h-5 text-red-500 mr-4" />
+                <div className="flex items-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                  <Calendar className="w-5 h-5 text-red-500 mr-4 shrink-0" />
                   <div>
-                    <p className="text-sm font-semibold text-gray-400">
-                      Geboren op
-                    </p>
-                    <p className="text-lg">{formattedDate(user.birthdate)}</p>
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Geboren op</p>
+                    <p className="text-base md:text-lg">{formattedDate(user.birthdate)}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center p-4 bg-gray-800 rounded-lg border border-gray-700">
-                  <Calendar className="w-5 h-5 text-red-500 mr-4" />
+                <div className="flex items-center p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                  <Calendar className="w-5 h-5 text-red-500 mr-4 shrink-0" />
                   <div>
-                    <p className="text-sm font-semibold text-gray-400">
-                      Lid sinds
-                    </p>
-                    <p className="text-lg">{formattedDate(user.dateJoined)}</p>
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Lid sinds</p>
+                    <p className="text-base md:text-lg">{formattedDate(user.dateJoined)}</p>
                   </div>
                 </div>
               </div>
 
-              {isAdmin && (
+              <div className="mt-8 space-y-3">
+                {isAdmin && (
+                  <button
+                    onClick={handleAdminPanel}
+                    className="w-full inline-flex items-center justify-center gap-2 bg-red-600
+                     text-white px-4 py-3 rounded-lg font-bold
+                      hover:bg-red-700 transition-all active:scale-95 cursor-pointer"
+                  >
+                    <Lock className="w-5 h-5" />
+                    Admin Panel
+                  </button>
+                )}
+
                 <button
-                  onClick={handleAdminPanel}
-                  className="w-full mt-8 inline-flex items-center justify-center gap-2
-             bg-red-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-red-700
-             transition-colors cursor-pointer"
+                  onClick={handleLogout}
+                  disabled={loading}
+                  className="w-full inline-flex items-center justify-center gap-2 bg-gray-800
+                   text-white px-4 py-3 rounded-lg font-bold hover:bg-gray-750 border
+                    border-gray-700 transition-all active:scale-95"
                 >
-                  <Lock className="w-5 h-5" />
-                  Admin Panel
+                  <LogOut className="w-5 h-5" />
+                  Uitloggen
                 </button>
-              )}
-
-              <button
-                onClick={handleLogout}
-                disabled={loading}
-                className="w-full mt-4 inline-flex items-center justify-center gap-2
-             bg-gray-700 text-white px-4 py-3 rounded-lg font-medium hover:bg-gray-600
-             transition-colors disabled:opacity-50 cursor-pointer"
-              >
-                <LogOut className="w-5 h-5" />
-                Uitloggen
-              </button>
-
-              <div className="mt-6 text-center text-sm text-gray-500">
-                Gebruikers ID: {user.id}
               </div>
             </div>
-            <div className="w-full lg:order-2 order-1">
-              <div className="h-38 md:h-40 lg:h-38 hidden sm:block"></div>
-              <h2 className="text-3xl font-bold text-red-600 flex">
-                <FaStar className="text-yellow-400 text-3xl mr-3 " /> Favorieten
-              </h2>
-              <div className="mb-8">
-                <div className="flex items-center mb-4">
-                  <GiFullMotorcycleHelmet className="text-3xl text-red-500 mr-2" />
-                  <h3 className="text-xl font-semibold text-white">
-                    Favoriete Coureurs
-                  </h3>
-                </div>
-                <ul className="space-y-3">
-                  {user.favoriteDrivers && user.favoriteDrivers.length > 0 ? (
-                    user.favoriteDrivers
-                      .filter((fav) => fav.driver) // Filter items die de driver relatie missen
-                      .map((favItem, index) => (
-                        <li
-                          key={favItem.driver.id || index} // Gebruik de driver ID als key
-                          className="flex items-center p-3 bg-gray-800 rounded-md 
-                          shadow-sm hover:bg-gray-700 transition-colors cursor-pointer"
-                        >
-                          <img
-                            src={getAssetUrl("driverHeadshots", favItem.driver.photo)}
-                            alt={`Foto van ${favItem.driver.name}`}
-                            className="w-10 h-10 object-cover rounded-full mr-4 border border-red-600"
-                          />
-                          <Link
-                            to={`/drivers/${slug(favItem.driver.name)}`}
-                            className="text-lg font-medium w-full"
-                          >
-                            {favItem.driver.name}
-                          </Link>
-                        </li>
-                      ))
-                  ) : (
-                    // Toon de fallback als er geen favorieten zijn
-                    <li className="flex items-center p-3 bg-gray-800 rounded-md shadow-sm">
-                      <span className="text-lg font-medium text-gray-400">
-                        Nog niet ingesteld
-                      </span>
-                    </li>
-                  )}
-                </ul>
-              </div>
-              <div>
-                <div className="flex items-center mb-4">
-                  <Flag className="w-6 h-6 text-red-500 mr-3" />
-                  <h3 className="text-xl font-semibold text-white">
-                    Favoriete Circuits
-                  </h3>
-                </div>
-                <ul className="space-y-3">
-                  {user.favoriteTracks && user.favoriteTracks.length > 0 ? (
-                    user.favoriteTracks
-                      .filter((fav) => fav.track)
-                      .map((favItem, index) => {
-                        const location = favItem.track.location;
-                        const countryCode = getCountryCode(location);
-                        const FlagComponent = countryCode
-                          ? Flags[countryCode]
-                          : null;
 
-                        return (
-                          <li
-                            key={favItem.track.id || index}
-                            className="flex items-center p-3 bg-gray-800 rounded-md 
-                       shadow-sm hover:bg-gray-700 transition-colors cursor-pointer"
-                          >
-                            <div
-                              className="w-10 h-10 rounded-full overflow-hidden relative 
-                                 shrink-0 mr-4 border border-red-600"
-                            >
-                              {FlagComponent ? (
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                  <FlagComponent className="min-w-full min-h-full scale-[1.8] object-cover" />
-                                </div>
-                              ) : (
-                                <Flag className="w-full h-full object-none" />
-                              )}
-                            </div>
+            <div className="w-full">
+              <div className="lg:pt-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-white flex items-center mb-6">
+                  <FaStar className="text-yellow-400 mr-3" /> Favorieten
+                </h2>
 
+                <div className="mb-8">
+                  <div className="flex items-center mb-4">
+                    <GiFullMotorcycleHelmet className="text-2xl text-red-500 mr-2" />
+                    <h3 className="text-lg font-semibold text-gray-300">Coureurs</h3>
+                  </div>
+                  <ul className="grid grid-cols-1 gap-3">
+                    {user.favoriteDrivers && user.favoriteDrivers.length > 0 ? (
+                      user.favoriteDrivers
+                        .filter((fav) => fav.driver)
+                        .map((favItem, index) => (
+                          <li key={favItem.driver.id || index}>
                             <Link
-                              to={`/tracks/${slug(favItem.track.name)}`}
-                              className="text-lg font-medium w-full"
+                              to={`/drivers/${slug(favItem.driver.name)}`}
+                              className="flex items-center p-3 bg-gray-800/40 rounded-lg border
+                               border-gray-700 hover:border-red-600 hover:bg-gray-800 transition-all group"
                             >
-                              {favItem.track.name}
+                              <img
+                                src={getAssetUrl("driverHeadshots", favItem.driver.photo)}
+                                alt={favItem.driver.name}
+                                className="w-12 h-12 object-cover rounded-full mr-4 border-2
+                                 border-transparent group-hover:border-red-600 transition-all"
+                              />
+                              <span className="text-lg font-medium">{favItem.driver.name}</span>
                             </Link>
                           </li>
-                        );
-                      })
-                  ) : (
-                    <li className="flex items-center p-3 bg-gray-800 rounded-md shadow-sm">
-                      <span className="text-lg font-medium text-gray-400">
-                        Nog niet ingesteld
-                      </span>
-                    </li>
-                  )}
-                </ul>
+                        ))
+                    ) : (
+                      <li className="p-4 bg-gray-800/20 rounded-lg border border-dashed
+                       border-gray-700 text-gray-500 text-center">
+                        Nog geen favoriete coureurs
+                      </li>
+                    )}
+                  </ul>
+                </div>
+
+                <div>
+                  <div className="flex items-center mb-4">
+                    <Flag className="w-5 h-5 text-red-500 mr-3" />
+                    <h3 className="text-lg font-semibold text-gray-300">Circuits</h3>
+                  </div>
+                  <ul className="grid grid-cols-1 gap-3">
+                    {user.favoriteTracks && user.favoriteTracks.length > 0 ? (
+                      user.favoriteTracks
+                        .filter((fav) => fav.track)
+                        .map((favItem, index) => {
+                          const countryCode = getCountryCode(favItem.track.location);
+                          const FlagComponent = countryCode ? Flags[countryCode] : null;
+
+                          return (
+                            <li key={favItem.track.id || index}>
+                              <Link
+                                to={`/tracks/${slug(favItem.track.name)}`}
+                                className="flex items-center p-3 bg-gray-800/40 rounded-lg border
+                                 border-gray-700 hover:border-red-600 hover:bg-gray-800 transition-all group"
+                              >
+                                <div className="w-12 h-12 rounded-full overflow-hidden mr-4 border-2
+                                 border-transparent group-hover:border-red-600 relative shrink-0">
+                                  {FlagComponent ? (
+                                    <FlagComponent className="w-full h-full object-cover scale-150" />
+                                  ) : (
+                                    <div className="bg-gray-700 w-full h-full flex items-center justify-center">
+                                      <Flag className="w-5 h-5 text-gray-500" />
+                                    </div>
+                                  )}
+                                </div>
+                                <span className="text-lg font-medium">{favItem.track.name}</span>
+                              </Link>
+                            </li>
+                          );
+                        })
+                    ) : (
+                      <li className="p-4 bg-gray-800/20 rounded-lg border
+                       border-dashed border-gray-700 text-gray-500 text-center">
+                        Nog geen favoriete circuits
+                      </li>
+                    )}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

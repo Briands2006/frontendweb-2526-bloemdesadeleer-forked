@@ -29,6 +29,7 @@ import { RaceDetail } from "./pages/detail/RaceDetail.jsx";
 import DriverDetails from "./pages/detail/DriverDetails.jsx";
 import UsersDashboard from "./pages/misc/UserDashboard.jsx";
 import NewsDashboard from "./pages/misc/NewsDashboard.jsx";
+import StatsDashboard from "./pages/misc/StatsDashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -123,6 +124,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <NewsDashboard />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin-dashboard/stats",
+        element: (
+          <AdminRoute>
+            <StatsDashboard />
           </AdminRoute>
         ),
       },

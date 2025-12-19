@@ -18,7 +18,7 @@ export const News = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []); // scroll naar boven bij laden van de pagina
 
-  const { data: news = [], isLoading, error} = useSWR("news", getAll);
+  const { data: news = [], isLoading, error } = useSWR("news", getAll);
 
   // logica voor paginering, berekeningen, enz... (saaie dingen dus)
 
@@ -51,10 +51,12 @@ export const News = () => {
   return (
     <div className="min-h-screen bg-transparent text-white py-20">
       <div className="max-w-7xl mx-auto px-8 md:px-16">
-        <h1 className="text-5xl font-extrabold mb-8 pb-4">F1 News</h1>
-
+        <h1 className="text-5xl font-black uppercase tracking-tighter">
+          F1 <span className="text-red-600">News</span>
+        </h1>
+        <br />
         <div className="grid md:grid-cols-3 gap-10">
-          <AsyncData loading = {isLoading} error={error}>
+          <AsyncData loading={isLoading} error={error}>
             {currentPosts.map((post) => (
               <NewsCard
                 key={post.id}
@@ -70,10 +72,9 @@ export const News = () => {
           <button
             onClick={goToPrevPage}
             disabled={currentPage === 1}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-              currentPage === 1
-                ? "bg-gray-800 text-gray-500 cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-700"
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${currentPage === 1
+              ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+              : "bg-red-600 hover:bg-red-700"
             }`}
           >
             <ArrowLeft className="w-5 h-5" /> Vorige
@@ -86,10 +87,9 @@ export const News = () => {
           <button
             onClick={goToNextPage}
             disabled={currentPage === totalPages}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-              currentPage === totalPages
-                ? "bg-gray-800 text-gray-500 cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-700"
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${currentPage === totalPages
+              ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+              : "bg-red-600 hover:bg-red-700"
             }`}
           >
             Volgende <ArrowRight className="w-5 h-5" />

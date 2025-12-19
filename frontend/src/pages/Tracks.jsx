@@ -23,7 +23,9 @@ const Tracks = () => {
 
   return (
     <main className="track-page" style={{ padding: 24 }}>
-      <h1 className="text-5xl font-extrabold pb-4">F1 Tracks 2025</h1>
+      <h1 className="text-5xl font-black uppercase tracking-tighter">
+        F1 <span className="text-red-600">Tracks</span>
+      </h1>
       <div className="track-grid">
         <AsyncData loading={isLoading} error={error}>
           {tracks.map((t, index) => {

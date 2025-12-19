@@ -19,7 +19,12 @@ export const NewsCard = ({ post, onClick }) => {
      transition-all overflow-hidden shadow-xl cursor-pointer"
     >
       <img
-        src={post.imageUrl}
+        src={
+          post.imageUrl
+            ? post.imageUrl
+            : "https://www.coromandel.biz/nano/main/wp-content/" +
+             "themes/u-design/assets/images/placeholders/post-placeholder.jpg"
+        }
         alt={post.title}
         className="w-full h-48 object-cover"
       />
