@@ -17,12 +17,30 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 ## Opstarten
 
-> Schrijf hier hoe we de applicatie starten (.env bestanden aanmaken, commando's om uit te voeren...)
 
 - Installeer alle dependencies: `pnpm install`
 - Maak `.env` met volgende inhoud
 
 
+```bash
+VITE_API_URL="http://localhost:3000/api"
+
+VITE_BASE_IMG_URL="http://localhost:3000"
+```
+
+- Start het project `pnpm dev`
+
+
+## Testen
+
+Open Cypress voor frontend testen met `pnmp test`
+
+## Back-end
+
+## Opstarten
+
+
+- Maak `.env` met volgende inhoud
 ```bash
 NODE_ENV=development
 PORT=3000
@@ -47,26 +65,6 @@ AUTH_JWT_AUDIENCE=f1tracker.com
 AUTH_JWT_ISSUER=f1tracker.com
 ```
 
-- Start het project `pnpm dev`
-
-
-## Testen
-
-Open Cypress voor frontend testen met `pnmp test`
-
-## Back-end
-
-## Opstarten
-
-> Schrijf hier hoe we de applicatie starten (.env bestanden aanmaken, commando's om uit te voeren...)
-
-- Maak `.env` met volgende inhoud
-```bash
-VITE_API_URL="http://localhost:3000/api"
-
-VITE_BASE_IMG_URL="http://localhost:3000"
-```
-
 - Maak en start vervolgens de database met in respectivelijke volgorde:
 - `pnmp db:start`
 
@@ -77,7 +75,6 @@ VITE_BASE_IMG_URL="http://localhost:3000"
 
 ## Testen
 
-> Schrijf hier hoe we de testen uitvoeren (.env bestanden aanmaken, commando's om uit te voeren...)
 - Maak eerste `.env.test` aan met:
 ```bash
 # .env.test
