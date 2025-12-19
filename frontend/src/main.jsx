@@ -8,7 +8,7 @@ import { AuthProvider } from "./context/auth.context.jsx";
 import Layout from "./Layout.jsx";
 import { Home } from "./pages/Home.jsx";
 import Privacy from "./pages/legal/Privacy.jsx";
-import NotFoundPage from "./pages/Notfound.jsx";
+import NotFoundPage from "./pages/NotFound.jsx";
 import Tracks from "./pages/Tracks.jsx";
 import Drivers from "./pages/Drivers.jsx";
 import { Calendar } from "./pages/Calendar.jsx";
