@@ -2,7 +2,7 @@
 
 > Schrap hierboven eventueel wat niet past
 
-- Student: BLOEM ELIAS EN BRIAN DE SADELEER
+- Student: BLOEM ELIAS en BRIAN DE SADELEER
 - Studentennummer: 202404402
 - E-mailadres: <elias.bloem@student.hogent.be>, <brian.desadeleer@student.hogent.be>
 
