@@ -14,8 +14,8 @@
 - **E-mailadres:** elias.bloem@student.hogent.be, brian.desadeleer@student.hogent.be
 - **GitHub repository:** git@github.com:HOGENT-frontendweb/frontendweb-2526-bloemdesadeleer.git
 - **Online versies:**
-  - **Back-end:** <> 
-  - **Front-end:** <"http://localhost:5173>
+  - **Back-end:** <"https://frontendweb-2526-bloemdesadeleer.onrender.com/api"> 
+  - **Front-end:** <"https://frontendweb-2526-bloemdesadeleer-2.onrender.com/">
 - **Demo:** <LINK_NAAR_DEMO_VIDEO>
 
 ## 🔐 Logingegevens
@@ -32,16 +32,24 @@
 - **Wachtwoord**: testpassword
 - **Rol**: admin
 
+- **E-mailadres**: <fan@f1site.com>
+- **Wachtwoord**: testpassword2
+- **Rol**: user
+
 ### Online omgeving
 
 - **E-mailadres**: <fan@f1site.com>
 - **Wachtwoord**: testpassword2
 - **Rol**: user
 
+- **E-mailadres**: <admin@f1site.com>
+- **Wachtwoord**: testpassword
+- **Rol**: admin
+
 ## 📖 Projectbeschrijving
 
 
-Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier kennis willen maken met Formule 1. De belangrijkste aspecten zoals de coureurs, de teams, de banen, de races zijn hier allemaal te bekijken met wat extra informatie. Je kan ook nog een tal van extra's doen zoals je favoriete coureur of baan aanduiden. Je kan op een simpele manier moeiteloos overal naartoe navigeren en op jouw profiel pagina krijg je dan jouw informatie te zien en ook wie jouw favoriete courours en/of banen zijn. 
+Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier kennis willen maken met Formule 1. De belangrijkste aspecten zoals de coureurs, de teams, de banen, de races zijn hier allemaal te bekijken met wat extra informatie. Je kan ook nog een tal van extra's doen zoals je favoriete coureur of baan aanduiden. Als admin kan je ook een heel admin panel beheren, waarbij je nieuws artikels en gebruikers kan beheren. Je kan op een simpele manier moeiteloos overal naartoe navigeren en op jouw profiel pagina krijg je dan jouw informatie te zien en ook wie jouw favoriete courours en/of banen zijn. 
 
 
 ![ERD](./backend/erd/ERD.svg)
@@ -62,9 +70,6 @@ Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier k
 ## 🚀 Extra technologieën
 
 > **Instructie:** Beschrijf welke extra technologieën je hebt gebruikt. Vermeld waarom je deze hebt gekozen.
-- We hebben in onze homepage een carrousel toegevoegd voor de coureurs te bekijken. Dit geeft een heel cool effect, omdat het lijkt alsof ze in een rondje bewegen als je er in doorbladert. 
-- Ook hebben we een formule 1 auto toegevoegd die mee beweegt naar boven als de gebruiker naar boven scrolt.
-- 
 
 ### Front-end Web Development
 
@@ -74,8 +79,8 @@ Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier k
 
 ### Web Services
 
-- <LINK_NAAR_NPM_PACKAGE>
-  - [Reden van keuze]
+- <https://fakerjs.dev/>
+  - Deze was makkelijk en handig om snel een grote tekst te genereren bij de seeds voor de drivers
 - ...
 
 ## 🤔 Reflectie
@@ -88,19 +93,20 @@ Brian: Ik zelf enorm veel en vond dit ook echt interessant en hoop dit eigenlijk
 Elias:
 
 **Wat vond je goed aan dit project?**
-Brian: Het ging over iets wat je zelf koos, dus dat maakt het altijd leuker dan je strikt aan een bepaald thema te moeten houden. Voor een eerste website ben ik er echt wel trots op en alles wat we wouden dat aanwezig moet zijn zit er ook in. Het was niet altijd gemakkelijk om dit te combineren met school zelf, maar uiteindelijk is het toch tot een goed einde gekomen.
-Elias: 
+We konden zelf kiezen wat we maakten, dus dat maakte het extra interessant. We hebben er leuke extra's in gestoken zoals je favorieten aanduiden en een admin panel met veel mogelijkheden. Ook hebben we een mooie layout en echt iets passend bij het thema. 
 
 **Wat zou je anders doen?**
+We hebben iets te hard gefocused op andere dingen, waardoor de tijd voor onze testen erg miniem was. Hierdoor hebben we weinig testen kunnen schrijven en kwamen we in tijdsnood, want deze werkten dan ook niet allemaal. Voor de rest zou ik niks willen veranderen voor ons eerste project. Ik ben er trots op dat we dit hebben kunnen neerzetten.
 
 
 **Wat waren de grootste uitdagingen?**
 De testen waren heel moeilijk, omdat er altijd wel iets niet klopte en daar zijn we dus heel wat tijd aan verloren en ook wat te laat mee kunnen beginnen omdat we hard gefocust waren op andere dingen.
-
+De favorieten erin krijgen heeft ook heel wat tijd gekost, omdat er altijd wel iets fout ging.
+Admin panel heeft ook enorm lang geduurd en daardoor kwamen in tijdsnood voor onze testen.
 
 **Wat zou je behouden aan de cursus?**
 
-Alles werkte echt wel goed en was een perfecte basis om het ook begrijpbaar te maken voor mensen die wat minder goed/ minder inzicht hebben in al die verschillende aspecten.
+Alles werkte echt wel goed en was een perfecte basis om het ook begrijpbaar te maken voor mensen die wat minder goed/ minder inzicht hebben in al die verschillende aspecten. Alles was ook duidelijk uitgeschreven en uitgelegd, dus geen opmerkingen daarover.
 
 **Wat zou je toevoegen/aanpassen?**
 
@@ -108,34 +114,26 @@ Misschien eens kijken om wat meer randgevallen erin te steken of algemeen gewoon
 
 ### Reflectie groepswerk
 
-> **Instructies:**
->
-> - Vul dit eerlijk in, we controleren ook de GitHub contributions en pull requests.
-> - Verwijder deze sectie als je alleen hebt gewerkt.
-
 **Hoe verliep het groepswerk?**
 
-> **Instructie:** Vink voor elk groepslid één van de drie opties aan door een 'x' tussen de vierkante haken te plaatsen: `[x]`
 
-- **[Naam student 1]:**
+- **[Elias Bloem]:**
 
   - [ ] Ik heb minder bijgedragen dan mijn groepsgenoot
-  - [ ] Ik heb evenveel bijgedragen als mijn groepsgenoot
+  - [x] Ik heb evenveel bijgedragen als mijn groepsgenoot
   - [ ] Ik heb meer bijgedragen dan mijn groepsgenoot
 
-- **[Naam student 2]:**
+- **[Brian De Sadeleer]:**
   - [ ] Ik heb minder bijgedragen dan mijn groepsgenoot
-  - [ ] Ik heb evenveel bijgedragen als mijn groepsgenoot
+  - [x] Ik heb evenveel bijgedragen als mijn groepsgenoot
   - [ ] Ik heb meer bijgedragen dan mijn groepsgenoot
 
 **Welke functionaliteiten heeft elk groepslid toegevoegd voor Web Services?**
 
-> **Instructie:** Geef per persoon een duidelijk overzicht van wat die heeft geïmplementeerd voor het project voor het olod Web Services.
+- **[Elias Bloem]:**
 
-- **[Naam student 1]:**
-
-  - 
-  - 
+  - Admin panel
+  -
   - 
 
 - **[Brian De Sadeleer]:**
@@ -143,14 +141,14 @@ Misschien eens kijken om wat meer randgevallen erin te steken of algemeen gewoon
   - Deel schema (entiteiten en relaties toegevoegd)
   - Backend van entiteiten track, news, races, user
   - Validatie aan backend toegevoegd
+  - Testen backend
 
 **Welke functionaliteiten heeft elk groepslid toegevoegd voor Front-end Web Development?**
 
-> **Instructie:** Geef per persoon een duidelijk overzicht van wat die heeft geïmplementeerd voor het project voor het olod Front-end Web Development.
 
 - **[Elias Bloem]:**
-  - 
-  - 
+  - Registreren/inloggen
+  - Admin panel
   - 
 - **[Brian De Sadeleer]:**
   - Favorieten Aanduiden
