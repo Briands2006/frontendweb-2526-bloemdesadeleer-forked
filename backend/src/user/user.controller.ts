@@ -10,6 +10,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import {
@@ -85,6 +86,9 @@ export class UserController {
     @Param('id', ParseUserIdPipe) id: 'me' | number,
     @CurrentUser() user: Session,
   ): Promise<PublicUserResponseDto> {
+    if (id === 'me' && (!user || !user.id)) {
+      throw new UnauthorizedException('No user session found');
+    }
     const userId = id === 'me' ? Number(user.id) : id;
     return this.userService.getById(userId);
   }

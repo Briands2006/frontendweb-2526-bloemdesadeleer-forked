@@ -15,8 +15,12 @@ export class RacesService {
   ) {}
 
   async getAll(): Promise<RaceListResponseDto> {
-    const races = await this.db.query.races.findMany();
-    return { races };
+    const results = await this.db.query.races.findMany({
+      with: {
+        track: true,
+      },
+    });
+    return { races: results };
   }
 
   async getById(id: number): Promise<RaceResponseDto> {
@@ -40,7 +44,7 @@ export class RacesService {
       },
     });
     if (!race) {
-      throw new NotFoundException('No track with this slug exists');
+      throw new NotFoundException('No race with this slug exists');
     }
     return race;
   }

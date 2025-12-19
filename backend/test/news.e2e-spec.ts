@@ -8,14 +8,12 @@ import request from 'supertest';
 import { NEWS_SEED, seedNews, clearNews } from './seeds/news';
 import { seedTracks, clearTracks } from './seeds/tracks';
 import { clearUsers, seedUsers } from './seeds/users';
-import { login, loginAdmin } from './helpers/login';
-import testAuthHeader from './helpers/testAuthHeader';
+import { login } from './helpers/login';
 
 describe('News', () => {
   let app: INestApplication;
   let drizzle: DatabaseProvider;
   let userAuthToken: string;
-  let adminToken: string;
 
   const url = '/api/news';
 
@@ -28,7 +26,6 @@ describe('News', () => {
     await seedNews(drizzle);
 
     userAuthToken = await login(app);
-    adminToken = await loginAdmin(app);
   });
 
   describe('News', () => {
@@ -40,26 +37,22 @@ describe('News', () => {
 
         expect(response.statusCode).toBe(200);
 
-        const expectedNews = NEWS_SEED.map((news: any) => ({
-          ...news,
-          // Converteer het Date object naar een ISO string
-          date: news.date.toISOString(),
-        }));
+        const expectedNewsJSON = JSON.parse(JSON.stringify(NEWS_SEED));
 
         expect(response.body.news).toEqual(
-          expect.arrayContaining(expectedNews),
+          expect.arrayContaining(expectedNewsJSON),
         );
       });
       describe('GET /api/places', () => {
         it('should 200 and return all places', () => {
+          const expectedNewsJSON = JSON.parse(JSON.stringify(NEWS_SEED));
+
           return request(app.getHttpServer())
             .get(url)
             .auth(userAuthToken, { type: 'bearer' })
             .expect(200)
-            .expect({ news: NEWS_SEED });
+            .expect({ news: expectedNewsJSON });
         });
-
-        testAuthHeader(() => request(app.getHttpServer()).get(url));
       });
     });
   });

@@ -17,6 +17,7 @@ export class HealthController {
   }
 
   @Get('liveness')
+  @Public()
   getLivenessStatus(): HealthType {
     customLogger.log('Liveness check requested.');
     return {
@@ -28,12 +29,13 @@ export class HealthController {
   }
 
   @Get('readiness')
+  @Public()
   @HttpCode(HttpStatus.OK)
   async getReadinessStatus(): Promise<HealthType> {
     customLogger.log('Server check requested');
 
     const dbStatus = await this.databaseCheck.checkDatabaseStatus();
-    const isDatabaseConnected = dbStatus.database === 'UP'; // boolean voor de check door te geven aan dev
+    const isDatabaseConnected = dbStatus.database === 'UP';
 
     if (!isDatabaseConnected) {
       if (dbStatus.error) customLogger.error('check failed!', dbStatus.error);

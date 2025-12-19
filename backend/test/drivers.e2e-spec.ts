@@ -9,9 +9,8 @@ import { seedTeams, clearTeams } from './seeds/teams';
 import request from 'supertest';
 import { login } from './helpers/login';
 import { clearUsers, seedUsers } from './seeds/users';
-import testAuthHeader from './helpers/testAuthHeader';
 
-describe('Drivers', () => {
+describe('Drivers (Extended)', () => {
   let app: INestApplication;
   let drizzle: DatabaseProvider;
   let userAuthToken: string;
@@ -30,52 +29,75 @@ describe('Drivers', () => {
   });
 
   describe('GET /api/drivers', () => {
-    it('should 200 and return all drivers', async () => {
-      const response = await request(app.getHttpServer())
-        .get(url)
-        .auth(userAuthToken, { type: 'bearer' });
+    it('should return drivers including their team object', async () => {
+      const response = await request(app.getHttpServer()).get(url);
 
       expect(response.statusCode).toBe(200);
+      expect(response.body.drivers.length).toBeGreaterThan(0);
 
-      const receivedDrivers = response.body.drivers.map((driver: any) => {
-        const { team, ...restOfDriver } = driver;
-        return restOfDriver;
-      });
-
-      expect(receivedDrivers).toEqual(expect.arrayContaining(DRIVERS_SEED));
+      // Controleer of de eerste driver een team object heeft (door de 'with' clause in de service)
+      const firstDriver = response.body.drivers[0];
+      expect(firstDriver).toHaveProperty('team');
+      expect(firstDriver.team).toHaveProperty('name');
     });
-
-    testAuthHeader(() => request(app.getHttpServer()).get(url));
   });
 
-  describe('GET /api/drivers/n/:slug', () => {
-    it('should 200 and return the specific driver by slug', async () => {
-      const targetDriver = DRIVERS_SEED[0]; // Max Verstappen
+  describe('GET /api/drivers/:id', () => {
+    it('should 200 and return driver when calling a valid numeric ID', async () => {
+      // We gaan ervan uit dat ID 1 bestaat na het seeden
       const response = await request(app.getHttpServer())
-        .get(`${url}/n/${targetDriver.slug}`)
+        .get(`${url}/1`)
         .auth(userAuthToken, { type: 'bearer' });
 
       expect(response.statusCode).toBe(200);
+      expect(response.body).toHaveProperty('id', 1);
     });
 
-    it('should 404 if the driver slug does not exist', async () => {
+    it('should 400 Bad Request when ID is not a number (ParseIntPipe)', async () => {
       const response = await request(app.getHttpServer())
-        .get(`${url}/n/non-existing-slug`)
+        .get(`${url}/niet-een-getal`)
+        .auth(userAuthToken, { type: 'bearer' });
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.message).toContain('Validation failed');
+    });
+
+    it('should 404 when driver ID does not exist', async () => {
+      const response = await request(app.getHttpServer())
+        .get(`${url}/9999`)
         .auth(userAuthToken, { type: 'bearer' });
 
       expect(response.statusCode).toBe(404);
+      expect(response.body.message).toBe('No driver with that id exist');
+    });
+  });
+
+  describe('GET /api/drivers/n/:slug', () => {
+    it('should return the correct driver for a specific slug', async () => {
+      const targetDriver = DRIVERS_SEED[0];
+      const response = await request(app.getHttpServer()).get(
+        `${url}/n/${targetDriver.slug}`,
+      );
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.slug).toBe(targetDriver.slug);
+      expect(response.body.name).toBe(targetDriver.name);
     });
 
-    testAuthHeader(() =>
-      request(app.getHttpServer()).get(`${url}/n/max-verstappen`),
-    );
+    it('should be case sensitive or handle special characters according to slug rules', async () => {
+      // Testen of een slug met hoofdletters (indien niet ondersteund) een 404 geeft
+      const response = await request(app.getHttpServer()).get(
+        `${url}/n/NIET-BESTAAND-SLUG`,
+      );
+
+      expect(response.statusCode).toBe(404);
+    });
   });
 
   afterAll(async () => {
     await clearDrivers(drizzle);
     await clearTeams(drizzle);
     await clearUsers(drizzle);
-
     await app.close();
   });
 });

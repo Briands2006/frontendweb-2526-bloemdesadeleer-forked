@@ -735,7 +735,8 @@ async function seedNews() {
         'Max Verstappen behaalt een dominante overwinning op Spa-Francorchamps na een spannende start.',
       fullContent:
         'Het volledige verslag van de race, met analyses van de bandenstrategie en inhaalmanoeuvres...',
-      imageUrl: '/nieuws/spa_winst.jpg',
+      imageUrl:
+        'https://www.spa-francorchamps.be/assets/cache/41f96bbd-ec49-4132-9e37-3462e031622a/aa3d7a4f7fc53143af3b3e05619e0b16-1.png',
       date: new Date(2024, 6, 30, 15, 0), // 30 juli 2024
       tags: 'Verstappen, Red Bull, Spa-Francorchamps',
       authorId: 1, // Admin User
@@ -749,12 +750,28 @@ async function seedNews() {
         'Het Mercedes-team hoopt met nieuwe onderdelen de achterstand op Red Bull te dichten tijdens de Grand Prix van Italië.',
       fullContent:
         'Details over de nieuwe voorvleugel en vloer die het team in Monza zal introduceren...',
-      imageUrl: '/nieuws/mercedes_monza.jpg',
+      imageUrl:
+        'https://images.ctfassets.net/1fvlg6xqnm65/3FvkYcwTf5EtJokM8PogyP/f683663d54b3595a55b44668cd506bb9/F1-75-Live-Wrap-IMAGE-1.jpg',
       date: new Date(2024, 7, 25, 10, 0), // 25 augustus 2024
       tags: 'Mercedes, Monza, Upgrades',
       authorId: 1, // Admin User
       trackId: 2, // Monza
       slug: 'mercedes-kondigt-upgrades-aan-voor-monza',
+    },
+    {
+      id: 3,
+      title: 'Verstappen wint',
+      summary:
+        'Max Verstappen behaalt een dominante overwinning op Spa-Francorchamps na een spannende start.',
+      fullContent:
+        'Het volledige verslag van de race, met analyses van de bandenstrategie en inhaalmanoeuvres...',
+      imageUrl:
+        'https://www.spa-francorchamps.be/assets/cache/41f96bbd-ec49-4132-9e37-3462e031622a/aa3d7a4f7fc53143af3b3e05619e0b16-1.png',
+      date: new Date(2024, 6, 30, 15, 0), // 30 juli 2024
+      tags: 'Verstappen, Red Bull, Spa-Francorchamps',
+      authorId: 1, // Admin User
+      trackId: 1, // Spa-Francorchamps
+      slug: 'verstappen-wint',
     },
   ]);
   console.log('✅ Nieuws succesvol gezaaid\n');

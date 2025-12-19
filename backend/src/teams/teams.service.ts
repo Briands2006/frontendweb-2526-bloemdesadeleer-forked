@@ -15,8 +15,12 @@ export class TeamsService {
   ) {}
 
   async getAll(): Promise<TeamListResponseDto> {
-    const teams = await this.db.query.teams.findMany();
-    return { teams };
+    const teamsData = await this.db.query.teams.findMany({
+      with: {
+        drivers: true,
+      },
+    });
+    return { teams: teamsData };
   }
 
   async getById(id: number): Promise<TeamResponseDto> {

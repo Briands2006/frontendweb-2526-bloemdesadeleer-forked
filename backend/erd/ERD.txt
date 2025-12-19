@@ -6,6 +6,7 @@ country
 photo
 birthdate
 slug
+bibliography
 +teamId
 
 [Team]

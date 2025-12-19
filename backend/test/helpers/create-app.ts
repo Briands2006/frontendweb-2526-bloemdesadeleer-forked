@@ -9,6 +9,9 @@ import { ValidationError } from 'class-validator';
 import { AppModule } from '../../src/app.module';
 import { HttpExceptionFilter } from '../../src/lib/http-exception.filter';
 import { DrizzleQueryErrorFilter } from '../../src/drizzle/drizzle-query-error.filter';
+import { Reflector } from '@nestjs/core';
+import { AuthGuard } from '../../src/auth/guards/auth.guard';
+import { AuthService } from '../../src/auth/auth.service';
 
 export async function createTestApp(): Promise<INestApplication> {
   const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -16,6 +19,11 @@ export async function createTestApp(): Promise<INestApplication> {
   }).compile();
 
   const app = moduleFixture.createNestApplication();
+
+  const reflector = app.get(Reflector);
+  const authService = app.get(AuthService);
+  app.useGlobalGuards(new AuthGuard(authService, reflector));
+
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new DrizzleQueryErrorFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
