@@ -1,9 +1,16 @@
 # Dossier
 
+**Instructies:**
+
+ - Vul dit dossier volledig in en zorg ervoor dat alle links correct zijn
+ - In het geval je slechts één olod volgt, verwijder alle inhoud omtrent het andere olod uit dit document
+ - Lees [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) om te weten hoe een Markdown-bestand opgemaakt moet worden
+ - Verwijder alle instructies (lijnen die starten met >) wanneer je klaar bent
+
 ## 📋 Studentgegevens
 
 - **Student:** Elias Bloem, Brian De Sadeleer
-- **Studentennummer:** 202404402
+- **Studentennummer:** 202404402, 202404828
 - **E-mailadres:** elias.bloem@student.hogent.be, brian.desadeleer@student.hogent.be
 - **GitHub repository:** git@github.com:HOGENT-frontendweb/frontendweb-2526-bloemdesadeleer.git
 - **Online versies:**
@@ -13,24 +20,30 @@
 
 ## 🔐 Logingegevens
 
+**Instructies:**
+
+- Vul de logingegevens in voor test accounts.
+- Zorg ervoor dat deze accounts representatieve data bevatten.
+- Voeg hieronder eventueel extra accounts toe voor administrators of andere rollen.
+
 ### Lokale omgeving
 
 - **E-mailadres**: <admin@f1site.com>
-- **Wachtwoord**: testpassword
+- **Wachtwoord**: testPassword
 - **Rol**: admin
 
 - **E-mailadres**: <fan@f1site.com>
-- **Wachtwoord**: testpassword2
+- **Wachtwoord**: testPassword2
 - **Rol**: user
 
 ### Online omgeving
 
 - **E-mailadres**: <fan@f1site.com>
-- **Wachtwoord**: testpassword2
+- **Wachtwoord**: testPassword2
 - **Rol**: user
 
 - **E-mailadres**: <admin@f1site.com>
-- **Wachtwoord**: testpassword
+- **Wachtwoord**: testPassword
 - **Rol**: admin
 
 ## 📖 Projectbeschrijving
@@ -51,33 +64,36 @@ Onze site is bedoeld voor mensen, jong en oud, die graag op een simpele manier k
 
 ## ✅ Ontvankelijkheidscriteria
 
-- [ ] Het project van Web Services voldoet aan **alle** ontvankelijkheidscriteria zoals beschreven in de rubrics.
-- [ ] Het project van Front-end Web Development voldoet aan **alle** ontvankelijkheidscriteria zoals beschreven in de rubrics.
+- [x] Het project van Web Services voldoet aan **alle** ontvankelijkheidscriteria zoals beschreven in de rubrics.
+- [x] Het project van Front-end Web Development voldoet aan **alle** ontvankelijkheidscriteria zoals beschreven in de rubrics.
 
 ## 🚀 Extra technologieën
 
-> **Instructie:** Beschrijf welke extra technologieën je hebt gebruikt. Vermeld waarom je deze hebt gekozen.
+**Instructie:** Beschrijf welke extra technologieën je hebt gebruikt. Vermeld waarom je deze hebt gekozen.
 
 ### Front-end Web Development
 
-- <LINK_NAAR_NPM_PACKAGE>
-  - [Reden van keuze]
-- ...
+- https://react-hot-toast.com
+  - React-hot-toast is een vederlichte library waarmee je met minimale code prachtige, toegankelijke meldingen aan je app toevoegt. Het is vooral krachtig omdat het via de toast.promise() functie automatisch de laad-, succes- en foutstatus van je API-calls afhandelt.
+
+- https://www.npmjs.com/package/concurrently
+  - Dit is niet echt een extra technologie in de website zelf, maar deze package maakte het veel gemakkelijker om de front en backend tegelijk te runnen.
+
 
 ### Web Services
 
 - <https://fakerjs.dev/>
   - Deze was makkelijk en handig om snel een grote tekst te genereren bij de seeds voor de drivers
-- ...
 
 ## 🤔 Reflectie
 
-> **Instructie:** Reflecteer eerlijk over je leerproces en het project. Dit helpt zowel jezelf als de docenten om de cursus te verbeteren.
+**Instructie:** Reflecteer eerlijk over je leerproces en het project. Dit helpt zowel jezelf als de docenten om de cursus te verbeteren.
 
 **Wat heb je geleerd?**
 
-Brian: Ik zelf enorm veel en vond dit ook echt interessant en hoop dit eigenlijk later te kunnen doen voor klanten. Ik heb er zelf toch wel wat moeite mee gehad omdat dit allemaal nieuw was voor mij en ook alles een stuk trager ging, maar de motivatie was er zeker wel. De lessen bevatten een zeer goeie basis, maar ik vind wel dat je er echt al iets van moet weten voor je het begrijpt en dat was bij mij toch wel een probleem, maar dat is persoonlijk en lag zeker niet aan de lessen. Maar uiteindelijk was dit wel wat ik had verwacht voor deze richting. En heb ik echt veel leuke/interessante kennis opgedaan die ik hoop later te kunnen gebruiken.
-Elias:
+**Brian:** Ik zelf enorm veel en vond dit ook echt interessant en hoop dit eigenlijk later te kunnen doen voor klanten. Ik heb er zelf toch wel wat moeite mee gehad omdat dit allemaal nieuw was voor mij en ook alles een stuk trager ging, maar de motivatie was er zeker wel. De lessen bevatten een zeer goeie basis, maar ik vind wel dat je er echt al iets van moet weten voor je het begrijpt en dat was bij mij toch wel een probleem, maar dat is persoonlijk en lag zeker niet aan de lessen. Maar uiteindelijk was dit wel wat ik had verwacht voor deze richting. En heb ik echt veel leuke/interessante kennis opgedaan die ik hoop later te kunnen gebruiken.
+
+**Elias:** Ik heb tijdens dit project ontzettend veel bijgeleerd, vooral door zelfstandig op onderzoek uit te gaan en zaken tot op het bot uit te vogelen. Hoewel de lessen een goede richting gaven, zat de echte leerwinst voor mij in het oplossen van de complexe problemen waar je in de praktijk tegenaan loopt. Het proces van zelf oplossingen vinden voor bugs en het finetunen van de applicatie heeft ervoor gezorgd dat ik de logica achter de code nu echt in de vingers heb. Het was een uitdagend traject, maar het geeft veel voldoening om te zien dat alles wat ik zelf heb uitgezocht nu ook daadwerkelijk werkt.
 
 **Wat vond je goed aan dit project?**
 We konden zelf kiezen wat we maakten, dus dat maakte het extra interessant. We hebben er leuke extra's in gestoken zoals je favorieten aanduiden en een admin panel met veel mogelijkheden. Ook hebben we een mooie layout en echt iets passend bij het thema. 
@@ -120,26 +136,40 @@ Misschien eens kijken om wat meer randgevallen erin te steken of algemeen gewoon
 - **[Elias Bloem]:**
 
   - Admin panel
-  -
-  - 
+  - Deel schema
+  - auth decorators, guards, pipes
+  - Calender, health, teams, session entiteiten aangemaakt
+  - Helpen met de e2e testen 
+  - Het online zetten van de back en frontend
+  - opzetten backend in het begin
+  - nginx en dockerfiles/docker-compose opzetten
 
 - **[Brian De Sadeleer]:**
+
   - ERD
   - Deel schema (entiteiten en relaties toegevoegd)
   - Backend van entiteiten track, news, races, user
   - Validatie aan backend toegevoegd
   - Testen backend
+  - Fixen van de errors in de backend e2e testen
 
 **Welke functionaliteiten heeft elk groepslid toegevoegd voor Front-end Web Development?**
 
 
 - **[Elias Bloem]:**
+
   - Registreren/inloggen
   - Admin panel
-  - 
-  
+  - Alle paginas 
+  - Instantieren van de frontend 
+  - Misc components, zoals modals en List.jsx
+  - Async data en Loaders
+  - nginx en dockerfiles/docker-compose files aangemaakt
+  - opzetten op render
+
 - **[Brian De Sadeleer]:**
-  - Favorieten Aanduiden
+
+  - Favorieten Aanduiden (Hook)
   - Pagina van Tracks, News, deel van Profile page
   - pagina van TrackDetails, driverDetails, alsook navigatie er naartoe
   - Testen frontend (drivers, races, news, tracks)
