@@ -13,11 +13,11 @@ COPY . .
 
 FROM base AS build
 
-
 ARG VITE_API_URL
+ARG VITE_BASE_IMG_URL
 
 ENV VITE_API_URL=$VITE_API_URL
-
+ENV VITE_BASE_IMG_URL=$VITE_BASE_IMG_URL
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 

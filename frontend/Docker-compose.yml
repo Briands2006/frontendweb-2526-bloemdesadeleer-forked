@@ -6,6 +6,7 @@ services:
       dockerfile: ./Dockerfile
       args:
         VITE_API_URL: http://localhost:3000/api
+        VITE_BASE_IMG_URL: http://localhost:3000/assets
     container_name: f1-app-frontend
     ports:
       - '80:80'
