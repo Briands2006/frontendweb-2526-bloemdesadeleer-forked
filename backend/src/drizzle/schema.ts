@@ -89,23 +89,6 @@ export const races = mysqlTable('races', {
   slug: varchar('slug', { length: 255 }).notNull().unique(),
 });
 
-// ---------- RACE RESULTS ----------
-export const raceResults = mysqlTable(
-  'race_results',
-  {
-    raceId: int('race_id', { unsigned: true })
-      .notNull()
-      .references(() => races.id, { onDelete: 'cascade' }),
-    driverId: int('driver_id', { unsigned: true })
-      .notNull()
-      .references(() => drivers.id, { onDelete: 'cascade' }),
-    position: int('position').notNull(),
-    points: int('points').notNull(),
-    isWinner: boolean('is_winner').notNull().default(false),
-  },
-  (table) => [primaryKey({ columns: [table.raceId, table.driverId] })],
-);
-
 // ---------- NEWS ----------
 export const news = mysqlTable('news', {
   id: int('id', { unsigned: true }).primaryKey().autoincrement(),
@@ -158,7 +141,6 @@ export const teamsRelations = relations(teams, ({ many }) => ({
 
 export const driversRelations = relations(drivers, ({ one, many }) => ({
   team: one(teams, { fields: [drivers.teamId], references: [teams.id] }),
-  raceResults: many(raceResults),
   usersFavorite: many(FavoriteDriver),
 }));
 
@@ -179,20 +161,11 @@ export const tracksRelations = relations(tracks, ({ many }) => ({
   usersFavorite: many(FavoriteTrack),
 }));
 
-export const racesRelations = relations(races, ({ one, many }) => ({
+export const racesRelations = relations(races, ({ one }) => ({
   track: one(tracks, { fields: [races.trackId], references: [tracks.id] }),
   calendar: one(calendar, {
     fields: [races.calendarYear],
     references: [calendar.year],
-  }),
-  results: many(raceResults),
-}));
-
-export const raceResultsRelations = relations(raceResults, ({ one }) => ({
-  race: one(races, { fields: [raceResults.raceId], references: [races.id] }),
-  driver: one(drivers, {
-    fields: [raceResults.driverId],
-    references: [drivers.id],
   }),
 }));
 

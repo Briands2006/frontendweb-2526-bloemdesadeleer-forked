@@ -1,14 +1,10 @@
 # Examenopdracht Front-end Web Development & Web Services
 
-> Schrap hierboven eventueel wat niet past
-
 - Student: BLOEM ELIAS en BRIAN DE SADELEER
 - Studentennummer: 202404402
 - E-mailadres: <elias.bloem@student.hogent.be>, <brian.desadeleer@student.hogent.be>
 
 ## Vereisten
-
-> Vul de vereisten eventueel aan
 
 Ik verwacht dat volgende software reeds geïnstalleerd is:
 
@@ -16,7 +12,6 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 - [pnpm](https://pnpm.io)
 - [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
 
-> Je kan ook een aparte README per project (in de respectievelijke map) voorzien. Verwijs er dan hier naar.
 
 ## Front-end
 

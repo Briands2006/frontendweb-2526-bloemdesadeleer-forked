@@ -1,12 +1,5 @@
 # Dossier
 
-> **Instructies:**
->
-> - Vul dit dossier volledig in en zorg ervoor dat alle links correct zijn
-> - In het geval je slechts één olod volgt, verwijder alle inhoud omtrent het andere olod uit dit document
-> - Lees [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) om te weten hoe een Markdown-bestand opgemaakt moet worden
-> - Verwijder alle instructies (lijnen die starten met >) wanneer je klaar bent
-
 ## 📋 Studentgegevens
 
 - **Student:** Elias Bloem, Brian De Sadeleer
@@ -16,15 +9,9 @@
 - **Online versies:**
   - **Back-end:** <"https://frontendweb-2526-bloemdesadeleer.onrender.com/api"> 
   - **Front-end:** <"https://frontendweb-2526-bloemdesadeleer-2.onrender.com/">
-- **Demo:** <LINK_NAAR_DEMO_VIDEO>
+- **Demo:** <"https://hogent.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3f4baf45-61b0-494c-9838-b3b80165d5e4">
 
 ## 🔐 Logingegevens
-
-> **Instructies:**
->
-> - Vul de logingegevens in voor test accounts.
-> - Zorg ervoor dat deze accounts representatieve data bevatten.
-> - Voeg hieronder eventueel extra accounts toe voor administrators of andere rollen.
 
 ### Lokale omgeving
 
@@ -150,6 +137,7 @@ Misschien eens kijken om wat meer randgevallen erin te steken of algemeen gewoon
   - Registreren/inloggen
   - Admin panel
   - 
+  
 - **[Brian De Sadeleer]:**
   - Favorieten Aanduiden
   - Pagina van Tracks, News, deel van Profile page

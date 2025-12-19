@@ -41,13 +41,6 @@ trackId
 calendarYear
 slug
 
-[RaceResult]
-*raceId
-*driverId
-position
-points
-isWinner
-
 [Calendar]
 *year
 nrOfRaces
@@ -85,8 +78,6 @@ isAdmin
 Driver *--1 Team
 Track 1--* Race
 Calendar 1--* Race
-Race 1--* RaceResult
-Driver 1--* RaceResult
 User 1--* FavoriteDriver
 Driver 1--* FavoriteDriver
 User 1--* FavoriteTrack
