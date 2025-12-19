@@ -1,0 +1,11 @@
+services:
+  f1-app-frontend:
+    image: f1-app-frontend
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        VITE_API_URL: http://localhost:3000/api
+    container_name: f1-app-frontend
+    ports:
+      - '80:80'
