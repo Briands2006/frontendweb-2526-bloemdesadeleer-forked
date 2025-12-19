@@ -21,6 +21,14 @@ const Drivers = () => {
 
   const { data: drivers = [], isLoading, error } = useSWR("drivers", getAll);
 
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>Fout bij het ophalen van coureurs</p>
+      </div>
+    );
+  }
+
   return (
     <main className="drivers-page" style={{ padding: 24 }}>
       <h1 className="text-5xl font-black uppercase tracking-tighter">

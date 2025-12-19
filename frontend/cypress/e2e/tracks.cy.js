@@ -40,7 +40,15 @@ describe("Track Pagina", () => {
       body: {
         id: 1,
         email: "fan@f1site.com",
-        favoriteTracks: [{ id: "123", slug: "bahrain-international-circuit" }],
+        // VERANDER DIT: voeg het geneste 'track' object toe
+        favoriteTracks: [
+          { 
+            track: { 
+              id: 1, // Zorg dat dit een NUMBER is als je track.id een number is
+              slug: "bahrain-international-circuit", 
+            }, 
+          },
+        ],
       },
     }).as("getMeUpdated");
 

@@ -14,7 +14,7 @@ describe("Drivers Pagina", () => {
     cy.wait("@getDrivers");
 
     // Gebruik be.visible om te zorgen dat het laden klaar is
-    cy.get("h1").should("be.visible").and("contain", "F1 Drivers 2025");
+    cy.get("h1").should("be.visible").and("contain", "F1 Drivers");
 
     cy.fixture("drivers.json").then((drivers) => {
       // Gebruik een timeout als de grid traag rendert

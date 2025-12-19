@@ -43,14 +43,9 @@ describe('UserController (e2e)', () => {
         },
       ],
     })
+      // We overriden de guards naar simpele functies die 'true' returnen
       .overrideGuard(AuthGuard)
-      .useValue({
-        canActivate: (context: ExecutionContext) => {
-          const req = context.switchToHttp().getRequest();
-          req.user = { id: 1, role: 'user' };
-          return true;
-        },
-      })
+      .useValue({ canActivate: () => true })
       .overrideGuard(AdminGuard)
       .useValue({ canActivate: () => true })
       .overrideGuard(CheckUserAccessGuard)
@@ -58,13 +53,22 @@ describe('UserController (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
+
+    // CRUCIAAL: Voeg een middleware/guard toe die de user in ELK request injecteert
+    // Dit zorgt ervoor dat @CurrentUser() in de controller gevuld is.
+    app.use((req, res, next) => {
+      req.user = { id: 1, role: 'user', name: 'Current User' };
+      next();
+    });
+
     app.setGlobalPrefix('api');
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,
-        transform: true,
+        transform: true, // Nodig om ':id' om te zetten naar een number
       }),
     );
+
     await app.init();
   });
 
@@ -170,7 +174,10 @@ describe('UserController (e2e)', () => {
     });
 
     it('/api/users/:id (PATCH) - Partial Update', () => {
-      userService.updateById.mockResolvedValue({ id: 2, name: 'Patched Name' });
+      userService.updateById.mockResolvedValue({
+        id: 2,
+        name: 'Patched Name',
+      });
       return request(app.getHttpServer())
         .patch('/api/users/2')
         .send({ name: 'Patched Name' })
